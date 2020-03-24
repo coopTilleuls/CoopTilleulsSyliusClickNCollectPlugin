@@ -1,0 +1,29 @@
+coop_tilleuls_click_n_collect:
+    menu:
+      admin:
+        main:
+          configuration:
+            place: Click And Collect Place
+    ui:
+      new_place: New Click And Collect place
+      edit_place: Edit Click And Collect place
+      places: Click And Collect Places
+      collect_details: Collect details
+      pin: 'PIN:'
+    form:
+      place:
+        name: Name
+        rrule: Recurrence rules for opening hours (iCalendar format)
+        order_preparation_delay: Order preparation delay (in minutes)
+        throughput: Throughput (number of people you can serve in parallel)
+        generate_pin: Enable PIN generation?
+        street: Street
+        city: City
+        postcode: Postcode
+        country: Country
+        province_code: Province code
+        province_name: Province name
+        enabled: Enabled
+      shipping_method:
+        click_n_collect: Click and Collect
+        places: Places

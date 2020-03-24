@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="coop_tilleuls_click_n_collect.form.place.product.validation_groups" type="collection">
+            <parameter>sylius</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <!-- Menu -->
+
+        <service id="coop_tilleuls_click_n_collect.listener.admin.menu_builder" class="CoopTilleuls\SyliusClickNCollectPlugin\Menu\AdminMenuListener">
+            <tag name="kernel.event_listener" event="sylius.menu.admin.main" method="addAdminMenuItems" />
+        </service>
+
+        <!-- Form -->
+
+        <service id="coop_tilleuls_click_n_collect.form.type.place" class="CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\PlaceType">
+            <argument>%coop_tilleuls_click_n_collect.model.place.class%</argument>
+            <argument>%coop_tilleuls_click_n_collect.form.place.product.validation_groups%</argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.form.extension.type.shipping_method" class="CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension\ShippingMethodTypeExtension">
+            <tag name="form.type_extension" />
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.form.extension.type.shipment_type" class="CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension\ShipmentTypeExtension">
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <tag name="form.type_extension" />
+        </service>
+
+        <!-- Controllers -->
+
+        <service id="coop_tilleuls_click_n_collect.controller.places" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\PlacesController" public="true">
+            <argument type="service" id="sylius.repository.shipping_method" />
+            <argument type="service" id="jms_serializer" />
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.controller.collection_times" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\CollectionTimesController" public="true">
+            <argument type="service" id="sylius.repository.shipment" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
+        </service>
+
+        <!-- Collection time -->
+
+        <service id="coop_tilleuls_click_n_collect.repository.collection_time" class="CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepository">
+            <argument type="service" id="doctrine" />
+            <argument>%sylius.model.shipment.class%</argument>
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputer">
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
+        </service>
+    </services>
+</container>

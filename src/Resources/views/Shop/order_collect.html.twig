@@ -1,0 +1,25 @@
+{% import "@SyliusUi/Macro/flags.html.twig" as flags %}
+
+<address>
+    <strong>{{ shipment.collectionTime|date }}</strong><br>
+    {% if shipment.pin is not empty %}
+        {{ 'coop_tilleuls_click_n_collect.ui.pin'|trans  }} {{ shipment.pin }}<br>
+    {% endif %}
+    <strong>{{ shipment.place.name }}</strong><br>
+    {% if shipment.place.street is not empty %}
+        {{ shipment.place.street }}<br>
+    {% endif %}
+    {% if shipment.place.postcode is not empty %}
+        {{ shipment.place.postcode }}
+    {% endif %}
+    {% if shipment.place.city is not empty %}
+        {{ shipment.place.city }}
+    {% endif %}<br>
+    {% if shipment.place.provinceName is not empty %}
+        {{ shipment.place.provinceCode }} {{ shipment.place.provinceName }}<br>
+    {% endif %}
+    {% if shipment.place.countryCode is not empty %}
+        {{ flags.fromCountryCode(shipment.place.countryCode) }}
+        {{ shipment.place.countryCode|sylius_country_name|upper }}
+    {% endif %}
+</address>

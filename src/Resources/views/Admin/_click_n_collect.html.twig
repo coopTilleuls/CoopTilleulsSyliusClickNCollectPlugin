@@ -1,0 +1,10 @@
+{% for shipment in order.shipments %}
+    {% if shipment.isClickNCollect() %}
+        <h4 class="ui attached styled header{% if loop.first %} top{% endif %}">
+            {{ 'coop_tilleuls_click_n_collect.ui.collect_details'|trans }}
+        </h4>
+        <div class="ui attached segment">
+            {% include '@CoopTilleulsSyliusClickNCollectPlugin/Shop/order_collect.html.twig' with {'shipment': shipment} %}
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,41 @@
+{
+    "name": "tilleuls/sylius-click-n-collect-plugin",
+    "type": "sylius-plugin",
+    "keywords": ["sylius", "sylius-plugin", "click-and-collect", "pickup", "shipping", "covid-19"],
+    "description": "Click and Collect plugin for Sylius, to sell and deliver securely during the COVID-19 pandemic.",
+    "license": "AGPL-3.0-or-later",
+    "require": {
+        "php": "^7.4",
+        "simshaun/recurr": "^4.0",
+        "sylius/sylius": "^1.7"
+    },
+    "require-dev": {
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.0",
+        "phpstan/phpstan-doctrine": "^0.12.0",
+        "phpstan/phpstan-strict-rules": "^0.12.0",
+        "phpstan/phpstan-webmozart-assert": "^0.12.0",
+        "phpunit/phpunit": "^8.0",
+        "sensiolabs/security-checker": "^6.0",
+        "sylius-labs/coding-standard": "^3.1",
+        "symfony/browser-kit": "^4.4",
+        "symfony/debug-bundle": "^4.4",
+        "symfony/dotenv": "^4.4",
+        "symfony/intl": "^4.4",
+        "symfony/web-profiler-bundle": "^4.4",
+        "symfony/web-server-bundle": "^4.4"
+    },
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "CoopTilleuls\\SyliusClickNCollectPlugin\\": "src/",
+            "Tests\\CoopTilleuls\\SyliusClickNCollectPlugin\\": "tests/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": ["tests/Application/Kernel.php"]
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

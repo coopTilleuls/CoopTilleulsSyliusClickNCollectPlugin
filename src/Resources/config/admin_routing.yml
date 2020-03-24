@@ -1,0 +1,15 @@
+coop_tilleuls_sylius_click_n_collect_admin_place:
+  resource: |
+    alias: coop_tilleuls_click_n_collect.place
+    section: admin
+    templates: "@SyliusAdmin\\Crud"
+    redirect: update
+    grid: coop_tilleuls_click_n_collect_place
+    path: places
+    permission: true
+    vars:
+        all:
+            subheader: coop_tilleuls_click_n_collect.ui.places
+        index:
+            icon: map marker alternate
+  type: sylius.resource

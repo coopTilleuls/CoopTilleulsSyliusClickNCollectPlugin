@@ -1,0 +1,23 @@
+<div class="ui segment">
+    <div class="ui two column divided stackable grid">
+        <div class="column" id="sylius-billing-address" {{ sylius_test_html_attribute('billing-address') }}>
+            <div class="ui small dividing header">{{ 'sylius.ui.billing_address'|trans }}</div>
+            {% include '@SyliusShop/Common/_address.html.twig' with {'address': order.billingAddress} %}
+        </div>
+        {% set shippingAddressDisplayed = false %}
+        {% for shipment in order.shipments %}
+            {% if shipment.isClickNCollect() %}
+                <div class="column click-n-collect" {{ sylius_test_html_attribute('shipping-address') }}>
+                    <div class="ui small dividing header">{{ 'coop_tilleuls_click_n_collect.ui.collect_details'|trans }}</div>
+                    {% include '@CoopTilleulsSyliusClickNCollectPlugin/Shop/order_collect.html.twig' with {'shipment': shipment} %}
+                </div>
+            {% elseif not shippingAddressDisplayed %}
+                {% set shippingAddressDisplayed = true %}
+                <div class="column" id="sylius-shipping-address" {{ sylius_test_html_attribute('shipping-address') }}>
+                    <div class="ui small dividing header">{{ 'sylius.ui.shipping_address'|trans }}</div>
+                    {% include '@SyliusShop/Common/_address.html.twig' with {'address': order.shippingAddress} %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,54 @@
+sylius_grid:
+  grids:
+    coop_tilleuls_click_n_collect_place:
+      driver:
+        name: doctrine/orm
+        options:
+          class: CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place
+      sorting:
+        code: asc
+      fields:
+        code:
+          type: string
+          label: sylius.ui.code
+          sortable: ~
+        name:
+          type: string
+          label: sylius.ui.name
+        enabled:
+          type: twig
+          label: sylius.ui.enabled
+          options:
+            template: "@SyliusUi/Grid/Field/enabled.html.twig"
+      filters:
+        search:
+          type: string
+          label: sylius.ui.search
+          options:
+            fields: [code, name]
+        enabled:
+          type: boolean
+          label: sylius.ui.enabled
+      actions:
+        main:
+          create:
+            type: create
+        item:
+          update:
+            type: update
+          delete:
+            type: delete
+
+sylius_ui:
+  events:
+    sylius.shop.layout.javascripts:
+      blocks:
+        click_n_collect_scripts: "@CoopTilleulsSyliusClickNCollectPlugin/Shop/_scripts.html.twig"
+    sylius.shop.layout.stylesheets:
+      blocks:
+        click_n_collect_styles: "@CoopTilleulsSyliusClickNCollectPlugin/Shop/_styles.html.twig"
+    sylius.admin.order.show.sidebar:
+        blocks:
+          click_n_collect:
+            template: "@CoopTilleulsSyliusClickNCollectPlugin/Admin/_click_n_collect.html.twig"
+            priority: 45
