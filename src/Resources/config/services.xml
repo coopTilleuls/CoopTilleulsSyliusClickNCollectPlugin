@@ -51,7 +51,7 @@
             <argument>%sylius.model.shipment.class%</argument>
         </service>
 
-        <service id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputer">
+        <service id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableCollectionTimesComputer">
             <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
         </service>
     </services>

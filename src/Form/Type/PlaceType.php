@@ -28,15 +28,19 @@ final class PlaceType extends AbstractResourceType
         $builder
             ->addEventSubscriber(new AddCodeFormSubscriber())
             ->add('name', TextType::class, [
+                'empty_data' => '',
                 'label' => 'coop_tilleuls_click_n_collect.form.place.name',
             ])
             ->add('rrule', TextType::class, [
+                'empty_data' => '',
                 'label' => 'coop_tilleuls_click_n_collect.form.place.rrule',
             ])
             ->add('orderPreparationDelay', IntegerType::class, [
+                'attr' => ['min' => 0],
                 'label' => 'coop_tilleuls_click_n_collect.form.place.order_preparation_delay',
             ])
             ->add('throughput', IntegerType::class, [
+                'attr' => ['min' => 1],
                 'label' => 'coop_tilleuls_click_n_collect.form.place.throughput',
             ])
             ->add('generatePin', CheckboxType::class, [

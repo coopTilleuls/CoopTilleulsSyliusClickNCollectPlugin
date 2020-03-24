@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Controller;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputer;
+use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableCollectionTimesComputer;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollecttShipmentInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
 use Doctrine\Persistence\ObjectRepository;
@@ -26,9 +26,9 @@ final class CollectionTimesController
 {
     private ObjectRepository $shipmentRepository;
     private ObjectRepository $placeRepository;
-    private AvailableSlotsComputer $availableSlotsComputer;
+    private AvailableCollectionTimesComputer $availableSlotsComputer;
 
-    public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $placeRepository, AvailableSlotsComputer $availableSlotsComputer)
+    public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $placeRepository, AvailableCollectionTimesComputer $availableSlotsComputer)
     {
         $this->shipmentRepository = $shipmentRepository;
         $this->placeRepository = $placeRepository;
@@ -37,14 +37,14 @@ final class CollectionTimesController
 
     public function __invoke(Request $request, int $shipmentId, string $placeCode): JsonResponse
     {
-        /**
+        /*
          * @var ClickNCollecttShipmentInterface|null
          */
         if (!$shipment = $this->shipmentRepository->find($shipmentId)) {
             throw new NotFoundHttpException(sprintf('The shipment "%d" doesn\'t exist.', $shipmentId));
         }
 
-        /**
+        /*
          * @var PlaceInterface|null
          */
         if (!$place = $this->placeRepository->findOneBy(['code' => $placeCode])) {

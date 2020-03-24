@@ -8,3 +8,4 @@
 /tests/Application/yarn.lock
 
 /.php_cs.cache
+/.phpunit.result.cache

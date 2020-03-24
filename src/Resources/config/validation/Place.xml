@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
+    <class name="CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place">
+        <property name="code">
+            <constraint name="NotBlank">
+                <option name="groups">sylius</option>
+            </constraint>
+        </property>
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="groups">sylius</option>
+            </constraint>
+        </property>
+        <property name="rrule">
+            <constraint name="NotBlank">
+                <option name="groups">sylius</option>
+            </constraint>
+            <constraint name="CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\Rrule">
+                <option name="groups">sylius</option>
+            </constraint>
+        </property>
+        <property name="orderPreparationDelay">
+            <constraint name="PositiveOrZero">
+                <option name="groups">sylius</option>
+            </constraint>
+        </property>
+        <property name="throughput">
+            <constraint name="Positive">
+                <option name="groups">sylius</option>
+            </constraint>
+        </property>
+        <property name="countryCode">
+            <constraint name="Country">
+                <option name="groups">sylius</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

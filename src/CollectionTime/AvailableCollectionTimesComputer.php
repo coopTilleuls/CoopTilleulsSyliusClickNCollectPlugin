@@ -21,7 +21,7 @@ use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use Recurr\Transformer\Constraint\BetweenConstraint;
 
-final class AvailableSlotsComputer
+final class AvailableCollectionTimesComputer
 {
     private CollectionTimeRepository $collectionTimeRepository;
 

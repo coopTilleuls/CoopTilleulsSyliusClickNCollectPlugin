@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait ClickNCollectShipment
 {
@@ -29,6 +30,7 @@ trait ClickNCollectShipment
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Assert\GreaterThan("now", groups={"sylius"})
      */
     protected ?\DateTimeInterface $collectionTime = null;
 
