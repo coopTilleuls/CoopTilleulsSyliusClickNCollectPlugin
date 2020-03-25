@@ -16,13 +16,23 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Is this string a valid iCalendar RRULE (RFC 5545)?
+ * Checks if a time slot is available.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  *
  * @Annotation
  */
-final class Rrule extends Constraint
+final class SlotAvailable extends Constraint
 {
-    public string $message = 'The string "{{ value }}" is not a valid iCalendar recurrence rule (RFC 5545).';
+    public string $message = 'The time slot "{{ value }}" is not available anymore.';
+
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
+    public function validatedBy(): string
+    {
+        return 'click_n_collect_slot_available';
+    }
 }

@@ -31,7 +31,7 @@
             <tag name="form.type_extension" />
         </service>
 
-        <!-- Controllers -->
+        <!-- Controller -->
 
         <service id="coop_tilleuls_click_n_collect.controller.places" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\PlacesController" public="true">
             <argument type="service" id="sylius.repository.shipping_method" />
@@ -44,6 +44,28 @@
             <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
         </service>
 
+        <!-- Event listener -->
+
+        <service id="CoopTilleuls\SyliusClickNCollectPlugin\EventListener\ShipmentCollectionTimeLockListener">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="lock" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
+            <argument>%sylius.model.shipment.class%</argument>
+
+            <tag name="kernel.event_listener" event="sylius.order.pre_select_shipping" method="onPreSelectShipping" />
+            <tag name="kernel.event_listener" event="sylius.order.post_select_shipping" method="onPostSelectShipping" />
+        </service>
+
+        <!-- Validator -->
+
+        <service id="coop_tilleuls_click_n_collect.validator.slot_available" class="CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableValidator">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
+            <argument>%sylius.model.shipment.class%</argument>
+
+            <tag name="validator.constraint_validator" alias="click_n_collect_slot_available" />
+        </service>
+
         <!-- Collection time -->
 
         <service id="coop_tilleuls_click_n_collect.repository.collection_time" class="CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepository">
@@ -51,7 +73,7 @@
             <argument>%sylius.model.shipment.class%</argument>
         </service>
 
-        <service id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableCollectionTimesComputer">
+        <service id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputer">
             <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
         </service>
     </services>

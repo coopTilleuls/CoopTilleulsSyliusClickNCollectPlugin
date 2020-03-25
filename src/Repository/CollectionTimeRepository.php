@@ -30,7 +30,7 @@ final class CollectionTimeRepository
     /**
      * @return \DateTimeInterface[]
      */
-    public function findFullSlots(PlaceInterface $place, \DateTimeInterface $start, \DateTimeInterface $end, int $throughput): array
+    public function findFullSlots(PlaceInterface $place, \DateTimeInterface $start, \DateTimeInterface $end): array
     {
         $query = $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
             SELECT s.collectionTime AS collection_time
@@ -45,9 +45,26 @@ final class CollectionTimeRepository
             'place' => $place,
             'start_date' => $start,
             'end_date' => $end,
-            'throughput' => $throughput,
+            'throughput' => $place->getThroughput(),
         ]);
 
         return array_column($query->getArrayResult(), 'collection_time');
+    }
+
+    public function isSlotFull(PlaceInterface $place, \DateTimeInterface $collectionTime): bool
+    {
+        $query = $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
+            SELECT COUNT(s.collectionTime) AS c
+            FROM {$this->shipmentClass} s
+            WHERE s.place = :place
+            AND s.collectionTime = :collection_time
+            GROUP BY s.place, s.collectionTime
+        DQL
+        )->setParameters([
+            'place' => $place,
+            'collection_time' => $collectionTime,
+        ]);
+
+        return ($query->getArrayResult()[0]['c'] ?? 0) >= $place->getThroughput();
     }
 }

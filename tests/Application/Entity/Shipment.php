@@ -14,15 +14,17 @@ declare(strict_types=1);
 namespace Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipment;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollecttShipmentInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailable;
 use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Shipment as BaseShipment;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="sylius_shipment")
+ * @SlotAvailable(groups={"sylius"})
  */
-class Shipment extends BaseShipment implements ClickNCollecttShipmentInterface
+class Shipment extends BaseShipment implements ClickNCollectShipmentInterface
 {
     use ClickNCollectShipment;
 }

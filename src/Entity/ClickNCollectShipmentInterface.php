@@ -15,7 +15,7 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
 use Sylius\Component\Shipping\Model\ShipmentInterface;
 
-interface ClickNCollecttShipmentInterface extends ShipmentInterface
+interface ClickNCollectShipmentInterface extends ShipmentInterface
 {
     public function isClickNCollect(): bool;
 

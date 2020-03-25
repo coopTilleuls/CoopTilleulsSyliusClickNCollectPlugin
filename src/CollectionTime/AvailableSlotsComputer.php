@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollecttShipmentInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepository;
 use Recurr\Recurrence;
@@ -21,7 +21,7 @@ use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use Recurr\Transformer\Constraint\BetweenConstraint;
 
-final class AvailableCollectionTimesComputer
+final class AvailableSlotsComputer
 {
     private CollectionTimeRepository $collectionTimeRepository;
 
@@ -33,7 +33,7 @@ final class AvailableCollectionTimesComputer
     /**
      * @throws \InvalidArgumentException
      */
-    public function __invoke(ClickNCollecttShipmentInterface $shipment, PlaceInterface $place, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null): array
+    public function __invoke(ClickNCollectShipmentInterface $shipment, PlaceInterface $place, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null): array
     {
         $minStartDate = new \DateTimeImmutable(sprintf('+%d minutes', $place->getOrderPreparationDelay()));
         if (null === $startDate || $startDate < $minStartDate) {
@@ -46,7 +46,7 @@ final class AvailableCollectionTimesComputer
             throw new \InvalidArgumentException('The end date cannot be more than one month after the start date');
         }
 
-        $fullSlots = $this->collectionTimeRepository->findFullSlots($place, $startDate, $endDate, $place->getThroughput());
+        $fullSlots = $this->collectionTimeRepository->findFullSlots($place, $startDate, $endDate);
         $recurrences = (new ArrayTransformer())->transform(
             new Rule($place->getRrule()),
             new BetweenConstraint($startDate, $endDate)

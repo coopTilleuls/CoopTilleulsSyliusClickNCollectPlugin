@@ -11,7 +11,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 1. [Install Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
 2. Install SyliusClickNCollect: `composer require tilleuls/sylius-click-n-collect-plugin`
-3. Import the traits:
+3. Update the native entities:
 
     ```php
     <?php
@@ -54,15 +54,18 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     namespace App\Entity;
     
     use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipment;
-    use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollecttShipmentInterface;
+    use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+    use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailable;
     use Doctrine\ORM\Mapping as ORM;
     use Sylius\Component\Core\Model\Shipment as BaseShipment;
     
     /**
      * @ORM\Entity
      * @ORM\Table(name="sylius_shipment")
+     *
+     * @SlotAvailable(groups={"sylius"})
      */
-    class Shipment extends BaseShipment implements ClickNCollecttShipmentInterface
+    class Shipment extends BaseShipment implements ClickNCollectShipmentInterface
     {
         use ClickNCollectShipment;
     }
