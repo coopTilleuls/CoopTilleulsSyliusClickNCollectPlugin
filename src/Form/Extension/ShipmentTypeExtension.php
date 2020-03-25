@@ -37,6 +37,7 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
             ->add(
                 $builder->create('place', HiddenType::class, [
                     'required' => false,
+                    'attr' => ['class' => 'click_n_collect_place']
                 ])->addModelTransformer(new CallbackTransformer(function (?Place $place): string {
                     return $place ? (string) $place->getCode() : '';
                 }, function (?string $code): ?Place {

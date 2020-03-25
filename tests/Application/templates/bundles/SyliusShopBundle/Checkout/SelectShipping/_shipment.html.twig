@@ -16,6 +16,7 @@
 
     {# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}
     <script type="application/json" id="calendar_config">{{ {
+            locale: app.request.locale,
             shipmentID: form.vars.value.id,
             unselectedBackgroundColor: 'rgb(55, 136, 216)',
             selectedBackgroundColor: 'red',

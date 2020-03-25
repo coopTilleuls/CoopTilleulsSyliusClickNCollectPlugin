@@ -73,7 +73,6 @@ final class ShipmentCollectionTimeLockListener
 
     /**
      * @return ClickNCollectShipmentInterface[]
-     * @return ClickNCollectShipmentInterface[]
      */
     private function getShipmentToChecks($order): array
     {
