@@ -23,6 +23,7 @@
         "symfony/debug-bundle": "^4.4",
         "symfony/dotenv": "^4.4",
         "symfony/intl": "^4.4",
+        "symfony/panther": "^0.7.1",
         "symfony/web-profiler-bundle": "^4.4",
         "symfony/web-server-bundle": "^4.4"
     },

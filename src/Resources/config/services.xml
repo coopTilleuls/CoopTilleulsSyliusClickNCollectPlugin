@@ -69,10 +69,9 @@
         <!-- Event listener -->
 
         <service id="CoopTilleuls\SyliusClickNCollectPlugin\EventListener\ShipmentCollectionTimeLockListener">
-            <argument type="service" id="doctrine" />
+            <argument type="service" id="sylius.manager.shipment" />
             <argument type="service" id="lock" />
             <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
-            <argument>%sylius.model.shipment.class%</argument>
 
             <tag name="kernel.event_listener" event="sylius.order.pre_select_shipping" method="onPreSelectShipping" />
             <tag name="kernel.event_listener" event="sylius.order.post_select_shipping" method="onPostSelectShipping" />
@@ -81,9 +80,8 @@
         <!-- Validator -->
 
         <service id="coop_tilleuls_click_n_collect.validator.slot_available" class="CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableValidator">
-            <argument type="service" id="doctrine" />
+            <argument type="service" id="sylius.manager.shipment" />
             <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.recurrence_instance_finder" />
-            <argument>%sylius.model.shipment.class%</argument>
 
             <tag name="validator.constraint_validator" alias="click_n_collect_slot_available" />
         </service>
@@ -91,7 +89,7 @@
         <!-- Collection time -->
 
         <service id="coop_tilleuls_click_n_collect.repository.collection_time" class="CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepository">
-            <argument type="service" id="doctrine" />
+            <argument type="service" id="sylius.manager.shipment" />
             <argument>%sylius.model.shipment.class%</argument>
         </service>
 

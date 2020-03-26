@@ -15,7 +15,7 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinderInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
-use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -28,15 +28,13 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 final class SlotAvailableValidator extends ConstraintValidator
 {
-    private ManagerRegistry $managerRegistry;
-    private $recurrenceInstanceFinder;
-    private string $shipmentClass;
+    private EntityManagerInterface $entityManager;
+    private RecurrenceInstanceFinderInterface $recurrenceInstanceFinder;
 
-    public function __construct(ManagerRegistry $managerRegistry, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder, string $shipmentClass)
+    public function __construct(EntityManagerInterface $entityManager, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder)
     {
-        $this->managerRegistry = $managerRegistry;
+        $this->entityManager = $entityManager;
         $this->recurrenceInstanceFinder = $recurrenceInstanceFinder;
-        $this->shipmentClass = $shipmentClass;
     }
 
     public function validate($value, Constraint $constraint): void
@@ -57,7 +55,7 @@ final class SlotAvailableValidator extends ConstraintValidator
             return;
         }
 
-        $previousValue = $this->managerRegistry->getManagerForClass($this->shipmentClass)->getUnitOfWork()->getOriginalEntityData($value)['collectionTime'];
+        $previousValue = $this->entityManager->getUnitOfWork()->getOriginalEntityData($value)['collectionTime'];
         if ($collectionTime == $previousValue) {
             return;
         }

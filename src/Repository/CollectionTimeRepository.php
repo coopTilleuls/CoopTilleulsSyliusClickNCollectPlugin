@@ -15,7 +15,7 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * {@inheritdoc}
@@ -24,12 +24,12 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 final class CollectionTimeRepository implements CollectionTimeRepositoryInterface
 {
-    private ManagerRegistry $managerRegistry;
+    private EntityManagerInterface $entityManager;
     private string $shipmentClass;
 
-    public function __construct(ManagerRegistry $managerRegistry, string $shipmentClass)
+    public function __construct(EntityManagerInterface $entityManager, string $shipmentClass)
     {
-        $this->managerRegistry = $managerRegistry;
+        $this->entityManager = $entityManager;
         $this->shipmentClass = $shipmentClass;
     }
 
@@ -40,7 +40,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
      */
     public function findFullSlots(PlaceInterface $place, \DateTimeInterface $start, \DateTimeInterface $end): array
     {
-        $query = $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
+        $query = $this->entityManager->createQuery(<<<DQL
             SELECT s.collectionTime AS collection_time
             FROM {$this->shipmentClass} s
             WHERE s.place = :place
@@ -64,7 +64,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
      */
     public function isSlotFull(PlaceInterface $place, \DateTimeInterface $collectionTime): bool
     {
-        $query = $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
+        $query = $this->entityManager->createQuery(<<<DQL
             SELECT COUNT(s.collectionTime) AS c
             FROM {$this->shipmentClass} s
             WHERE s.place = :place
@@ -84,7 +84,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
      */
     public function findShipments(Place $place, \DateTimeInterface $start, \DateTimeInterface $end): array
     {
-        return $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
+        return $this->entityManager->createQuery(<<<DQL
             SELECT s
             FROM {$this->shipmentClass} s
             WHERE s.state = 'ready'

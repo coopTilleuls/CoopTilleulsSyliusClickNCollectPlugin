@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
  */
 class RruleValidatorTest extends ConstraintValidatorTestCase
 {
-    protected function createValidator()
+    protected function createValidator(): RruleValidator
     {
         return new RruleValidator();
     }
@@ -57,7 +57,7 @@ class RruleValidatorTest extends ConstraintValidatorTestCase
     public function testUnexpectedType(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->validator->validate(22, new NotBlank());
+        $this->validator->validate('FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200316T080000;DTEND=20200316T082000', new NotBlank());
     }
 
     public function testUnexpectedValue(): void

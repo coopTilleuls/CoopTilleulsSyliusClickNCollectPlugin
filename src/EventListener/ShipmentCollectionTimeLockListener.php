@@ -15,7 +15,7 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\EventListener;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Resource\Exception\RaceConditionException;
@@ -28,17 +28,16 @@ use Symfony\Component\Lock\LockInterface;
  */
 final class ShipmentCollectionTimeLockListener
 {
-    private ManagerRegistry $managerRegistry;
+    private EntityManagerInterface $entityManager;
     private CollectionTimeRepositoryInterface $collectionTimeRepository;
     private LockInterface $lock;
     private string $shipmentClass;
 
-    public function __construct(ManagerRegistry $managerRegistry, LockInterface $lock, CollectionTimeRepositoryInterface $collectionTimeRepository, string $shipmentClass)
+    public function __construct(EntityManagerInterface $entityManager, LockInterface $lock, CollectionTimeRepositoryInterface $collectionTimeRepository)
     {
-        $this->managerRegistry = $managerRegistry;
+        $this->entityManager = $entityManager;
         $this->collectionTimeRepository = $collectionTimeRepository;
         $this->lock = $lock;
-        $this->shipmentClass = $shipmentClass;
     }
 
     /**
@@ -50,7 +49,7 @@ final class ShipmentCollectionTimeLockListener
             return;
         }
 
-        $unitOfWork = $this->managerRegistry->getManagerForClass($this->shipmentClass)->getUnitOfWork();
+        $unitOfWork = $this->entityManager->getUnitOfWork();
 
         $this->lock->acquire(true);
         foreach ($shipments as $shipment) {
