@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -38,7 +38,7 @@ class Place implements PlaceInterface
     protected ?string $countryCode = null;
     protected ?string $provinceCode = null;
     protected ?string $provinceName = null;
-    protected string $rrule = 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200316T080000;DTEND=20200316T082000';
+    protected string $rrule = 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200316T080000;DTEND=29990316T082000';
     protected int $orderPreparationDelay = 0;
     protected int $throughput = 1;
     protected bool $generatePin = false;

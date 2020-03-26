@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -17,6 +17,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 trait ClickNCollectShippingMethod
 {
     /**

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -21,6 +21,9 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class PlaceType extends AbstractResourceType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

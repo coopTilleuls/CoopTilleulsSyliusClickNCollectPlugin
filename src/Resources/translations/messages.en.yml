@@ -2,14 +2,17 @@ coop_tilleuls_click_n_collect:
     menu:
       admin:
         main:
+          sales:
+            collections: Click 'N' Collect
           configuration:
-            place: Click And Collect places
+            place: Click 'N' Collect places
     ui:
-      new_place: New Click And Collect place
-      edit_place: Edit Click And Collect place
-      places: Click And Collect Places
+      new_place: New Click 'N' Collect place
+      edit_place: Edit Click 'N' Collect place
+      places: Click 'N' Collect Places
       collect_details: Collect details
       pin: 'PIN:'
+      collections: Click 'N' Collect
     form:
       place:
         name: Name
@@ -25,5 +28,5 @@ coop_tilleuls_click_n_collect:
         province_name: Province name
         enabled: Enabled
       shipping_method:
-        click_n_collect: Click and Collect
+        click_n_collect: Click 'N' Collect
         places: Places

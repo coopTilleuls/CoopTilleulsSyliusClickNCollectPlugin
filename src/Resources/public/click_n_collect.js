@@ -12,8 +12,16 @@ $(function () {
         var $calendar = $('<div id="calendar_'+n+'"></div>');
         var $previousEl = null;
         var calendar = new FullCalendar.Calendar($calendar[0], {
-            plugins: [ 'dayGrid' ],
-            defaultView: 'dayGridWeek',
+            nowIndicator: true,
+            plugins: [ 'timeGrid' ],
+            defaultView: 'timeGridFourDay',
+            views: {
+                timeGridFourDay: {
+                    type: 'timeGrid',
+                    duration: { days: 4 },
+                    buttonText: '4 day'
+                }
+            },
             eventColor: config.unselectedBackgroundColor,
             eventRender: function (info) {
                 if (info.event.id !== $collectionTime.val()) return;

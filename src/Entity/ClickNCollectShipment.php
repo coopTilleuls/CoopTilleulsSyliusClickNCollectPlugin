@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -16,6 +16,9 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 trait ClickNCollectShipment
 {
     /**
@@ -26,7 +29,7 @@ trait ClickNCollectShipment
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    protected ?string $pin;
+    protected ?string $pin = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)

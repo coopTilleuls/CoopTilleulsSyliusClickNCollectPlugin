@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -18,6 +18,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class CoopTilleulsSyliusClickNCollectExtension extends AbstractResourceExtension
 {
     /**

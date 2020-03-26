@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -22,6 +22,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class ShipmentTypeExtension extends AbstractTypeExtension
 {
     private ObjectRepository $repository;
@@ -37,7 +40,7 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
             ->add(
                 $builder->create('place', HiddenType::class, [
                     'required' => false,
-                    'attr' => ['class' => 'click_n_collect_place']
+                    'attr' => ['class' => 'click_n_collect_place'],
                 ])->addModelTransformer(new CallbackTransformer(function (?Place $place): string {
                     return $place ? (string) $place->getCode() : '';
                 }, function (?string $code): ?Place {

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -21,6 +21,8 @@ use Sylius\Component\Shipping\Model\ShippingMethodTranslation;
 use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
 
 /**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="sylius_shipping_method")
  */

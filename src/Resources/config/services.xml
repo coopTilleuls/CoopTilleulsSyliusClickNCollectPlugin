@@ -44,6 +44,18 @@
             <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
         </service>
 
+        <service id="coop_tilleuls_click_n_collect.controller.admin.collections" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\Admin\CollectionsController" public="true">
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="twig" />
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.controller.admin.collections_api" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\Admin\CollectionsApiController" public="true">
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.recurrence_instance_finder" />
+            <argument type="service" id="router" />
+        </service>
+
         <!-- Event listener -->
 
         <service id="CoopTilleuls\SyliusClickNCollectPlugin\EventListener\ShipmentCollectionTimeLockListener">
@@ -60,7 +72,7 @@
 
         <service id="coop_tilleuls_click_n_collect.validator.slot_available" class="CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableValidator">
             <argument type="service" id="doctrine" />
-            <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.recurrence_instance_finder" />
             <argument>%sylius.model.shipment.class%</argument>
 
             <tag name="validator.constraint_validator" alias="click_n_collect_slot_available" />
@@ -75,6 +87,10 @@
 
         <service id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputer">
             <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.collection_time.recurrence_instance_finder" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinder">
+            <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
         </service>
     </services>
 </container>

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -15,35 +15,40 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
-use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepository;
+use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
 use Recurr\Recurrence;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
 use Recurr\Transformer\Constraint\BetweenConstraint;
 
-final class AvailableSlotsComputer
+/**
+ * {@inheritdoc}
+ *
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
+final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
 {
-    private CollectionTimeRepository $collectionTimeRepository;
+    private CollectionTimeRepositoryInterface $collectionTimeRepository;
 
-    public function __construct(CollectionTimeRepository $collectionTimeRepository)
+    public function __construct(CollectionTimeRepositoryInterface $collectionTimeRepository)
     {
         $this->collectionTimeRepository = $collectionTimeRepository;
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * {@inheritdoc}
      */
-    public function __invoke(ClickNCollectShipmentInterface $shipment, PlaceInterface $place, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null): array
+    public function __invoke(ClickNCollectShipmentInterface $shipment, PlaceInterface $place, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true): array
     {
         $minStartDate = new \DateTimeImmutable(sprintf('+%d minutes', $place->getOrderPreparationDelay()));
-        if (null === $startDate || $startDate < $minStartDate) {
+        if (null === $startDate || ($onlyFuture && $startDate < $minStartDate)) {
             $startDate = $minStartDate;
         }
 
         if (null === $endDate) {
             $endDate = new \DateTimeImmutable('+1 week');
         } elseif ($startDate > $endDate || $startDate->diff($endDate)->days > 31) {
-            throw new \InvalidArgumentException('The end date cannot be more than one month after the start date');
+            throw new \InvalidArgumentException(sprintf('Invalid date range %s - %s (1 month max).', $startDate->format(\DateTime::ATOM), $endDate->format(\DateTime::ATOM)));
         }
 
         $fullSlots = $this->collectionTimeRepository->findFullSlots($place, $startDate, $endDate);

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 
+use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinderInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Validator\Constraint;
@@ -28,13 +29,13 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 final class SlotAvailableValidator extends ConstraintValidator
 {
     private ManagerRegistry $managerRegistry;
-    private $computer;
+    private $recurrenceInstanceFinder;
     private string $shipmentClass;
 
-    public function __construct(ManagerRegistry $managerRegistry, callable $computer, string $shipmentClass)
+    public function __construct(ManagerRegistry $managerRegistry, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder, string $shipmentClass)
     {
         $this->managerRegistry = $managerRegistry;
-        $this->computer = $computer;
+        $this->recurrenceInstanceFinder = $recurrenceInstanceFinder;
         $this->shipmentClass = $shipmentClass;
     }
 
@@ -61,15 +62,13 @@ final class SlotAvailableValidator extends ConstraintValidator
             return;
         }
 
-        foreach (($this->computer)($value, $value->getPlace(), $collectionTime->sub(new \DateInterval('PT1S')), $collectionTime->add(new \DateInterval('PT1S'))) as $recurrence) {
-            if ($collectionTime == $recurrence->getStart()) {
-                return;
-            }
+        try {
+            ($this->recurrenceInstanceFinder)($value);
+        } catch (\RuntimeException | \InvalidArgumentException $e) {
+            $this->context
+                ->buildViolation($constraint->message)
+                ->setParameter('{{ value }}', $collectionTime->format(\DateTime::ATOM))
+                ->addViolation();
         }
-
-        $this->context
-            ->buildViolation($constraint->message)
-            ->setParameter('{{ value }}', $collectionTime->format(\DateTime::ATOM))
-            ->addViolation();
     }
 }

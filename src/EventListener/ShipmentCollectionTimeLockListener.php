@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\EventListener;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
-use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepository;
+use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Order\Model\OrderInterface;
@@ -29,11 +29,11 @@ use Symfony\Component\Lock\LockInterface;
 final class ShipmentCollectionTimeLockListener
 {
     private ManagerRegistry $managerRegistry;
-    private CollectionTimeRepository $collectionTimeRepository;
+    private CollectionTimeRepositoryInterface $collectionTimeRepository;
     private LockInterface $lock;
     private string $shipmentClass;
 
-    public function __construct(ManagerRegistry $managerRegistry, LockInterface $lock, CollectionTimeRepository $collectionTimeRepository, string $shipmentClass)
+    public function __construct(ManagerRegistry $managerRegistry, LockInterface $lock, CollectionTimeRepositoryInterface $collectionTimeRepository, string $shipmentClass)
     {
         $this->managerRegistry = $managerRegistry;
         $this->collectionTimeRepository = $collectionTimeRepository;

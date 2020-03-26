@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -38,7 +38,7 @@ final class PlacesController
 
     public function __invoke(string $shippingMethodCode): JsonResponse
     {
-        /**
+        /*
          * @var ClickNCollectShippingMethodeInterface|null
          */
         if (!$shippingMethod = $this->repository->findOneBy(['code' => $shippingMethodCode])) {

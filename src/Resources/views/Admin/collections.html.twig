@@ -1,0 +1,32 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{%  block title %}{{ 'coop_tilleuls_click_n_collect.ui.collections'|trans }}'}{% endblock %}
+
+{% block content %}
+    <div class="ui stackable">
+        <h1 class="ui header">{{ 'coop_tilleuls_click_n_collect.ui.collections'|trans }}</h1>
+
+        <select id="places">
+            {% for place in places %}<option value="{{ place.code|escape('html_attr') }}">{{ place.name }}</option>{% endfor %}
+        </select>
+        <div id="calendar"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# TODO: use a local installation and Webpack Encore, need https://github.com/Sylius/Sylius/issues/10656 #}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/main.js'} %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/daygrid@^4/main.js'} %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/timegrid@^4/main.js'} %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/cooptilleulssyliusclickncollectplugin/admin/collections.js'} %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/main.css'} %}
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/daygrid@^4/main.css'} %}
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/timegrid@^4/main.css'} %}
+{% endblock %}

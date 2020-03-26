@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -13,10 +13,16 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-final class CollectionTimeRepository
+/**
+ * {@inheritdoc}
+ *
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
+final class CollectionTimeRepository implements CollectionTimeRepositoryInterface
 {
     private ManagerRegistry $managerRegistry;
     private string $shipmentClass;
@@ -28,6 +34,8 @@ final class CollectionTimeRepository
     }
 
     /**
+     * {@inheritdoc}
+     *
      * @return \DateTimeInterface[]
      */
     public function findFullSlots(PlaceInterface $place, \DateTimeInterface $start, \DateTimeInterface $end): array
@@ -51,6 +59,9 @@ final class CollectionTimeRepository
         return array_column($query->getArrayResult(), 'collection_time');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isSlotFull(PlaceInterface $place, \DateTimeInterface $collectionTime): bool
     {
         $query = $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
@@ -66,5 +77,24 @@ final class CollectionTimeRepository
         ]);
 
         return ($query->getArrayResult()[0]['c'] ?? 0) >= $place->getThroughput();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findShipments(Place $place, \DateTimeInterface $start, \DateTimeInterface $end): array
+    {
+        return $this->managerRegistry->getManagerForClass($this->shipmentClass)->createQuery(<<<DQL
+            SELECT s
+            FROM {$this->shipmentClass} s
+            WHERE s.state = 'ready'
+            AND s.place = :place
+            AND s.collectionTime BETWEEN :start_date AND :end_date
+        DQL
+        )->setParameters([
+            'place' => $place,
+            'start_date' => $start,
+            'end_date' => $end,
+        ])->getResult();
     }
 }

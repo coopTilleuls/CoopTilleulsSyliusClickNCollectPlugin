@@ -5,7 +5,7 @@ coop_tilleuls_sylius_click_n_collect_admin_place:
     templates: "@SyliusAdmin\\Crud"
     redirect: update
     grid: coop_tilleuls_click_n_collect_place
-    path: places
+    path: /click-n-collect/places
     permission: true
     vars:
         all:
@@ -13,3 +13,11 @@ coop_tilleuls_sylius_click_n_collect_admin_place:
         index:
             icon: map marker alternate
   type: sylius.resource
+
+coop_tilleuls_sylius_click_n_collect_admin_collections:
+  path: /click-n-collect/collections
+  controller: coop_tilleuls_click_n_collect.controller.admin.collections
+
+coop_tilleuls_sylius_click_n_collect_admin_collections_api:
+  path: /click-n-collect/collections/{placeCode}
+  controller: coop_tilleuls_click_n_collect.controller.admin.collections_api

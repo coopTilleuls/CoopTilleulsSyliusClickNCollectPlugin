@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -16,6 +16,9 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin;
 use Sylius\Bundle\CoreBundle\Application\SyliusPluginTrait;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class CoopTilleulsSyliusClickNCollectPlugin extends Bundle
 {
     use SyliusPluginTrait;

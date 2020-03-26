@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -16,14 +16,17 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\DependencyInjection;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\PlaceType;
-use CoopTilleuls\SyliusClickNCollectPlugin\Repository\PlaceRepository;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
 use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class Configuration implements ConfigurationInterface
 {
     /**
@@ -63,7 +66,7 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('model')->defaultValue(Place::class)->cannotBeEmpty()->end()
                                         ->scalarNode('interface')->defaultValue(PlaceInterface::class)->cannotBeEmpty()->end()
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->end()
-                                        ->scalarNode('repository')->defaultValue(PlaceRepository::class)->end()
+                                        ->scalarNode('repository')->defaultValue(EntityRepository::class)->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                         ->scalarNode('form')->defaultValue(PlaceType::class)->end()
                                     ->end()

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -20,6 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Sylius\Component\Core\Model\Shipment as BaseShipment;
 
 /**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ *
  * @ORM\Entity
  * @ORM\Table(name="sylius_shipment")
  * @SlotAvailable(groups={"sylius"})

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -15,6 +15,9 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
 use Sylius\Component\Shipping\Model\ShipmentInterface;
 
+/**
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 interface ClickNCollectShipmentInterface extends ShipmentInterface
 {
     public function isClickNCollect(): bool;

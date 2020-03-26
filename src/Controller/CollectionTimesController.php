@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the API Platform project.
+ * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
  *
  * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
  *
@@ -13,22 +13,27 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Controller;
 
+use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputerInterface;
 use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Returns the list of available time slots as Full Calendar events.
+ *
+ * @see https://fullcalendar.io/docs/event-object
+ *
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class CollectionTimesController
 {
     private ObjectRepository $shipmentRepository;
     private ObjectRepository $placeRepository;
-    /**
-     * @var callable
-     */
-    private $availableSlotsComputer;
+    private AvailableSlotsComputerInterface $availableSlotsComputer;
 
-    public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $placeRepository, callable $availableSlotsComputer)
+    public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $placeRepository, AvailableSlotsComputerInterface $availableSlotsComputer)
     {
         $this->shipmentRepository = $shipmentRepository;
         $this->placeRepository = $placeRepository;
@@ -57,15 +62,15 @@ final class CollectionTimesController
             throw new BadRequestHttpException('Invalid date range (bad format, in the past or longer than 1 month)', $e);
         }
 
-        $collectionTimes = [];
+        $events = [];
         foreach ($recurrences as $recurrence) {
-            $collectionTimes[] = [
+            $events[] = [
                 'id' => $id = $recurrence->getStart()->format(\DateTime::ATOM),
                 'start' => $id,
                 'end' => $recurrence->getEnd()->format(\DateTime::ATOM),
             ];
         }
 
-        return new JsonResponse($collectionTimes);
+        return new JsonResponse($events);
     }
 }
