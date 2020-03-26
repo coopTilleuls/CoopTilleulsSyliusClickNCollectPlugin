@@ -3,7 +3,7 @@
 **Les-Tilleuls.coop Click and Collect** allows to transform your physical shop in an eCommerce shop in minutes, and to allow your customer to
 pickup their orders while not putting them or your workers at risk!
 
-**Les-Tilleuls.coop Click and Collect** is an free software plugin for the [Sylius](https://sylius.com/) eCommerce platform.
+**Les-Tilleuls.coop Click and Collect** is a free software plugin for the [Sylius](https://sylius.com/) eCommerce platform.
 
 # Install
 
