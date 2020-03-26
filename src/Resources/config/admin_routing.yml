@@ -17,7 +17,14 @@ coop_tilleuls_sylius_click_n_collect_admin_place:
 coop_tilleuls_sylius_click_n_collect_admin_collections:
   path: /click-n-collect/collections
   controller: coop_tilleuls_click_n_collect.controller.admin.collections
+  methods: GET
 
 coop_tilleuls_sylius_click_n_collect_admin_collections_api:
   path: /click-n-collect/collections/{placeCode}
   controller: coop_tilleuls_click_n_collect.controller.admin.collections_api
+  methods: GET
+
+coop_tilleuls_sylius_click_n_collect_admin_edit_collection:
+  path: /orders/{orderId}/click-n-collect
+  controller: coop_tilleuls_click_n_collect.controller.admin.edit_collection
+  methods: [GET, PUT]

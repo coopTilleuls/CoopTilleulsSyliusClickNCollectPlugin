@@ -1,7 +1,9 @@
 coop_tilleuls_sylius_click_n_collect_shop_places:
     path: /click-n-collect/places/{shippingMethodCode}
     controller: coop_tilleuls_click_n_collect.controller.places
+    methods: GET
 
 coop_tilleuls_sylius_click_n_collect_shop_collection_times:
     path: /click-n-collect/collection-times/{shipmentId}/{placeCode}
     controller: coop_tilleuls_click_n_collect.controller.collection_times
+    methods: GET

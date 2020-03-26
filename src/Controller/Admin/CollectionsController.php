@@ -17,6 +17,11 @@ use Doctrine\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
+/**
+ * Displays upcoming collections in a timetable.
+ *
+ * @author Kévin Dunglas <dunglas@gmail.com>
+ */
 final class CollectionsController
 {
     private ObjectRepository $placeRepository;
@@ -28,7 +33,7 @@ final class CollectionsController
         $this->twig = $twig;
     }
 
-    public function __invoke()
+    public function __invoke(): Response
     {
         return new Response(
             $this->twig->render(

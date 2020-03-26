@@ -1,0 +1,47 @@
+{% extends '@SyliusAdmin/layout.html.twig' %}
+
+{%  block title %}{{ 'coop_tilleuls_click_n_collect.ui.change_collection_time_for'|trans }} #{{ order.number }} {{ parent() }}{% endblock %}
+
+{% form_theme form '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block content %}
+    {% include '@SyliusAdmin/Order/Update/_header.html.twig' %}
+    {% include '@SyliusAdmin/Order/Update/_breadcrumb.html.twig' %}
+
+    <div class="ui stackable">
+        {{ form_start(form, {'attr': {'class': 'ui loadable form', 'novalidate': 'novalidate'}}) }}
+            <div class="ui segment">
+            {{ form_errors(form) }}
+            <input type="hidden" name="_method" value="PUT" />
+
+            {% include '@SyliusShop/Checkout/SelectShipping/_form.html.twig' %}
+
+            <div class="ui hidden divider"></div>
+            <div class="ui buttons">
+                <button class="ui labeled icon primary button" type="submit" id="sylius_save_changes_button"><i class="save icon"></i> Save changes</button>
+                <a href="{{ path('sylius_admin_order_show', {id: order.id})}}" class="ui button">Cancel</a>
+            </div>
+
+            {{ form_row(form._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {# TODO: use a local installation and Webpack Encore, need https://github.com/Sylius/Sylius/issues/10656 #}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/main.js'} %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/daygrid@^4/main.js'} %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/timegrid@^4/main.js'} %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/cooptilleulssyliusclickncollectplugin/click_n_collect.js'} %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/main.css'} %}
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/daygrid@^4/main.css'} %}
+    {% include '@SyliusUi/_stylesheets.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/timegrid@^4/main.css'} %}
+{% endblock %}

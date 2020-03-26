@@ -13,6 +13,7 @@ coop_tilleuls_click_n_collect:
       collect_details: Collect details
       pin: 'PIN:'
       collections: Click 'N' Collect
+      change_collection_time: Change collection time
     form:
       place:
         name: Name

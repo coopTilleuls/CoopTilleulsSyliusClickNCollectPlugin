@@ -56,6 +56,16 @@
             <argument type="service" id="router" />
         </service>
 
+        <service id="coop_tilleuls_click_n_collect.controller.admin.edit_collection" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\Admin\EditCollectionController" public="true">
+            <argument type="service" id="sylius.repository.order" />
+            <argument type="service" id="form.factory" />
+            <argument type="service" id="sylius.manager.order" />
+            <argument type="service" id="router" />
+            <argument type="service" id="session" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="twig" />
+        </service>
+
         <!-- Event listener -->
 
         <service id="CoopTilleuls\SyliusClickNCollectPlugin\EventListener\ShipmentCollectionTimeLockListener">

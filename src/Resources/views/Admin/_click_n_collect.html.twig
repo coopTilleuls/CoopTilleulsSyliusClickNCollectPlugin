@@ -8,3 +8,8 @@
         </div>
     {% endif %}
 {% endfor %}
+<div class="ui attached segment" id="edit-addresses">
+    <a href="{{ path('coop_tilleuls_sylius_click_n_collect_admin_edit_collection', {'orderId': order.id}) }}" class="ui icon labeled tiny fluid button">
+        <i class="pencil icon"></i> {{ 'coop_tilleuls_click_n_collect.ui.change_collection_time'|trans }}
+    </a>
+</div>
