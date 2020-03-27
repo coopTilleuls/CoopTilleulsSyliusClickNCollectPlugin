@@ -1,0 +1,33 @@
+coop_tilleuls_click_n_collect:
+    menu:
+        admin:
+            main:
+                sales:
+                    collections: Click 'N' Collect
+                configuration:
+                    place: Lieux Click 'N' Collect
+    ui:
+        new_place: Nouveau lieu Click 'N' Collect
+        edit_place: Éditer un lieu Click 'N' Collect
+        places: Lieux Click 'N' Collect
+        collect_details: Détails de récupération
+        pin: 'Code :'
+        collections: Click 'N' Collect
+        change_collection_time: Changer l'heure de collecte
+    form:
+        place:
+            name: Nom
+            rrule: Règle de récurrence pour les heures d'ouvertures (format iCalendar)
+            order_preparation_delay: Delai de préparation de commande (en minutes)
+            throughput: Débit (nombre de personnes que vous pouvez servir en même temps)
+            generate_pin: Activer la génération de codes ?
+            street: Rue
+            city: Ville
+            postcode: Code postal
+            country: Pays
+            province_code: Code de la province
+            province_name: Nom de la province
+            enabled: Activé
+        shipping_method:
+            click_n_collect: Click 'N' Collect
+            places: Lieux
