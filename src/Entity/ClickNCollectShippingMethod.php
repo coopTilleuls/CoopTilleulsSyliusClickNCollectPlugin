@@ -25,7 +25,7 @@ trait ClickNCollectShippingMethod
     /**
      * @var Collection|Place[]
      *
-     * @ORM\ManyToMany(targetEntity=\CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place::class)
+     * @ORM\ManyToMany(targetEntity=\CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place::class, inversedBy="shippingMethods")
      * @ORM\JoinTable(name="coop_tilleuls_click_n_collect_shipping_method_place")
      */
     protected $places;
@@ -50,10 +50,16 @@ trait ClickNCollectShippingMethod
         if (!$this->places->contains($place)) {
             $this->places[] = $place;
         }
+
+        $shippingMethods = $place->getShippingMethods();
+        if (!$shippingMethods->contains($this)) {
+            $shippingMethods->add($this);
+        }
     }
 
     public function removePlace(Place $place): void
     {
-        $this->places->remove($place);
+        $this->places->removeElement($place);
+        $place->getShippingMethods()->removeElement($this);
     }
 }

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Controller;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethodeInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
 use Doctrine\Persistence\ObjectRepository;
 use JMS\Serializer\SerializerInterface;

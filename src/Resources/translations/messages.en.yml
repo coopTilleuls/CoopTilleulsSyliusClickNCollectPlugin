@@ -5,12 +5,12 @@ coop_tilleuls_click_n_collect:
           sales:
             collections: Click 'N' Collect
           configuration:
-            place: Click 'N' Collect places
+            place: Collection locations
     ui:
-      new_place: New Click 'N' Collect place
-      edit_place: Edit Click 'N' Collect place
-      places: Click 'N' Collect Places
-      collect_details: Collect details
+      new_place: New collection location
+      edit_place: Edit collection location
+      places: Collection locations
+      collect_details: Collection details
       pin: 'PIN:'
       collections: Click 'N' Collect
       change_collection_time: Change collection time
@@ -30,4 +30,4 @@ coop_tilleuls_click_n_collect:
         enabled: Enabled
       shipping_method:
         click_n_collect: Click 'N' Collect
-        places: Places
+        places: Collection locations

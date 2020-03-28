@@ -13,10 +13,11 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Sylius\Component\Channel\Model\ChannelInterface;
 use Sylius\Component\Resource\Model\TimestampableTrait;
 use Sylius\Component\Resource\Model\ToggleableTrait;
+use Sylius\Component\Shipping\Model\ShippingMethodInterface;
 
 /**
  * {@inheritdoc}
@@ -42,10 +43,15 @@ class Place implements PlaceInterface
     protected int $orderPreparationDelay = 0;
     protected int $throughput = 1;
     protected bool $generatePin = false;
+    /**
+     * @var ShippingMethodInterface[]|Collection
+     */
+    protected Collection $shippingMethods;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->shippingMethods = new ArrayCollection();
     }
 
     public function getId()
@@ -66,30 +72,6 @@ class Place implements PlaceInterface
     public function setCode(?string $code): void
     {
         $this->code = $code;
-    }
-
-    public function getChannels(): Collection
-    {
-        return $this->channels;
-    }
-
-    public function addChannel(ChannelInterface $channel): void
-    {
-        if (!$this->hasChannel($channel)) {
-            $this->channels->add($channel);
-        }
-    }
-
-    public function hasChannel(ChannelInterface $channel): bool
-    {
-        return $this->channels->contains($channel);
-    }
-
-    public function removeChannel(ChannelInterface $channel): void
-    {
-        if ($this->hasChannel($channel)) {
-            $this->channels->removeElement($channel);
-        }
     }
 
     public function getName(): string
@@ -200,5 +182,28 @@ class Place implements PlaceInterface
     public function setGeneratePin(bool $generatePin): void
     {
         $this->generatePin = $generatePin;
+    }
+
+    public function getShippingMethods(): Collection
+    {
+        return $this->shippingMethods;
+    }
+
+    public function addShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void
+    {
+        if (!$this->shippingMethods->contains($shippingMethod)) {
+            $this->shippingMethods->add($shippingMethod);
+        }
+
+        $places = $shippingMethod->getPlaces();
+        if (!$places->contains($this)) {
+            $places->add($this);
+        }
+    }
+
+    public function removeShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void
+    {
+        $this->shippingMethods->removeElement($shippingMethod);
+        $shippingMethod->getPlaces()->removeElement($this);
     }
 }

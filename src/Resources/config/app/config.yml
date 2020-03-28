@@ -1,3 +1,6 @@
+imports:
+  - { resource: "fixtures.yml" }
+
 sylius_grid:
   grids:
     coop_tilleuls_click_n_collect_place:
@@ -52,3 +55,4 @@ sylius_ui:
           click_n_collect:
             template: "@CoopTilleulsSyliusClickNCollectPlugin/Admin/_click_n_collect.html.twig"
             priority: 45
+

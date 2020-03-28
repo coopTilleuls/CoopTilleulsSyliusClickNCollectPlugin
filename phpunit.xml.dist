@@ -5,7 +5,7 @@
          colors="true"
          bootstrap="tests/Application/config/bootstrap.php">
     <testsuites>
-        <testsuite name="AcmeSyliusExamplePlugin Test Suite">
+        <testsuite name="CoopTilleulsSyliusClickNCollectPlugin Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -16,5 +16,11 @@
              
         <env name="APP_ENV" value="test"/>
         <env name="SHELL_VERBOSITY" value="-1" />
+        <server name="PANTHER_APP_ENV" value="panther" />
+        <server name="PANTHER_WEB_SERVER_DIR" value="./tests/Application/public" />
     </php>
+
+    <extensions>
+        <extension class="Symfony\Component\Panther\ServerExtension" />
+    </extensions>
 </phpunit>

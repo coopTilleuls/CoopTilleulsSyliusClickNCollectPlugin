@@ -19,10 +19,13 @@ use Sylius\Component\Shipping\Model\ShippingMethodInterface;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-interface ClickNCollectShippingMethodeInterface extends ShippingMethodInterface
+interface ClickNCollectShippingMethodInterface extends ShippingMethodInterface
 {
     public function isClickNCollect(): bool;
 
+    /**
+     * @return Place[]|Collection
+     */
     public function getPlaces(): Collection;
 
     public function addPlace(Place $place): void;

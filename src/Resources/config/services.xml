@@ -100,5 +100,17 @@
         <service id="coop_tilleuls_click_n_collect.collection_time.recurrence_instance_finder" class="CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinder">
             <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
         </service>
+
+        <!-- Fixture -->
+        <service id="coop_tilleuls_click_n_collect.fixture.place" class="CoopTilleuls\SyliusClickNCollectPlugin\Fixture\PlaceFixture">
+            <argument type="service" id="coop_tilleuls_click_n_collect.manager.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.fixture.example_factory.place" />
+            <tag name="sylius_fixtures.fixture" />
+        </service>
+
+        <service id="coop_tilleuls_click_n_collect.fixture.example_factory.place" class="CoopTilleuls\SyliusClickNCollectPlugin\Fixture\Factory\PlaceExampleFactory">
+            <argument type="service" id="coop_tilleuls_click_n_collect.factory.place" />
+            <argument type="service" id="sylius.repository.shipping_method" />
+        </service>
     </services>
 </container>

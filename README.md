@@ -21,7 +21,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     namespace App\Entity\Shipping\ShippingMethod;
     
     use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethod;
-    use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethodeInterface;
+    use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethodInterface;
     use Doctrine\ORM\Mapping as ORM;
     use Sylius\Component\Core\Model\ShippingMethod as BaseShippingMethod;
     
@@ -29,7 +29,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
      * @ORM\Entity
      * @ORM\Table(name="sylius_shipping_method")
      */
-    class ShippingMethod extends BaseShippingMethod implements ClickNCollectShippingMethodeInterface
+    class ShippingMethod extends BaseShippingMethod implements ClickNCollectShippingMethodInterface
     {
         use ClickNCollectShippingMethod {
             __construct as initializeShippingMethodPlaces;

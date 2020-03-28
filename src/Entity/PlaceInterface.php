@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Sylius\Component\Resource\Model\CodeAwareInterface;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Sylius\Component\Resource\Model\TimestampableInterface;
@@ -89,4 +90,13 @@ interface PlaceInterface extends ResourceInterface, CodeAwareInterface, Timestam
     public function isGeneratePin(): bool;
 
     public function setGeneratePin(bool $generatePin): void;
+
+    /**
+     * @return ClickNCollectShippingMethodInterface[]|Collection
+     */
+    public function getShippingMethods(): Collection;
+
+    public function addShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
+
+    public function removeShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
 }

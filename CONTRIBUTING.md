@@ -23,6 +23,12 @@ To be able to setup a plugin's database, remember to configure you database cred
 
 ## Usage
 
+### Preparing the Test Environment
+
+    $ bin/console doctrine:database:create -e panther
+    $ bin/console doctrine:schema:create -e panther
+    $ bin/console sylius:fixtures:load -e panther
+
 ### Running Plugin Tests
 
     $ vendor/bin/phpunit

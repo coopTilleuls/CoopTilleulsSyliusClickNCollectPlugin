@@ -33,6 +33,8 @@
         <field name="orderPreparationDelay" column="order_preparation_delay" type="integer" />
         <field name="throughput" column="throughput" type="integer" />
         <field name="generatePin" column="generate_pin" type="boolean" />
+
+        <many-to-many field="shippingMethods" target-entity="Sylius\Component\Shipping\Model\ShippingMethodInterface" mapped-by="places" />
     </mapped-superclass>
 
 </doctrine-mapping>
