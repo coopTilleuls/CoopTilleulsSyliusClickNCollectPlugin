@@ -1,7 +1,4 @@
 {% if 'sylius_shop_checkout_select_shipping' == app.request.get('_route') %}
-    {# TODO: use a local installation and Webpack Encore, need https://github.com/Sylius/Sylius/issues/10656 #}
-    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/main.js'} %}
-    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/daygrid@^4/main.js'} %}
-    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/timegrid@^4/main.js'} %}
+    {% include '@CoopTilleulsSyliusClickNCollectPlugin/fullcalendar/_scripts.html.twig' %}
     {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/cooptilleulssyliusclickncollectplugin/click_n_collect.js'} %}
 {% endif %}
