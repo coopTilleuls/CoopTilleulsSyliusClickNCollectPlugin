@@ -26,5 +26,41 @@ class ShopTest extends PantherTestCase
 
         $client->request('GET', '/en_US/products/330m-slim-fit-jeans');
         $this->assertPageTitleContains('Sylius');
+
+        $client->submitForm('Add to cart');
+        $crawler = $client->waitFor('a.button.primary[href="/en_US/checkout/"]');
+        $crawler = $client->click($crawler->filter('a.button.primary[href="/en_US/checkout/"]')->eq(1)->link());
+        $client->waitFor('#sylius_checkout_address_customer_email');
+        $form = $crawler->filter('form[name="sylius_checkout_address"]')->form();
+        $form->setValues([
+            'sylius_checkout_address[customer][email]' => 'dunglas@gmail.com',
+            'sylius_checkout_address[billingAddress][firstName]' => 'Kévin',
+            'sylius_checkout_address[billingAddress][lastName]' => 'Dunglas',
+            'sylius_checkout_address[billingAddress][street]' => '82 Rue Winston Churchill',
+            'sylius_checkout_address[billingAddress][city]' => 'Lomme',
+            'sylius_checkout_address[billingAddress][postcode]' => '59160',
+            'sylius_checkout_address[billingAddress][countryCode]' => 'FR',
+        ]);
+
+        $client->submit($form);
+
+        // I've no clue of why it doesn't work using the Selenium API
+        $client->executeScript(<<<JS
+            document.evaluate('//label[text()="Click \'N\' Collect"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();
+        JS);
+
+        $client->waitFor('.fc-event');
+        $client->executeScript(<<<JS
+            document.querySelector('.fc-event').click();
+        JS);
+
+        $client->submitForm('Next'); // Shipping
+        $client->submitForm('Next'); // Payment
+
+        $client->waitFor('form[name=sylius_checkout_complete]');
+        $client->submitForm('Place order');
+
+        $client->waitFor('#sylius-thank-you');
+        $this->assertSelectorTextContains('#sylius-thank-you', 'Thank you!');
     }
 }
