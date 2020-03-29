@@ -20,12 +20,17 @@ use Symfony\Component\Panther\PantherTestCase;
  */
 class ShopTest extends PantherTestCase
 {
+    /**
+     * @group e2e
+     */
     public function testOrder(): void
     {
         $client = self::createPantherClient();
 
-        $client->request('GET', '/en_US/products/330m-slim-fit-jeans');
+        $crawler = $client->request('GET', '/');
         $this->assertPageTitleContains('Sylius');
+
+        $client->click($crawler->filter('a.sylius-product-name')->link());
 
         $client->submitForm('Add to cart');
         $crawler = $client->waitFor('a.button.primary[href="/en_US/checkout/"]');

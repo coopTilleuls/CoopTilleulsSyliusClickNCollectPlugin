@@ -5,7 +5,9 @@ pickup their orders while not putting them or your workers at risk!
 
 **Les-Tilleuls.coop Click and Collect** is a free software plugin for the [Sylius](https://sylius.com/) eCommerce platform.
 
-# Install
+![CI](https://github.com/coopTilleuls/CoopTilleulsSyliusClickNCollectPlugin/workflows/CI/badge.svg)
+
+## Install
 
 Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
