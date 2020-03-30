@@ -19,6 +19,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryIn
 use Recurr\Recurrence;
 use Recurr\Rule;
 use Recurr\Transformer\ArrayTransformer;
+use Recurr\Transformer\ArrayTransformerConfig;
 use Recurr\Transformer\Constraint\BetweenConstraint;
 
 /**
@@ -38,7 +39,7 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
     /**
      * {@inheritdoc}
      */
-    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true): array
+    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true, int $limit = 732): array
     {
         $minStartDate = new \DateTimeImmutable(sprintf('+%d minutes', $location->getOrderPreparationDelay()));
         if (null === $startDate || ($onlyFuture && $startDate < $minStartDate)) {
@@ -52,7 +53,7 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
         }
 
         $fullSlots = $this->collectionTimeRepository->findFullSlots($location, $startDate, $endDate);
-        $recurrences = (new ArrayTransformer())->transform(
+        $recurrences = (new ArrayTransformer((new ArrayTransformerConfig())->setVirtualLimit($limit)))->transform(
             new Rule($location->getRrule()),
             new BetweenConstraint($startDate, $endDate)
         );

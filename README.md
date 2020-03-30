@@ -44,7 +44,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     
     // src/Entity/Shipping/ShippingMethod.php
     
-    namespace App\Entity\Shipping\ShippingMethod;
+    namespace App\Entity\Shipping;
     
     use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethod;
     use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethodInterface;
@@ -75,9 +75,9 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     ```php
     <?php
     
-    // src/Entity/Shipping/ShippingMethod.php
+    // src/Entity/Shipping/Shipment.php
     
-    namespace App\Entity;
+    namespace App\Entity\Shipping;
     
     use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipment;
     use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
@@ -86,14 +86,13 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     use Sylius\Component\Core\Model\Shipment as BaseShipment;
     
     /**
-     * @ORM\Entity
-     * @ORM\Table(name="sylius_shipment")
-     *
-     * @SlotAvailable(groups={"sylius"})
-     */
+    * @ORM\Entity
+    * @ORM\Table(name="sylius_shipment", indexes={@ORM\Index(columns={"location_id", "collection_time"})})
+    * @SlotAvailable(groups={"sylius"})
+    */
     class Shipment extends BaseShipment implements ClickNCollectShipmentInterface
     {
-        use ClickNCollectShipment;
+       use ClickNCollectShipment;
     }
     ```
 

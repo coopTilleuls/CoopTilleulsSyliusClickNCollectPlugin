@@ -29,5 +29,5 @@ interface AvailableSlotsComputerInterface
      *
      * @return Recurrence[]
      */
-    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = false): array;
+    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = false, int $limit = 732): array;
 }

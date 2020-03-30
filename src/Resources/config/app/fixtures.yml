@@ -2,7 +2,16 @@ sylius_fixtures:
   suites:
     default:
       fixtures:
+        locale:
+          priority: 60
+        currency:
+          priority: 50
+        geographical:
+          priority: 40
+        channel:
+          priority: 30
         click_n_collect_shipping_method:
+          priority: 20
           name: shipping_method
           options:
             custom:
@@ -18,6 +27,7 @@ sylius_fixtures:
                     FASHION_WEB:
                       amount: 0
         location:
+          priority: 10
           options:
             custom:
               - name: Lille
@@ -42,3 +52,6 @@ sylius_fixtures:
                 throughput: 1
                 generate_pin: true
                 shipping_methods: [click_n_collect]
+        order:
+          options:
+            amount: 200

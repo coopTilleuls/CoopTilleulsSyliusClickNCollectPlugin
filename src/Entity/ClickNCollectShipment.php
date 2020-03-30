@@ -32,7 +32,7 @@ trait ClickNCollectShipment
     protected ?string $pin = null;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime_immutable", nullable=true, name="collection_time")
      * @Assert\GreaterThan("now", groups={"sylius"})
      */
     protected ?\DateTimeInterface $collectionTime = null;

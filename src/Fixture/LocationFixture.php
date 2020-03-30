@@ -43,6 +43,7 @@ final class LocationFixture extends AbstractResourceFixture
                 ->integerNode('order_preparation_delay')->end()
                 ->integerNode('throughput')->end()
                 ->booleanNode('generate_pin')->end()
-                ->arrayNode('shipping_methods')->scalarPrototype()->end()->end();
+                ->arrayNode('shipping_methods')->scalarPrototype()->end()->end()
+            ->end();
     }
 }
