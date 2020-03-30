@@ -1,20 +1,51 @@
-# Les-Tilleuls.coop's SyliusClickNCollectPlugin: Sell and deliver securely during the COVID-19 pandemic!
+# Sylius Click 'N' Collect
+**Sell and hand over securely during the coronavirus pandemic!**
 
-**Les-Tilleuls.coop Click and Collect** allows to transform your physical shop in an eCommerce shop in minutes, and to allow your customer to
-pickup their orders while not putting them or your workers at risk!
+Because of the coronavirus pandemic, a large part of the world is under lockdown and most shops are closed or with long queues.
 
-**Les-Tilleuls.coop Click and Collect** is a free software plugin for the [Sylius](https://sylius.com/) eCommerce platform.
+**Sylius Click 'N' Collect** is a solution to sell and hand over your products **safely** during the lockdown (and even after that).
+By allowing **contactless** pick up and preventing queues, **Sylius Click 'N' Collect** protects your workers and your customers.
+
+**Sylius Click 'N' Collect** is a plugin for the [Sylius](https://sylius.com/) eCommerce platform.
+[It's free](#license) (as in speech, and as in beer), and it's brought to you by your friends from [Les-Tilleuls.coop](https://les-tilleuls.coop).
 
 ![CI](https://github.com/coopTilleuls/CoopTilleulsSyliusClickNCollectPlugin/workflows/CI/badge.svg)
+
+## How Does It Work?
+
+**Insert video here**
+
+As a customer:
+
+1. Go on the shop's website
+2. Select the products to order
+3. Select the collect location (e.g. the physical shop)
+4. Select an available time slot
+5. Pay online, or select in-store payment
+6. Optional: a PIN is generated, you'll need it to retrieve the order
+7. Pick up your order at the shop during the selected time slot! Use the PIN code to unlock the box if appropriate.
+
+As a seller:
+
+1. Use the timetable in the admin interface to see the upcoming orders
+2. Prepare the orders: put them in a bag and make the order number noticeable (staple it or use a marker)
+3. Clean carefully the shelf and the lock (if appropriate) with the appropriate cleaning products
+4. Put the bag in the shelf
+5. Optional: use the PIN to lock the box in the shelf to secure the order
+6. Monitor the pick up from afar, from behind a window, or using CCTV
+
+Repeat!
+
+You're now selling while preventing the pandemic to spread!
 
 ## Install
 
 Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 1. [Install Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
-2. Install SyliusClickNCollect: `composer require tilleuls/sylius-click-n-collect-plugin`
+2. Install **Sylius Click 'N' Collect**: `composer require tilleuls/sylius-click-n-collect-plugin`
 3. Import the configuration:
-    
+
     ```yaml
    # config/packages/sylius_click_n_collect.yaml
    imports:
@@ -101,9 +132,10 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
        cp -R vendor/tilleuls/SyliusClickNCollectPlugin/tests/Application/templates/* templates/
 
 7. Create and execute database migrations
-8. Create your Click and Collect locations in the admin
-9. Create a dedicated shipping method in the admin
-10. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
+8. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
+9. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
+10. Create a dedicated shipping method
+11. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
 
 **You're ready to sell!**
 
@@ -119,8 +151,9 @@ Lives matter more than profits.
 
 ## AGPL
 
-Les-Tilleuls.coop Click and Collect is licensed under [AGPL-3.0](LICENSE).
-For companies not wanting, or not able to use AGPL-3.0 licensed software, commercial licenses are also available. [Contact us for more information](mailto:contact@les-tilleuls.coop).
+Sylius Click 'N' Collect is licensed under [AGPL-3.0](LICENSE).
+For companies not wanting, or not able to use AGPL-3.0 licensed software, commercial licenses are also available.
+[Contact us for more information](mailto:contact@les-tilleuls.coop).
 
 # Credits
 
