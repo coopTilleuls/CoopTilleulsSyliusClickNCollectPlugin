@@ -6,15 +6,15 @@ $(function () {
     });
     var calendarRendered = false;
 
-    var $places = $('#places');
-    $places.change(function () {
+    var $locations = $('#locations');
+    $locations.change(function () {
         populateCalendar($(this).val());
     });
-    populateCalendar($places.val());
+    populateCalendar($locations.val());
 
-    function populateCalendar(placeCode) {
+    function populateCalendar(locationCode) {
         calendar.removeAllEventSources();
-        calendar.addEventSource('/admin/click-n-collect/collections/'+placeCode);
+        calendar.addEventSource('/admin/click-n-collect/collections/'+locationCode);
         if (!calendarRendered) {
             calendar.render();
             calendarRendered = true;

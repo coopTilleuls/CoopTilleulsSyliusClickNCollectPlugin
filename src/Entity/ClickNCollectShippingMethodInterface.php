@@ -24,11 +24,11 @@ interface ClickNCollectShippingMethodInterface extends ShippingMethodInterface
     public function isClickNCollect(): bool;
 
     /**
-     * @return Place[]|Collection
+     * @return Location[]|Collection
      */
-    public function getPlaces(): Collection;
+    public function getLocations(): Collection;
 
-    public function addPlace(Place $place): void;
+    public function addLocation(Location $location): void;
 
-    public function removePlace(Place $place): void;
+    public function removeLocation(Location $location): void;
 }

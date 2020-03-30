@@ -13,7 +13,31 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 1. [Install Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
 2. Install SyliusClickNCollect: `composer require tilleuls/sylius-click-n-collect-plugin`
-3. Update the native entities:
+3. Import the configuration:
+    
+    ```yaml
+   # config/packages/sylius_click_n_collect.yaml
+   imports:
+       # ...
+       - { resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/app/config.yml" }
+    ```
+
+4. Import the routes:
+
+    ```yaml
+    # config/routes/sylius_click_n_collect.yaml
+    coop_tilleuls_sylius_click_n_collect_shop:
+        resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/shop_routing.yml"
+        prefix: /{_locale}
+        requirements:
+            _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+    
+    coop_tilleuls_sylius_click_n_collect_admin:
+        resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/admin_routing.yml"
+        prefix: /admin
+    ```
+
+5. Update the native entities:
 
     ```php
     <?php
@@ -34,14 +58,14 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     class ShippingMethod extends BaseShippingMethod implements ClickNCollectShippingMethodInterface
     {
         use ClickNCollectShippingMethod {
-            __construct as initializeShippingMethodPlaces;
+            __construct as initializeShippingMethodLocations;
         }
     
         public function __construct()
         {
             parent::__construct();
     
-            $this->initializeShippingMethodPlaces();
+            $this->initializeShippingMethodLocations();
         }
     
         // ...
@@ -73,39 +97,16 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     }
     ```
 
-4. Override the templates:
+6. Override the templates:
 
        cp -R vendor/tilleuls/SyliusClickNCollectPlugin/tests/Application/templates/* templates/
 
-5. Create and execute database migrations
-6. Create your Click and Collect places and create a dedicated shipping method from the admin panel
+7. Create and execute database migrations
+8. Create your Click and Collect locations in the admin
+9. Create a dedicated shipping method in the admin
+10. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
 
-## Without Symfony Flex
-
-These extra steps are only necessary if **you don't use Symfony Flex**.
-
-1. Import the configuration:
-    
-    ```yaml
-   # config/packages/sylius_click_n_collect.yaml
-   imports:
-       # ...
-       - { resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/app/config.yml" }
-    ```
-2. Import the routes:
-
-    ```yaml
-    # config/routes/sylius_click_n_collect.yaml
-    coop_tilleuls_sylius_click_n_collect_shop:
-        resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/shop_routing.yml"
-        prefix: /{_locale}
-        requirements:
-            _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
-    
-    coop_tilleuls_sylius_click_n_collect_admin:
-        resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/admin_routing.yml"
-        prefix: /admin
-    ```
+**You're ready to sell!**
 
 # License
 

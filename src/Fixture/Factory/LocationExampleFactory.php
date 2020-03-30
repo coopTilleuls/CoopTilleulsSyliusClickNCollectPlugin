@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Fixture\Factory;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use Faker\Factory;
 use Faker\Generator;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\AbstractExampleFactory;
@@ -27,16 +27,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-final class PlaceExampleFactory extends AbstractExampleFactory
+final class LocationExampleFactory extends AbstractExampleFactory
 {
-    private FactoryInterface $placeFactory;
+    private FactoryInterface $locationFactory;
     private Generator $faker;
     private OptionsResolver $optionsResolver;
     private ShippingMethodRepositoryInterface $shippingMethodRepository;
 
-    public function __construct(FactoryInterface $placeFactory, ShippingMethodRepositoryInterface $shippingMethodRepository)
+    public function __construct(FactoryInterface $locationFactory, ShippingMethodRepositoryInterface $shippingMethodRepository)
     {
-        $this->placeFactory = $placeFactory;
+        $this->locationFactory = $locationFactory;
         $this->shippingMethodRepository = $shippingMethodRepository;
         $this->faker = Factory::create();
         $this->optionsResolver = new OptionsResolver();
@@ -87,25 +87,25 @@ final class PlaceExampleFactory extends AbstractExampleFactory
         $options = $this->optionsResolver->resolve($options);
 
         /**
-         * @var Place
+         * @var Location
          */
-        $place = $this->placeFactory->createNew();
-        $place->setName($options['name']);
-        $place->setCode($options['code']);
-        $place->setStreet($options['street']);
-        $place->setCity($options['city']);
-        $place->setPostcode($options['postcode']);
-        $place->setCountryCode($options['country_code']);
-        $place->setProvinceCode($options['province_code']);
-        $place->setProvinceName($options['province_name']);
-        $place->setRrule($options['rrule']);
-        $place->setOrderPreparationDelay($options['order_preparation_delay']);
-        $place->setThroughput($options['throughput']);
-        $place->setGeneratePin($options['generate_pin']);
+        $location = $this->locationFactory->createNew();
+        $location->setName($options['name']);
+        $location->setCode($options['code']);
+        $location->setStreet($options['street']);
+        $location->setCity($options['city']);
+        $location->setPostcode($options['postcode']);
+        $location->setCountryCode($options['country_code']);
+        $location->setProvinceCode($options['province_code']);
+        $location->setProvinceName($options['province_name']);
+        $location->setRrule($options['rrule']);
+        $location->setOrderPreparationDelay($options['order_preparation_delay']);
+        $location->setThroughput($options['throughput']);
+        $location->setGeneratePin($options['generate_pin']);
         foreach ($options['shipping_methods'] as $shippingMethod) {
-            $place->addShippingMethod($shippingMethod);
+            $location->addShippingMethod($shippingMethod);
         }
 
-        return $place;
+        return $location;
     }
 }

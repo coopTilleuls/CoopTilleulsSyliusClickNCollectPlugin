@@ -22,9 +22,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait ClickNCollectShipment
 {
     /**
-     * @ORM\ManyToOne(targetEntity=CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place::class)
+     * @ORM\ManyToOne(targetEntity=CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location::class)
      */
-    protected ?Place $place = null;
+    protected ?Location $location = null;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -37,20 +37,20 @@ trait ClickNCollectShipment
      */
     protected ?\DateTimeInterface $collectionTime = null;
 
-    public function getPlace(): ?Place
+    public function getLocation(): ?Location
     {
-        return $this->place;
+        return $this->location;
     }
 
     public function isClickNCollect(): bool
     {
-        return null !== $this->place && null !== $this->collectionTime;
+        return null !== $this->location && null !== $this->collectionTime;
     }
 
-    public function setPlace(?Place $place): void
+    public function setLocation(?Location $location): void
     {
-        $this->place = $place;
-        if (null !== $place && null === $this->pin && $place->isGeneratePin()) {
+        $this->location = $location;
+        if (null !== $location && null === $this->pin && $location->isGeneratePin()) {
             $this->pin = sprintf('%04d', random_int(0, 9999));
         }
     }

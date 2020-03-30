@@ -2,11 +2,11 @@
 
 $(function () {
     var config = JSON.parse($('#calendar_config').text());
-    $('input.click_n_collect_place').each(function () {
-        var n = $(this).attr('id').match(/sylius_checkout_select_shipping_shipments_([0-9]+)_place/)[1];
+    $('input.click_n_collect_location').each(function () {
+        var n = $(this).attr('id').match(/sylius_checkout_select_shipping_shipments_([0-9]+)_location/)[1];
 
         var $shippingMethod = $('input[name="sylius_checkout_select_shipping[shipments]['+n+'][method]"]');
-        var $place = $('#sylius_checkout_select_shipping_shipments_'+n+'_place');
+        var $location = $('#sylius_checkout_select_shipping_shipments_'+n+'_location');
         var $collectionTime = $('#sylius_checkout_select_shipping_shipments_'+n+'_collectionTime');
 
         var $calendar = $('<div id="calendar_'+n+'"></div>');
@@ -34,23 +34,23 @@ $(function () {
         });
         var calendarRendered = false;
 
-        var placesCache = [];
-        var $places = $('<select name="sylius_checkout_select_shipping[shipments]['+n+'][place]"></select>').change(function () {
+        var locationsCache = [];
+        var $locations = $('<select name="sylius_checkout_select_shipping[shipments]['+n+'][location]"></select>').change(function () {
             var code = $(this).val();
-            populatePlaceAddress(findPlaceByCode(code));
+            populateLocationAddress(findLocationByCode(code));
             populateCalendar(code);
         });
-        var $placeAddress = $('<div id="place_address_'+n+'"></div>');
+        var $locationAddress = $('<div id="location_address_'+n+'"></div>');
 
-        $places.hide().insertBefore($place);
-        $place.remove();
+        $locations.hide().insertBefore($location);
+        $location.remove();
 
-        $placeAddress.hide().insertAfter($places);
-        $calendar.hide().insertAfter($placeAddress);
+        $locationAddress.hide().insertAfter($locations);
+        $calendar.hide().insertAfter($locationAddress);
 
-        populatePlaces($shippingMethod.filter(':checked').val(), $place.val());
+        populateLocations($shippingMethod.filter(':checked').val(), $location.val());
         $shippingMethod.change(function () {
-            populatePlaces($(this).val());
+            populateLocations($(this).val());
         });
 
         function selectEvent(eventEl) {
@@ -61,45 +61,45 @@ $(function () {
             $previousEl = $el;
         }
 
-        function findPlaceByCode(code) {
-            return placesCache.find(function (place) {
-                return place.code === code;
+        function findLocationByCode(code) {
+            return locationsCache.find(function (location) {
+                return location.code === code;
             });
         }
 
-        function populatePlaces(shippingMethod, currentValue = undefined) {
-            $places.empty();
-            $.getJSON('/'+config.locale+'/click-n-collect/places/'+shippingMethod, function (places) {
-                placesCache = places;
-                if (places.length === 0) {
-                    $places.hide();
-                    $placeAddress.hide();
+        function populateLocations(shippingMethod, currentValue = undefined) {
+            $locations.empty();
+            $.getJSON('/'+config.locale+'/click-n-collect/locations/'+shippingMethod, function (locations) {
+                locationsCache = locations;
+                if (locations.length === 0) {
+                    $locations.hide();
+                    $locationAddress.hide();
                     $calendar.hide();
 
                     return;
                 }
 
-                $places.append(places.map(function (place) {
-                    return $('<option>').val(place.code).text(place.name);
+                $locations.append(locations.map(function (location) {
+                    return $('<option>').val(location.code).text(location.name);
                 }));
 
-                if (currentValue) $places.val(currentValue);
-                else currentValue = $places.val();
+                if (currentValue) $locations.val(currentValue);
+                else currentValue = $locations.val();
 
-                $places.show();
+                $locations.show();
                 populateCalendar(currentValue);
-                populatePlaceAddress(findPlaceByCode(currentValue));
+                populateLocationAddress(findLocationByCode(currentValue));
             });
         }
 
-        function populatePlaceAddress(place) {
-            $placeAddress.text((place.street || '') + ' ' + (place.postcode || '') + ' ' + (place.city || '') + ' ' + (place.provinceCode || '') + ' ' + (place.provinceName || '') + ' ' + (place.countryCode || ''));
-            $placeAddress.show();
+        function populateLocationAddress(location) {
+            $locationAddress.text((location.street || '') + ' ' + (location.postcode || '') + ' ' + (location.city || '') + ' ' + (location.provinceCode || '') + ' ' + (location.provinceName || '') + ' ' + (location.countryCode || ''));
+            $locationAddress.show();
         }
 
-        function populateCalendar(placeCode) {
+        function populateCalendar(locationCode) {
             calendar.removeAllEventSources();
-            calendar.addEventSource('/'+config.locale+'/click-n-collect/collection-times/'+config.shipmentID+'/'+placeCode);
+            calendar.addEventSource('/'+config.locale+'/click-n-collect/collection-times/'+config.shipmentID+'/'+locationCode);
             $calendar.show();
             if (!calendarRendered) {
                 calendar.render();

@@ -15,7 +15,7 @@ namespace Tests\CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputerInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinder;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Recurr\Recurrence;
@@ -36,7 +36,7 @@ class RecurrenceInstanceFinderTest extends TestCase
         $recurrenceInstanceFinder->__invoke(new Shipment());
     }
 
-    public function testNoPlace(): void
+    public function testNoLocations(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -60,7 +60,7 @@ class RecurrenceInstanceFinderTest extends TestCase
 
         $shipment = new Shipment();
         $shipment->setCollectionTime(new \DateTimeImmutable());
-        $shipment->setPlace(new Place());
+        $shipment->setLocation(new Location());
 
         $recurrenceInstanceFinder->__invoke($shipment);
     }
@@ -79,7 +79,7 @@ class RecurrenceInstanceFinderTest extends TestCase
 
         $shipment = new Shipment();
         $shipment->setCollectionTime($start);
-        $shipment->setPlace(new Place());
+        $shipment->setLocation(new Location());
 
         $recur = $recurrenceInstanceFinder->__invoke($shipment);
         $this->assertSame($start, $recur->getStart());
@@ -98,7 +98,7 @@ class RecurrenceInstanceFinderTest extends TestCase
 
         $shipment = new Shipment();
         $shipment->setCollectionTime($start);
-        $shipment->setPlace(new Place());
+        $shipment->setLocation(new Location());
 
         $recur = $recurrenceInstanceFinder->__invoke($shipment);
         $this->assertSame($start, $recur->getStart());

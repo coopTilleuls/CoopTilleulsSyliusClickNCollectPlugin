@@ -35,11 +35,11 @@ final class RecurrenceInstanceFinder implements RecurrenceInstanceFinderInterfac
         if (null === $collectionTime = $shipment->getCollectionTime()) {
             throw new \InvalidArgumentException('This shipment has no associated collection time.');
         }
-        if (null === $place = $shipment->getPlace()) {
-            throw new \InvalidArgumentException('This shipment has no associated place.');
+        if (null === $location = $shipment->getLocation()) {
+            throw new \InvalidArgumentException('This shipment has no associated location.');
         }
 
-        foreach (($this->computer)($shipment, $place, $collectionTime->sub(new \DateInterval('PT1S')), $collectionTime->add(new \DateInterval('PT1S')), false) as $recurrence) {
+        foreach (($this->computer)($shipment, $location, $collectionTime->sub(new \DateInterval('PT1S')), $collectionTime->add(new \DateInterval('PT1S')), false) as $recurrence) {
             if ($collectionTime == $recurrence->getStart()) {
                 return $recurrence;
             }

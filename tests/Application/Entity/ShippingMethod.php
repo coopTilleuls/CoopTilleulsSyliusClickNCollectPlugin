@@ -29,7 +29,7 @@ use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
 class ShippingMethod extends BaseShippingMethod implements ClickNCollectShippingMethodInterface
 {
     use ClickNCollectShippingMethod {
-        __construct as initializeShippingMethodPlaces;
+        __construct as initializeShippingMethodLocations;
     }
 
     protected function createTranslation(): ShippingMethodTranslationInterface
@@ -41,6 +41,6 @@ class ShippingMethod extends BaseShippingMethod implements ClickNCollectShipping
     {
         parent::__construct();
 
-        $this->initializeShippingMethodPlaces();
+        $this->initializeShippingMethodLocations();
     }
 }

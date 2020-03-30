@@ -22,9 +22,9 @@ interface ClickNCollectShipmentInterface extends ShipmentInterface
 {
     public function isClickNCollect(): bool;
 
-    public function getPlace(): ?Place;
+    public function getLocation(): ?Location;
 
-    public function setPlace(?Place $place): void;
+    public function setLocation(?Location $location): void;
 
     public function getCollectionTime(): ?\DateTimeInterface;
 

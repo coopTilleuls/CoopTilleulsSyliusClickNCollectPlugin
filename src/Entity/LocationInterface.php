@@ -20,11 +20,11 @@ use Sylius\Component\Resource\Model\TimestampableInterface;
 use Sylius\Component\Resource\Model\ToggleableInterface;
 
 /**
- * A place where the user can pick the order.
+ * A location where the user can collect the order.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-interface PlaceInterface extends ResourceInterface, CodeAwareInterface, TimestampableInterface, ToggleableInterface
+interface LocationInterface extends ResourceInterface, CodeAwareInterface, TimestampableInterface, ToggleableInterface
 {
     public function getId();
 

@@ -5,17 +5,17 @@ coop_tilleuls_click_n_collect:
                 sales:
                     collections: Click 'N' Collect
                 configuration:
-                    place: Lieux Click 'N' Collect
+                    locations: Lieux Click 'N' Collect
     ui:
-        new_place: Nouveau lieu Click 'N' Collect
-        edit_place: Éditer un lieu Click 'N' Collect
-        places: Lieux Click 'N' Collect
+        new_location: Nouveau lieu Click 'N' Collect
+        edit_location: Éditer un lieu Click 'N' Collect
+        locations: Lieux Click 'N' Collect
         collect_details: Détails de récupération
         pin: 'Code :'
         collections: Click 'N' Collect
         change_collection_time: Changer l'heure de collecte
     form:
-        place:
+        location:
             name: Nom
             rrule: Règle de récurrence pour les heures d'ouvertures (format iCalendar)
             order_preparation_delay: Delai de préparation de commande (en minutes)
@@ -30,4 +30,4 @@ coop_tilleuls_click_n_collect:
             enabled: Activé
         shipping_method:
             click_n_collect: Click 'N' Collect
-            places: Lieux
+            locations: Lieux

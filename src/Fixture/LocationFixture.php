@@ -19,11 +19,11 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-final class PlaceFixture extends AbstractResourceFixture
+final class LocationFixture extends AbstractResourceFixture
 {
     public function getName(): string
     {
-        return 'place';
+        return 'location';
     }
 
     protected function configureResourceNode(ArrayNodeDefinition $resourceNode): void

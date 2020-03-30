@@ -11,7 +11,7 @@
             {% include '@SyliusShop/Checkout/SelectShipping/_unavailable.html.twig' %}
         {% endfor %}
     </div>
-    {{ form_row(form.place) }}
+    {{ form_row(form.location) }}
     {{ form_row(form.collectionTime) }}
 
     {# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}

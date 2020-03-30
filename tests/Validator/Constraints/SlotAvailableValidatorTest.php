@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Tests\CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFinderInterface;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailable;
 use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableValidator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -104,6 +104,6 @@ final class SlotAvailableValidatorTest extends ConstraintValidatorTestCase
     public function testUnexpectedValue(): void
     {
         $this->expectException(UnexpectedValueException::class);
-        $this->validator->validate(new Place(), new SlotAvailable());
+        $this->validator->validate(new Location(), new SlotAvailable());
     }
 }

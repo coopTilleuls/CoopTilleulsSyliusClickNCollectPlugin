@@ -17,7 +17,7 @@ sylius_fixtures:
                   configuration:
                     FASHION_WEB:
                       amount: 0
-        place:
+        location:
           options:
             custom:
               - name: Lille

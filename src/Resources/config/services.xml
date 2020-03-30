@@ -2,7 +2,7 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
-        <parameter key="coop_tilleuls_click_n_collect.form.place.product.validation_groups" type="collection">
+        <parameter key="coop_tilleuls_click_n_collect.form.location.product.validation_groups" type="collection">
             <parameter>sylius</parameter>
         </parameter>
     </parameters>
@@ -16,9 +16,9 @@
 
         <!-- Form -->
 
-        <service id="coop_tilleuls_click_n_collect.form.type.place" class="CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\PlaceType">
-            <argument>%coop_tilleuls_click_n_collect.model.place.class%</argument>
-            <argument>%coop_tilleuls_click_n_collect.form.place.product.validation_groups%</argument>
+        <service id="coop_tilleuls_click_n_collect.form.type.location" class="CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\LocationType">
+            <argument>%coop_tilleuls_click_n_collect.model.location.class%</argument>
+            <argument>%coop_tilleuls_click_n_collect.form.location.product.validation_groups%</argument>
             <tag name="form.type" />
         </service>
 
@@ -27,30 +27,30 @@
         </service>
 
         <service id="coop_tilleuls_click_n_collect.form.extension.type.shipment_type" class="CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension\ShipmentTypeExtension">
-            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.location" />
             <tag name="form.type_extension" />
         </service>
 
         <!-- Controller -->
 
-        <service id="coop_tilleuls_click_n_collect.controller.places" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\PlacesController" public="true">
+        <service id="coop_tilleuls_click_n_collect.controller.locations" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\LocationsController" public="true">
             <argument type="service" id="sylius.repository.shipping_method" />
             <argument type="service" id="jms_serializer" />
         </service>
 
         <service id="coop_tilleuls_click_n_collect.controller.collection_times" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\CollectionTimesController" public="true">
             <argument type="service" id="sylius.repository.shipment" />
-            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.location" />
             <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.available_slots_computer" />
         </service>
 
         <service id="coop_tilleuls_click_n_collect.controller.admin.collections" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\Admin\CollectionsController" public="true">
-            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.location" />
             <argument type="service" id="twig" />
         </service>
 
         <service id="coop_tilleuls_click_n_collect.controller.admin.collections_api" class="CoopTilleuls\SyliusClickNCollectPlugin\Controller\Admin\CollectionsApiController" public="true">
-            <argument type="service" id="coop_tilleuls_click_n_collect.repository.place" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.repository.location" />
             <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
             <argument type="service" id="coop_tilleuls_click_n_collect.collection_time.recurrence_instance_finder" />
             <argument type="service" id="router" />
@@ -102,14 +102,14 @@
         </service>
 
         <!-- Fixture -->
-        <service id="coop_tilleuls_click_n_collect.fixture.place" class="CoopTilleuls\SyliusClickNCollectPlugin\Fixture\PlaceFixture">
-            <argument type="service" id="coop_tilleuls_click_n_collect.manager.place" />
-            <argument type="service" id="coop_tilleuls_click_n_collect.fixture.example_factory.place" />
+        <service id="coop_tilleuls_click_n_collect.fixture.location" class="CoopTilleuls\SyliusClickNCollectPlugin\Fixture\LocationFixture">
+            <argument type="service" id="coop_tilleuls_click_n_collect.manager.location" />
+            <argument type="service" id="coop_tilleuls_click_n_collect.fixture.example_factory.location" />
             <tag name="sylius_fixtures.fixture" />
         </service>
 
-        <service id="coop_tilleuls_click_n_collect.fixture.example_factory.place" class="CoopTilleuls\SyliusClickNCollectPlugin\Fixture\Factory\PlaceExampleFactory">
-            <argument type="service" id="coop_tilleuls_click_n_collect.factory.place" />
+        <service id="coop_tilleuls_click_n_collect.fixture.example_factory.location" class="CoopTilleuls\SyliusClickNCollectPlugin\Fixture\Factory\LocationExampleFactory">
+            <argument type="service" id="coop_tilleuls_click_n_collect.factory.location" />
             <argument type="service" id="sylius.repository.shipping_method" />
         </service>
     </services>

@@ -5,21 +5,21 @@
     {% if shipment.pin is not empty %}
         {{ 'coop_tilleuls_click_n_collect.ui.pin'|trans  }} {{ shipment.pin }}<br>
     {% endif %}
-    <strong>{{ shipment.place.name }}</strong><br>
-    {% if shipment.place.street is not empty %}
-        {{ shipment.place.street }}<br>
+    <strong>{{ shipment.location.name }}</strong><br>
+    {% if shipment.location.street is not empty %}
+        {{ shipment.location.street }}<br>
     {% endif %}
-    {% if shipment.place.postcode is not empty %}
-        {{ shipment.place.postcode }}
+    {% if shipment.location.postcode is not empty %}
+        {{ shipment.location.postcode }}
     {% endif %}
-    {% if shipment.place.city is not empty %}
-        {{ shipment.place.city }}
+    {% if shipment.location.city is not empty %}
+        {{ shipment.location.city }}
     {% endif %}<br>
-    {% if shipment.place.provinceName is not empty %}
-        {{ shipment.place.provinceCode }} {{ shipment.place.provinceName }}<br>
+    {% if shipment.location.provinceName is not empty %}
+        {{ shipment.location.provinceCode }} {{ shipment.location.provinceName }}<br>
     {% endif %}
-    {% if shipment.place.countryCode is not empty %}
-        {{ flags.fromCountryCode(shipment.place.countryCode) }}
-        {{ shipment.place.countryCode|sylius_country_name|upper }}
+    {% if shipment.location.countryCode is not empty %}
+        {{ flags.fromCountryCode(shipment.location.countryCode) }}
+        {{ shipment.location.countryCode|sylius_country_name|upper }}
     {% endif %}
 </address>

@@ -24,7 +24,7 @@ use Sylius\Component\Shipping\Model\ShippingMethodInterface;
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-class Place implements PlaceInterface
+class Location implements LocationInterface
 {
     use TimestampableTrait;
     use ToggleableTrait;
@@ -195,15 +195,15 @@ class Place implements PlaceInterface
             $this->shippingMethods->add($shippingMethod);
         }
 
-        $places = $shippingMethod->getPlaces();
-        if (!$places->contains($this)) {
-            $places->add($this);
+        $locations = $shippingMethod->getLocations();
+        if (!$locations->contains($this)) {
+            $locations->add($this);
         }
     }
 
     public function removeShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void
     {
         $this->shippingMethods->removeElement($shippingMethod);
-        $shippingMethod->getPlaces()->removeElement($this);
+        $shippingMethod->getLocations()->removeElement($this);
     }
 }

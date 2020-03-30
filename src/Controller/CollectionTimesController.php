@@ -30,24 +30,24 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final class CollectionTimesController
 {
     private ObjectRepository $shipmentRepository;
-    private ObjectRepository $placeRepository;
+    private ObjectRepository $locationRepository;
     private AvailableSlotsComputerInterface $availableSlotsComputer;
 
-    public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $placeRepository, AvailableSlotsComputerInterface $availableSlotsComputer)
+    public function __construct(ObjectRepository $shipmentRepository, ObjectRepository $locationRepository, AvailableSlotsComputerInterface $availableSlotsComputer)
     {
         $this->shipmentRepository = $shipmentRepository;
-        $this->placeRepository = $placeRepository;
+        $this->locationRepository = $locationRepository;
         $this->availableSlotsComputer = $availableSlotsComputer;
     }
 
-    public function __invoke(Request $request, int $shipmentId, string $placeCode): JsonResponse
+    public function __invoke(Request $request, int $shipmentId, string $locationCode): JsonResponse
     {
         if (!$shipment = $this->shipmentRepository->find($shipmentId)) {
             throw new NotFoundHttpException(sprintf('The shipment "%d" doesn\'t exist.', $shipmentId));
         }
 
-        if (!$place = $this->placeRepository->findOneBy(['code' => $placeCode])) {
-            throw new NotFoundHttpException(sprintf('The place "%s" doesn\'t exist.', $placeCode));
+        if (!$location = $this->locationRepository->findOneBy(['code' => $locationCode])) {
+            throw new NotFoundHttpException(sprintf('The location "%s" doesn\'t exist.', $locationCode));
         }
 
         $start = $request->query->get('start');
@@ -57,7 +57,7 @@ final class CollectionTimesController
             $startDateTime = null === $start ? null : new \DateTimeImmutable($start);
             $endDateTime = null === $start ? null : new \DateTimeImmutable($end);
 
-            $recurrences = ($this->availableSlotsComputer)($shipment, $place, $startDateTime, $endDateTime);
+            $recurrences = ($this->availableSlotsComputer)($shipment, $location, $startDateTime, $endDateTime);
         } catch (\Exception $e) {
             throw new BadRequestHttpException('Invalid date range (bad format, in the past or longer than 1 month)', $e);
         }

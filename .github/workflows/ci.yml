@@ -31,7 +31,6 @@ jobs:
           (cd tests/Application && bin/console assets:install public -e panther)
 
       - name: Run test suite
-        #run: vendor/bin/phpunit --exclude-group e2e
         run: vendor/bin/phpunit
 
   php-cs-fixer:

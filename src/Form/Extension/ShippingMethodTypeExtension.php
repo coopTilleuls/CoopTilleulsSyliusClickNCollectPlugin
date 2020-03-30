@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use Doctrine\ORM\EntityRepository;
 use Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -28,8 +28,8 @@ final class ShippingMethodTypeExtension extends AbstractTypeExtension
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('places', EntityType::class, [
-                'class' => Place::class,
+            ->add('locations', EntityType::class, [
+                'class' => Location::class,
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
@@ -38,7 +38,7 @@ final class ShippingMethodTypeExtension extends AbstractTypeExtension
                         ->orderBy('p.name', 'ASC');
                 },
                 'choice_label' => 'name',
-                'label' => 'coop_tilleuls_click_n_collect.form.shipping_method.places',
+                'label' => 'coop_tilleuls_click_n_collect.form.shipping_method.locations',
             ]);
     }
 

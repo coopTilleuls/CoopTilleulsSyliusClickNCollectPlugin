@@ -24,12 +24,12 @@ use Twig\Environment;
  */
 final class CollectionsController
 {
-    private ObjectRepository $placeRepository;
+    private ObjectRepository $locationRepository;
     private Environment $twig;
 
-    public function __construct(ObjectRepository $placeRepository, Environment $twig)
+    public function __construct(ObjectRepository $locationRepository, Environment $twig)
     {
-        $this->placeRepository = $placeRepository;
+        $this->locationRepository = $locationRepository;
         $this->twig = $twig;
     }
 
@@ -38,7 +38,7 @@ final class CollectionsController
         return new Response(
             $this->twig->render(
                 '@CoopTilleulsSyliusClickNCollectPlugin/Admin/collections.html.twig',
-                ['places' => $this->placeRepository->findBy(['enabled' => true])]
+                ['locations' => $this->locationRepository->findBy(['enabled' => true])]
             )
         );
     }

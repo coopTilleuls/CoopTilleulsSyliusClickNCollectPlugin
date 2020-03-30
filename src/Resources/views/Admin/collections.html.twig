@@ -6,8 +6,8 @@
     <div class="ui stackable">
         <h1 class="ui header">{{ 'coop_tilleuls_click_n_collect.ui.collections'|trans }}</h1>
 
-        <select id="places">
-            {% for place in places %}<option value="{{ place.code|escape('html_attr') }}">{{ place.name }}</option>{% endfor %}
+        <select id="locations">
+            {% for location in locations %}<option value="{{ location.code|escape('html_attr') }}">{{ location.name }}</option>{% endfor %}
         </select>
         <div id="calendar"></div>
     </div>

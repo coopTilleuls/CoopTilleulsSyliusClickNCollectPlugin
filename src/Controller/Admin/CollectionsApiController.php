@@ -32,20 +32,20 @@ use Symfony\Component\Routing\RouterInterface;
  */
 final class CollectionsApiController
 {
-    private ObjectRepository $placeRepository;
+    private ObjectRepository $locationRepository;
     private CollectionTimeRepositoryInterface $collectionTimeRepository;
     private RecurrenceInstanceFinderInterface $recurrenceInstanceFinder;
     private RouterInterface $router;
 
-    public function __construct(ObjectRepository $placeRepository, CollectionTimeRepositoryInterface $collectionTimeRepository, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder, RouterInterface $router)
+    public function __construct(ObjectRepository $locationRepository, CollectionTimeRepositoryInterface $collectionTimeRepository, RecurrenceInstanceFinderInterface $recurrenceInstanceFinder, RouterInterface $router)
     {
-        $this->placeRepository = $placeRepository;
+        $this->locationRepository = $locationRepository;
         $this->collectionTimeRepository = $collectionTimeRepository;
         $this->recurrenceInstanceFinder = $recurrenceInstanceFinder;
         $this->router = $router;
     }
 
-    public function __invoke(Request $request, string $placeCode): JsonResponse
+    public function __invoke(Request $request, string $locationCode): JsonResponse
     {
         try {
             $startDateTime = new \DateTimeImmutable($request->query->get('start', 'now'));
@@ -54,12 +54,12 @@ final class CollectionsApiController
             throw new BadRequestHttpException('Invalid date format', $e);
         }
 
-        if (!$place = $this->placeRepository->findOneBy(['code' => $placeCode])) {
-            throw new NotFoundHttpException(sprintf('The place "%s" doesn\'t exist.', $placeCode));
+        if (!$location = $this->locationRepository->findOneBy(['code' => $locationCode])) {
+            throw new NotFoundHttpException(sprintf('The location "%s" doesn\'t exist.', $locationCode));
         }
 
         $events = [];
-        foreach ($this->collectionTimeRepository->findShipments($place, $startDateTime, $endDateTime) as $shipment) {
+        foreach ($this->collectionTimeRepository->findShipments($location, $startDateTime, $endDateTime) as $shipment) {
             $recurrence = ($this->recurrenceInstanceFinder)($shipment);
 
             $order = $shipment instanceof ShipmentInterface ? $shipment->getOrder() : null;

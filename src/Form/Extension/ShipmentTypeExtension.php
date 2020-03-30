@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use Doctrine\Persistence\ObjectRepository;
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\ShipmentType;
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -38,21 +38,21 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
     {
         $builder
             ->add(
-                $builder->create('place', HiddenType::class, [
+                $builder->create('location', HiddenType::class, [
                     'required' => false,
-                    'attr' => ['class' => 'click_n_collect_place'],
-                ])->addModelTransformer(new CallbackTransformer(function (?Place $place): string {
-                    return $place ? (string) $place->getCode() : '';
-                }, function (?string $code): ?Place {
+                    'attr' => ['class' => 'click_n_collect_location'],
+                ])->addModelTransformer(new CallbackTransformer(function (?Location $location): string {
+                    return $location ? (string) $location->getCode() : '';
+                }, function (?string $code): ?Location {
                     if ('' === $code || null === $code) {
                         return null;
                     }
 
-                    if (!$place = $this->repository->findOneBy(['code' => $code])) {
-                        throw new TransformationFailedException(sprintf('Place "%s" doesn\'t exist.', $code));
+                    if (!$location = $this->repository->findOneBy(['code' => $code])) {
+                        throw new TransformationFailedException(sprintf('Location "%s" doesn\'t exist.', $code));
                     }
 
-                    return $place;
+                    return $location;
                 }))
             )
             ->add(

@@ -5,17 +5,17 @@ coop_tilleuls_click_n_collect:
           sales:
             collections: Click 'N' Collect
           configuration:
-            place: Collection locations
+            locations: Collection locations
     ui:
-      new_place: New collection location
-      edit_place: Edit collection location
-      places: Collection locations
+      new_location: New collection location
+      edit_location: Edit collection location
+      locations: Collection locations
       collect_details: Collection details
       pin: 'PIN:'
       collections: Click 'N' Collect
       change_collection_time: Change collection time
     form:
-      place:
+      location:
         name: Name
         rrule: Recurrence rule for opening hours (iCalendar format)
         order_preparation_delay: Order preparation delay (in minutes)
@@ -30,4 +30,4 @@ coop_tilleuls_click_n_collect:
         enabled: Enabled
       shipping_method:
         click_n_collect: Click 'N' Collect
-        places: Collection locations
+        locations: Collection locations

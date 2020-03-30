@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\DependencyInjection;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
-use CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\PlaceType;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\LocationType;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\Doctrine\ORM\EntityRepository;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -56,19 +56,19 @@ final class Configuration implements ConfigurationInterface
                 ->arrayNode('resources')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('place')
+                        ->arrayNode('location')
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('options')->end()
                                 ->arrayNode('classes')
                                     ->addDefaultsIfNotSet()
                                     ->children()
-                                        ->scalarNode('model')->defaultValue(Place::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('interface')->defaultValue(PlaceInterface::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('model')->defaultValue(Location::class)->cannotBeEmpty()->end()
+                                        ->scalarNode('interface')->defaultValue(LocationInterface::class)->cannotBeEmpty()->end()
                                         ->scalarNode('controller')->defaultValue(ResourceController::class)->end()
                                         ->scalarNode('repository')->defaultValue(EntityRepository::class)->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
-                                        ->scalarNode('form')->defaultValue(PlaceType::class)->end()
+                                        ->scalarNode('form')->defaultValue(LocationType::class)->end()
                                     ->end()
                                 ->end()
                             ->end()

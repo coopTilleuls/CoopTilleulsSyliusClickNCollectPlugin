@@ -3,11 +3,11 @@ imports:
 
 sylius_grid:
   grids:
-    coop_tilleuls_click_n_collect_place:
+    coop_tilleuls_click_n_collect_location:
       driver:
         name: doctrine/orm
         options:
-          class: CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place
+          class: CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location
       sorting:
         code: asc
       fields:

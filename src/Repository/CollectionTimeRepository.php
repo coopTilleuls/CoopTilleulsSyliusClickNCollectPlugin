@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Place;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -38,22 +38,22 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
      *
      * @return \DateTimeInterface[]
      */
-    public function findFullSlots(PlaceInterface $place, \DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findFullSlots(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array
     {
         $query = $this->entityManager->createQuery(<<<DQL
             SELECT s.collectionTime AS collection_time
             FROM {$this->shipmentClass} s
-            WHERE s.place = :place
+            WHERE s.location = :location
             AND s.collectionTime BETWEEN :start_date AND :end_date
-            GROUP BY s.place, s.collectionTime
+            GROUP BY s.location, s.collectionTime
             HAVING COUNT(s.id) >= :throughput
             ORDER BY s.collectionTime
         DQL
         )->setParameters([
-            'place' => $place,
+            'location' => $location,
             'start_date' => $start,
             'end_date' => $end,
-            'throughput' => $place->getThroughput(),
+            'throughput' => $location->getThroughput(),
         ]);
 
         return array_column($query->getArrayResult(), 'collection_time');
@@ -62,37 +62,37 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     /**
      * {@inheritdoc}
      */
-    public function isSlotFull(PlaceInterface $place, \DateTimeInterface $collectionTime): bool
+    public function isSlotFull(LocationInterface $location, \DateTimeInterface $collectionTime): bool
     {
         $query = $this->entityManager->createQuery(<<<DQL
             SELECT COUNT(s.collectionTime) AS c
             FROM {$this->shipmentClass} s
-            WHERE s.place = :place
+            WHERE s.location = :location
             AND s.collectionTime = :collection_time
-            GROUP BY s.place, s.collectionTime
+            GROUP BY s.location, s.collectionTime
         DQL
         )->setParameters([
-            'place' => $place,
+            'location' => $location,
             'collection_time' => $collectionTime,
         ]);
 
-        return ($query->getArrayResult()[0]['c'] ?? 0) >= $place->getThroughput();
+        return ($query->getArrayResult()[0]['c'] ?? 0) >= $location->getThroughput();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findShipments(Place $place, \DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findShipments(Location $location, \DateTimeInterface $start, \DateTimeInterface $end): array
     {
         return $this->entityManager->createQuery(<<<DQL
             SELECT s
             FROM {$this->shipmentClass} s
             WHERE s.state = 'ready'
-            AND s.place = :place
+            AND s.location = :location
             AND s.collectionTime BETWEEN :start_date AND :end_date
         DQL
         )->setParameters([
-            'place' => $place,
+            'location' => $location,
             'start_date' => $start,
             'end_date' => $end,
         ])->getResult();

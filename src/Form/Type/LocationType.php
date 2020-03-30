@@ -24,7 +24,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
-final class PlaceType extends AbstractResourceType
+final class LocationType extends AbstractResourceType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,52 +32,52 @@ final class PlaceType extends AbstractResourceType
             ->addEventSubscriber(new AddCodeFormSubscriber())
             ->add('name', TextType::class, [
                 'empty_data' => '',
-                'label' => 'coop_tilleuls_click_n_collect.form.place.name',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.name',
             ])
             ->add('rrule', TextType::class, [
                 'empty_data' => '',
-                'label' => 'coop_tilleuls_click_n_collect.form.place.rrule',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.rrule',
             ])
             ->add('orderPreparationDelay', IntegerType::class, [
                 'attr' => ['min' => 0],
-                'label' => 'coop_tilleuls_click_n_collect.form.place.order_preparation_delay',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.order_preparation_delay',
             ])
             ->add('throughput', IntegerType::class, [
                 'attr' => ['min' => 1],
-                'label' => 'coop_tilleuls_click_n_collect.form.place.throughput',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.throughput',
             ])
             ->add('generatePin', CheckboxType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.generate_pin',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.generate_pin',
             ])
             ->add('street', TextType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.street',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.street',
             ])
             ->add('city', TextType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.city',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.city',
             ])
             ->add('postcode', TextType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.postcode',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.postcode',
             ])
             ->add('countryCode', CountryCodeChoiceType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.country',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.country',
                 'enabled' => true,
             ])
             ->add('provinceCode', TextType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.province_code',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.province_code',
             ])
             ->add('provinceName', TextType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.province_name',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.province_name',
             ])
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
-                'label' => 'coop_tilleuls_click_n_collect.form.place.enabled',
+                'label' => 'coop_tilleuls_click_n_collect.form.location.enabled',
             ]);
     }
 }

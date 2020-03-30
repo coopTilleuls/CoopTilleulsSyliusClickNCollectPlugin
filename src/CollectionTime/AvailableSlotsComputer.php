@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\PlaceInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
 use Recurr\Recurrence;
 use Recurr\Rule;
@@ -38,9 +38,9 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
     /**
      * {@inheritdoc}
      */
-    public function __invoke(ClickNCollectShipmentInterface $shipment, PlaceInterface $place, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true): array
+    public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true): array
     {
-        $minStartDate = new \DateTimeImmutable(sprintf('+%d minutes', $place->getOrderPreparationDelay()));
+        $minStartDate = new \DateTimeImmutable(sprintf('+%d minutes', $location->getOrderPreparationDelay()));
         if (null === $startDate || ($onlyFuture && $startDate < $minStartDate)) {
             $startDate = $minStartDate;
         }
@@ -51,20 +51,20 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
             throw new \InvalidArgumentException(sprintf('Invalid date range %s - %s (1 month max).', $startDate->format(\DateTime::ATOM), $endDate->format(\DateTime::ATOM)));
         }
 
-        $fullSlots = $this->collectionTimeRepository->findFullSlots($place, $startDate, $endDate);
+        $fullSlots = $this->collectionTimeRepository->findFullSlots($location, $startDate, $endDate);
         $recurrences = (new ArrayTransformer())->transform(
-            new Rule($place->getRrule()),
+            new Rule($location->getRrule()),
             new BetweenConstraint($startDate, $endDate)
         );
 
-        $samePlace = $place === $shipment->getPlace();
+        $sameLocation = $location === $shipment->getLocation();
         $currentCollectionTime = $shipment->getCollectionTime();
 
-        return array_filter($recurrences->toArray(), function (Recurrence $r) use ($samePlace, $currentCollectionTime, $fullSlots) {
+        return array_filter($recurrences->toArray(), function (Recurrence $r) use ($sameLocation, $currentCollectionTime, $fullSlots) {
             // Keep only the current collection time and available slots
             $start = $r->getStart();
 
-            return ($samePlace && $currentCollectionTime == $start) || !\in_array($start, $fullSlots, false);
+            return ($sameLocation && $currentCollectionTime == $start) || !\in_array($start, $fullSlots, false);
         });
     }
 }
