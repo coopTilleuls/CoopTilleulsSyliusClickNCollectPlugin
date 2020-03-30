@@ -13,8 +13,7 @@ By allowing **contactless** pick up and preventing queues, **Sylius Click 'N' Co
 
 ## How Does It Work?
 
-**Insert video here**
-
+[![Screencast](https://img.youtube.com/vi/bQ9_vQJf-2I/0.jpg)](https://www.youtube.com/watch?v=bQ9_vQJf-2I) 
 As a customer:
 
 1. Go on the shop's website
