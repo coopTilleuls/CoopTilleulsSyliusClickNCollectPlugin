@@ -2,7 +2,7 @@ coop_tilleuls_sylius_click_n_collect_admin_location:
   resource: |
     alias: coop_tilleuls_click_n_collect.location
     section: admin
-    templates: "@SyliusAdmin\\Crud"
+    templates: "@CoopTilleulsSyliusClickNCollectPlugin\\Admin\\Crud"
     redirect: update
     grid: coop_tilleuls_click_n_collect_location
     path: /click-n-collect/locations

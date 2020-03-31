@@ -1,0 +1,176 @@
+{% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/rrule/dist/es5/rrule.min.js'} %}
+
+<script type="text/javascript">
+// Wait DOM initialization
+document.addEventListener('DOMContentLoaded', function() {
+    var DEFAULT_RRULE_STRING = 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000'
+
+    // Elements
+    var fields = {
+        interval: document.querySelector('.location-rrule-interval-widget'),
+        freq: document.querySelector('.location-rrule-freq-widget'),
+        days: document.querySelectorAll('.location-rrule-days-widget input[type="checkbox"]'),
+        hours: document.querySelector('.location-rrule-hours-widget'),
+        date: document.querySelector('.location-rrule-date-widget'),
+        expert: document.querySelector('.location-rrule-expert-widget button'),
+        input: document.querySelector('.location-rrule-widget'),
+    }
+
+    var locationRRule = new rrule.RRule.fromString(DEFAULT_RRULE_STRING)
+    
+    try {
+        locationRRule = rrule.RRule.fromString(fields.input.value.replace(/;?DTEND=[^;]*/, '')) // remove DTEND, rrule doesn't support it
+    } catch (e) {
+        console.warn('Error on Location RRule parsing:', e)
+    }
+
+    function bootstrap() {
+        // Checkbox 
+        for (checkbox of fields.days) {
+            if (checkbox.checked) {
+                checkbox.parentNode.classList.add('active')
+            }
+
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    this.parentNode.classList.add('active')
+                } else {
+                    this.parentNode.classList.remove('active')
+                }
+            })
+        }
+
+        // Dropdown/Select
+        $('.location-rrule-row .ui.dropdown').dropdown()
+
+        // expert
+        fields.expert.addEventListener('click', function() {
+            fields.input.style.display = (fields.input.style.display === 'none' ? 'initial' : 'none')
+        })
+
+    }
+
+    function hydrate() {
+        fields.interval.value = locationRRule.options.interval
+        // Use semantic-ui method to update text and imit to "HOURSLY" and "MINUTELY"
+        $(fields.freq).dropdown('set selected', [rrule.RRule.HOURLY, rrule.RRule.MINUTELY].indexOf(locationRRule.options.freq) !== -1 ? locationRRule.options.freq : rrule.RRule.MINUTELY)
+        fields.days.forEach(function(day, index) {
+            if ((locationRRule.options.byweekday || []).indexOf(index) !== -1) {
+                day.checked = true
+                day.parentNode.classList.add('active')
+            } else {
+                day.checked = false
+                day.parentNode.classList.remove('active')
+            }
+        })
+        $(fields.hours).dropdown('set selected', (locationRRule.options.byhour || []).map(function(hour) {
+            return hour + 'h'
+        }))
+        fields.date.value = (locationRRule.options.dtstart || new Date(Date.UTC)).toISOString().slice(0,10)
+    }
+
+    function listen() {
+        fields.interval.addEventListener('change', function() {
+            apply({
+                interval: Math.max(1, parseInt(this.value)),
+            })
+        })
+
+        fields.freq.addEventListener('change', function() {
+            apply({
+                freq: parseInt(this.value),
+            })
+        })
+
+        fields.days.forEach(function(day, index) {
+            day.addEventListener('change', function() {
+                apply({
+                    byweekday: Array.prototype.slice.call(fields.days)
+                        .map(function(day, index) {
+                            return day.checked ? index : -1
+                        })
+                        .filter(function(index) {
+                            return index !== -1
+                        }),
+                })
+            })
+        })
+
+        fields.hours.addEventListener('change', function() {
+            apply({
+                byhour: Array.prototype.slice.call(this.options)
+                    .map(function(option) {
+                        return option.selected ? parseInt(option.value) : -1
+                    })
+                    .filter(function(index) {
+                        return index !== -1
+                    }),
+            })
+        })
+
+        fields.date.addEventListener('change', function() {
+            var date = new Date(this.value)
+
+            apply({
+                dtstart: new Date(
+                    // Advise from RRule library
+                    Date.UTC(
+                        date.getFullYear(),
+                        date.getMonth() + 1,
+                        date.getDate()
+                    )
+                ),
+            })
+        })
+    }
+
+    function apply(changes) {
+        var dtstart = (changes.dtstart || locationRRule.options.dtstart)
+        var openingHours = Array.prototype.slice.call(changes.byhour || locationRRule.options.byhour || [8])
+            .sort(function(a, b) {
+                return a - b
+            })
+
+        dtstart.setUTCHours(openingHours[0])
+        dtstart.setUTCMinutes(0)
+        dtstart.setUTCSeconds(0)
+
+        locationRRule = new rrule.RRule(Object.assign(
+            {},
+            locationRRule.options,
+            changes,
+            { dtstart },
+        ))
+
+        var dtend = new Date(dtstart)
+        
+        if (locationRRule.options.freq === rrule.RRule.HOURLY) {
+            dtend.setUTCHours(dtstart.getUTCHours() + locationRRule.options.interval)
+        } else if (locationRRule.options.freq === rrule.RRule.MINUTELY) {
+            dtend.setUTCMinutes(dtstart.getUTCMinutes() + locationRRule.options.interval)
+        }
+
+        fields.input.value = locationRRule.toString()
+            // fix RRule format
+            .replace(/Z\s*RRULE:/, ';')
+            .replace(/:/, '=')
+            .replace(/;?WKST=MO/, '')
+            .replace(/;?BYMINUTE=0/, '')
+            .replace(/;?BYSECOND=0/, '')
+            + [
+                ';DTEND=',
+                dtend.getUTCFullYear().toString().padStart(4, '0'),
+                (dtend.getUTCMonth() + 1).toString().padStart(2, '0'),
+                dtend.getUTCDate().toString().padStart(2, '0'),
+                'T',
+                dtend.getUTCHours().toString().padStart(2, '0'),
+                dtend.getUTCMinutes().toString().padStart(2, '0'),
+                dtend.getUTCSeconds().toString().padStart(2, '0'),
+            ].join('')
+    }
+
+    bootstrap()
+    hydrate()
+    listen()
+}, false);
+</script>
