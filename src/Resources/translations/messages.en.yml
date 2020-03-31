@@ -18,7 +18,7 @@ coop_tilleuls_click_n_collect:
       location:
         name: Name
         rrule: Recurrence rule for opening hours (iCalendar format)
-        rrule_interval: Pickup interval
+        rrule_interval: Collection interval
         rrule_hoursly: Hours
         rrule_minutely: Minutes
         rrule_days: Days of the week
