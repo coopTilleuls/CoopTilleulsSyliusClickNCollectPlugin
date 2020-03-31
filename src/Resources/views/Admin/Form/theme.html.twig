@@ -1,0 +1,85 @@
+{% extends '@SyliusAdmin/Form/theme.html.twig' %}
+
+{% block _location_rrule_row %}
+    <div class="location-rrule-row {% if required %}required {% endif %}field{% if (not compound or force_error|default(false)) and not valid %} error{% endif %}">
+        {{- form_label(form) -}}
+        <div class="ui form">
+            <div class="fields">
+                <div class="four wide field required">
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_interval'|trans }}</small></label>
+                    <div class="ui action input">
+                        <input type="number" min="1" class="location-rrule-interval-widget" placeholder="Durée" />
+                        <select class="ui compact selection dropdown location-rrule-freq-widget">
+                            {# <option value="6">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_secondly'|trans }}</option> #}
+                            <option value="5">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_minutely'|trans }}</option> {# rrule.RRule.MINUTELY #}
+                            <option value="4">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_hoursly'|trans }}</option> {# rrule.RRule.HOURLY #}
+                            {# <option value="3">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_daily'|trans }}</option> #}
+                            {# <option value="2">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekly'|trans }}</option> #}
+                            {# <option value="1">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_monhtly'|trans }}</option> #}
+                            {# <option value="0">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_yearly'|trans }}</option> #}
+                        </select>
+                    </div>
+                </div>
+                <div class="twelve wide field required location-rrule-days-row">
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_days'|trans }}</small></label>
+                    <div class="ui basic buttons location-rrule-days-widget">
+                        <label class="mini ui button">
+                            <input type="checkbox" value="MO" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.monday'|trans }}</span>
+                        </label>
+                        <label class="mini ui button">
+                            <input type="checkbox" value="TU" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.tuesday'|trans }}</span>
+                        </label>
+                        <label class="mini ui button">
+                            <input type="checkbox" value="WE" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.wednesday'|trans }}</span>
+                        </label>
+                        <label class="mini ui button">
+                            <input type="checkbox" value="TH" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.thursday'|trans }}</span>
+                        </label>
+                        <label class="mini ui button">
+                            <input type="checkbox" value="FR" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.friday'|trans }}</span>
+                        </label>
+                        <label class="mini ui button">
+                            <input type="checkbox" value="SA" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.saturday'|trans }}</span>
+                        </label>
+                        <label class="mini ui button">
+                            <input type="checkbox" value="SU" />
+                            <span>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_weekdays.sunday'|trans }}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="seven wide field required location-rrule-hours-row">
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_schedule'|trans }}</small></label>
+                    <select multiple="" class="ui fluid dropdown location-rrule-hours-widget">
+                        <option value="">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_schedule'|trans }}</option>
+                        {% for i in 0..23 %}
+                            <option value="{{ i }}">{{ i }}h</div>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="seven wide field required location-rrule-date-row">
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_dtstart'|trans }}</small></label>
+                    <input type="date" class="location-rrule-date-widget" />
+                </div>
+                <div class="four wide field location-rrule-expert-row">
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_expert'|trans }}</small></label>
+                    <div class="location-rrule-expert-widget">
+                        <button class="ui labeled icon button" type="button">
+                            <i class="cog icon"></i>
+                            {{ 'coop_tilleuls_click_n_collect.form.location.rrule_toggle'|trans }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input class="location-rrule-widget" style="display: none;" type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        {{- form_errors(form) -}}
+    </div>
+{% endblock %}

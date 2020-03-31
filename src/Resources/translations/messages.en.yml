@@ -18,6 +18,22 @@ coop_tilleuls_click_n_collect:
       location:
         name: Name
         rrule: Recurrence rule for opening hours (iCalendar format)
+        rrule_interval: Collection interval
+        rrule_hoursly: Hours
+        rrule_minutely: Minutes
+        rrule_days: Days of the week
+        rrule_weekdays:
+            monday: Mon.
+            tuesday: Tue.
+            wednesday: Wed.
+            thursday: Thu.
+            friday: Fri.
+            saturday: Sat.
+            sunday: Sun.
+        rrule_schedule: Opening hours
+        rrule_dtstart: Start date
+        rrule_expert: Advanced mode
+        rrule_toggle: Toggle
         order_preparation_delay: Order preparation delay (in minutes)
         throughput: Throughput (number of people you can serve in parallel)
         generate_pin: Enable PIN generation?

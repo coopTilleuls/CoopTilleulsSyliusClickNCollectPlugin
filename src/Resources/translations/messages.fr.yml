@@ -18,6 +18,22 @@ coop_tilleuls_click_n_collect:
         location:
             name: Nom
             rrule: Règle de récurrence pour les heures d'ouvertures (format iCalendar)
+            rrule_interval: Interval de retrait
+            rrule_hoursly: Heures
+            rrule_minutely: Minutes
+            rrule_days: Jours de la semaine
+            rrule_weekdays:
+                monday: Lun.
+                tuesday: Mar.
+                wednesday: Mer.
+                thursday: Jeu.
+                friday: Ven.
+                saturday: Sam.
+                sunday: Dim.
+            rrule_schedule: Horaires d'ouverture
+            rrule_dtstart: Date de début
+            rrule_expert: Mode Avancé
+            rrule_toggle: Afficher
             order_preparation_delay: Delai de préparation de commande (en minutes)
             throughput: Débit (nombre de personnes que vous pouvez servir en même temps)
             generate_pin: Activer la génération de codes ?
