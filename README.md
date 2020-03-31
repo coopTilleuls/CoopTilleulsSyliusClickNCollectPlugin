@@ -7,7 +7,7 @@ Because of the coronavirus pandemic, a large part of the world is under lockdown
 By allowing **contactless** pick up and preventing queues, **Sylius Click 'N' Collect** protects your workers and your customers.
 
 **Sylius Click 'N' Collect** is a plugin for the [Sylius](https://sylius.com/) eCommerce platform.
-[It's free](#license) (as in speech, and as in beer), and it's brought to you by your friends from [Les-Tilleuls.coop](https://les-tilleuls.coop).
+[It's free](#license) (as in speech, and as in beer), and it's brought to you by your friends from [Les-Tilleuls.coop](https://les-tilleuls.coop). It can also be used in addition to all the existing features and plugins of Sylius.
 
 ![CI](https://github.com/coopTilleuls/CoopTilleulsSyliusClickNCollectPlugin/workflows/CI/badge.svg)
 
@@ -21,7 +21,7 @@ As a customer:
 2. Select the products to order
 3. Select the collect location (e.g. the physical shop)
 4. Select an available time slot
-5. Pay online, or select in-store payment
+5. Pay online, or select in-store payment (Stripe and PayPal are also supported).
 6. Optional: a PIN is generated, you'll need it to retrieve the order
 7. Pick up your order at the shop during the selected time slot! Use the PIN code to unlock the box if appropriate.
 
