@@ -44,16 +44,27 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 1. [Install Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
 2. Install **Sylius Click 'N' Collect**: `composer require tilleuls/sylius-click-n-collect-plugin`
-3. Import the configuration:
+3. Register the bundle:
+
+    ```php
+    <?php
+    
+    // config/bundles.php
+
+    return [
+        // ...
+        CoopTilleuls\SyliusClickNCollectPlugin\CoopTilleulsSyliusClickNCollectPlugin::class => ['all' => true],
+    ];
+
+4. Import the configuration:
 
     ```yaml
-   # config/packages/sylius_click_n_collect.yaml
-   imports:
-       # ...
-       - { resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/app/config.yml" }
-    ```
+    # config/packages/sylius_click_n_collect.yaml
+    imports:
+        - { resource: "@CoopTilleulsSyliusClickNCollectPlugin/Resources/config/app/config.yml" }
+     ```
 
-4. Import the routes:
+5. Import the routes:
 
     ```yaml
     # config/routes/sylius_click_n_collect.yaml
@@ -68,7 +79,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
         prefix: /admin
     ```
 
-5. Update the native entities:
+6. Update the native entities:
 
     ```php
     <?php
@@ -127,15 +138,19 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
     }
     ```
 
-6. Override the templates:
+7. Override the templates:
 
-       cp -R vendor/tilleuls/SyliusClickNCollectPlugin/tests/Application/templates/* templates/
+       cp -R vendor/tilleuls/sylius-click-n-collect-plugin/tests/Application/templates/* templates
 
-7. Create and execute database migrations
-8. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
-9. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
-10. Create a dedicated shipping method
-11. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
+8. Create and execute database migrations:
+
+       bin/console doctrine:migrations:diff
+       bin/console bin/console doctrine:migrations:migrate
+
+9. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
+10. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
+11. Create a dedicated shipping method
+12. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
 
 **You're ready to sell!**
 
