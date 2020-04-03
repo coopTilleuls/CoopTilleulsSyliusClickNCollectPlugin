@@ -148,10 +148,14 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
        bin/console doctrine:migrations:diff
        bin/console bin/console doctrine:migrations:migrate
 
-9. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
-10. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
-11. Create a dedicated shipping method
-12. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
+9. Copy the assets
+
+       bin/console assets:install
+
+10. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
+11. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
+12. Create a dedicated shipping method
+13. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
 
 **You're ready to sell!**
 
