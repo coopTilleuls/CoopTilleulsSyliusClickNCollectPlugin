@@ -1,0 +1,49 @@
+coop_tilleuls_click_n_collect:
+    menu:
+      admin:
+        main:
+          sales:
+            collections: Click 'N' Collect
+          configuration:
+            locations: Локации за Click 'N' Collect
+    ui:
+      new_location: Нова локация за Click 'N' Collect
+      edit_location: Промени локация за Click 'N' Collect
+      locations: Локации за Click 'N' Collect
+      collect_details: Детайли за получаване
+      pin: 'ПИН-код:'
+      collections: Click 'N' Collect
+      change_collection_time: Промяна време за получаване
+    form:
+      location:
+        name: име
+        rrule: Правило за повторение на работното време (формат iCalendar)
+        rrule_interval: интервал на получаване
+        rrule_hoursly: Часове
+        rrule_minutely: Минути
+        rrule_days: Дни от седмицата
+        rrule_weekdays:
+            monday: Пон.
+            tuesday: Вто.
+            wednesday: Сря.
+            thursday: Четв.
+            friday: Пет.
+            saturday: Съб.
+            sunday: Нед.
+        rrule_schedule: Работно време
+        rrule_dtstart: Начална дата
+        rrule_expert: Начин за напреднали
+        rrule_toggle: Смени
+        order_preparation_delay: Време за приготвяне на поръчката (в минути)
+        throughput: Поток (колко човека едновременно могат да бъдат обслужени)
+        generate_pin: Активирай ПИН-код операции?
+        street: Улица
+        city: Град
+        postcode: Пощ. код
+        country: Държава
+        province_code: Код на област
+        province_name: име на област
+        enabled: Включено
+      shipping_method:
+        click_n_collect: Click 'N' Collect
+        locations: Локации за Click 'N' Collect

@@ -2,6 +2,7 @@
 
 $(function () {
     var config = JSON.parse($('#calendar_config').text());
+    var locale = config.locale.includes('_') ? config.locale.split('_')[0] : config.locale;
     $('input.click_n_collect_location').each(function () {
         var n = $(this).attr('id').match(/sylius_checkout_select_shipping_shipments_([0-9]+)_location/)[1];
 
@@ -30,7 +31,8 @@ $(function () {
             eventClick: function (info) {
                 $collectionTime.val(info.event.start.toISOString());
                 selectEvent(info.el);
-            }
+            },
+            locale: locale,
         });
         var calendarRendered = false;
 
