@@ -10,6 +10,10 @@
             {% for location in locations %}<option value="{{ location.code|escape('html_attr') }}">{{ location.name }}</option>{% endfor %}
         </select>
         <div id="calendar"></div>
+        {# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}
+        <script type="application/json" id="calendar_config">{{ {
+            locale: app.request.locale,
+        }|json_encode(65)|raw }}</script>
     </div>
 {% endblock %}
 

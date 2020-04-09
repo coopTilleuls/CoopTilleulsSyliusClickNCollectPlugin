@@ -1,4 +1,5 @@
 {# TODO: use a local installation and Webpack Encore, need https://github.com/Sylius/Sylius/issues/10656 #}
+{% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/locales-all.js'} %}
 {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/core@^4/main.js'} %}
 {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/daygrid@^4/main.js'} %}
 {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'https://unpkg.com/@fullcalendar/timegrid@^4/main.js'} %}

@@ -1,8 +1,12 @@
 $(function () {
+    var config = JSON.parse($('#calendar_config').text());
+    var locale = config.locale.includes('_') ? config.locale.split('_')[0] : config.locale;
+
     var calendar = new FullCalendar.Calendar($('#calendar')[0], {
         plugins: [ 'timeGrid' ],
         defaultView: 'timeGrid',
         nowIndicator: true,
+        locale: locale,
     });
     var calendarRendered = false;
 
