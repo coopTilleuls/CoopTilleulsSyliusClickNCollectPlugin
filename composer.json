@@ -4,6 +4,16 @@
     "keywords": ["sylius", "sylius-plugin", "click-and-collect", "pickup", "shipping", "covid-19"],
     "description": "Click and Collect plugin for Sylius, to sell and deliver securely during the COVID-19 pandemic.",
     "license": "AGPL-3.0-or-later",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dunglas/AdminOrderCreationPlugin"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dew326/FOSJsRoutingBundle"
+        }
+    ],
     "require": {
         "php": "^7.4",
         "simshaun/recurr": "^4.0",
@@ -11,6 +21,7 @@
         "symfony/lock": "^4.4 || ^5.0"
     },
     "require-dev": {
+        "friendsofsymfony/jsrouting-bundle": "dev-fix-duplicated-port-in-absolute-path as 2.5.3",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.0",
         "phpstan/phpstan-doctrine": "^0.12.0",
@@ -18,6 +29,7 @@
         "phpstan/phpstan-webmozart-assert": "^0.12.0",
         "phpunit/phpunit": "^8.0",
         "sensiolabs/security-checker": "^6.0",
+        "sylius/admin-order-creation-plugin": "dev-patch-1",
         "sylius-labs/coding-standard": "^3.1",
         "symfony/browser-kit": "^4.4",
         "symfony/debug-bundle": "^4.4",
