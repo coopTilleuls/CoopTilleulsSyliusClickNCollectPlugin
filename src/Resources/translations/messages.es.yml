@@ -1,0 +1,49 @@
+coop_tilleuls_click_n_collect:
+    menu:
+      admin:
+        main:
+          sales:
+            collections: Click 'N' Collect
+          configuration:
+            locations: Ubicaciones de recogida
+    ui:
+      new_location: Nueva ubicación de recogida
+      edit_location: Editar ubicación de recogida
+      locations: Ubicaciones de recogida
+      collect_details: Detalles de recogida
+      pin: 'PIN:'
+      collections: Click 'N' Collect
+      change_collection_time: Modificar el tiempo de recojo
+    form:
+      location:
+        name: Nombre
+        rrule: Regla de repetición para el horario de apertura (Formato iCalendar)
+        rrule_interval: Intervalo de recogida
+        rrule_hoursly: Horas
+        rrule_minutely: Minutos
+        rrule_days: Días de la semana
+        rrule_weekdays:
+            monday: Lun.
+            tuesday: Mar.
+            wednesday: Mie.
+            thursday: Jue.
+            friday: Vie.
+            saturday: Sab.
+            sunday: Dom.
+        rrule_schedule: Hora de apertura
+        rrule_dtstart: Fecha de inicio
+        rrule_expert: Modo avanzado
+        rrule_toggle: Alternar
+        order_preparation_delay: Retraso en la preparación del pedido (en minutos)
+        throughput: Aforo (numero de personas que se puede atender en paralelo)
+        generate_pin: ¿Habilitar generación de PIN?
+        street: Calle
+        city: Ciudad
+        postcode: Codigo Postal
+        country: País
+        province_code: Código de Provincia
+        province_name: Nombre de Provincia
+        enabled: Habilitado
+      shipping_method:
+        click_n_collect: Click 'N' Collect
+        locations: Ubicaciones de recogida
