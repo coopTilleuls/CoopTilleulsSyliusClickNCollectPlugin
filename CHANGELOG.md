@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+* Add Polish translation
+
 ## 0.1.2
 
 * Add Spanish translation
