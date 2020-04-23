@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+* Fix month select issue in the location configuration page
+
 ## 0.1.3
 
 * Add Polish translation
