@@ -156,6 +156,59 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 11. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
 12. Create a dedicated shipping method
 13. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
+14. Optionally, export commands with ClickNCollect, install this [export library](https://packagist.org/packages/friendsofsylius/sylius-import-export-plugin) and add this : 
+
+```yaml
+
+    sylius.exporter.plugin.resource.orders:
+        class: CoopTilleuls\SyliusClickNCollectPlugin\Exporter\Plugin\OrderResourcePlugin
+        arguments:
+            - "@sylius.repository.order"
+            - "@property_accessor"
+            - "@doctrine.orm.entity_manager"
+            - "@sylius.service.address_concatenation"
+            - "@sylius.exporter.orm.hydrator.orders"
+  
+
+```
+
+```yaml
+
+    sylius.exporter.pluginpool.orders:
+        class: FriendsOfSylius\SyliusImportExportPlugin\Exporter\Plugin\PluginPool
+        arguments:
+            - ["@sylius.exporter.plugin.resource.orders"]
+            - ["Number", "ClickNCollect_Location_Name", "ClickNCollect_Location_Countrycode", "ClickNCollect_Location_Street", "ClickNCollect_Location_City",  "ClickNCollect_Location_PostCode", "ClickNCollect_Pin", "ClickNCollect_CollectionTime"  ]
+        
+
+```
+
+change the header label
+
+```yaml
+
+    sylius.exporter.orders.csv:
+        class: FriendsOfSylius\SyliusImportExportPlugin\Exporter\ResourceExporter
+        arguments:
+            - "@sylius.exporter.csv_writer"
+            - "@sylius.exporter.pluginpool.orders"
+            - ["Number", "ClickNCollect_Location_Name", "ClickNCollect_Location_Countrycode", "ClickNCollect_Location_Street", "ClickNCollect_Location_City",  "ClickNCollect_Location_PostCode", "ClickNCollect_Pin", "ClickNCollect_CollectionTime"  ]
+            - "@sylius.exporters_transformer_pool"
+        tags:
+            - { name: sylius.exporter, type: sylius.order, format: csv }
+    
+
+```
+
+Here is the list of available fields: 
+    
+* ClickNCollect_Location_Name
+* ClickNCollect_Location_Countrycode
+* ClickNCollect_Location_Street
+* ClickNCollect_Location_City
+* ClickNCollect_Location_PostCode
+* ClickNCollect_Pin
+* ClickNCollect_CollectionTime
 
 **You're ready to sell!**
 
