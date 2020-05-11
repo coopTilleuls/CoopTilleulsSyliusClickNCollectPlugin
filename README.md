@@ -146,7 +146,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 8. Create and execute database migrations:
 
        bin/console doctrine:migrations:diff
-       bin/console bin/console doctrine:migrations:migrate
+       bin/console doctrine:migrations:migrate
 
 9. Copy the assets
 
