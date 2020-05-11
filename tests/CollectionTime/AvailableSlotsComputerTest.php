@@ -35,9 +35,11 @@ final class AvailableSlotsComputerTest extends TestCase
 
     public function testRecurrence(): void
     {
+        $dtstart = (new \DateTimeImmutable('first day of this month 08:00 UTC'))->format('Ymd\This');
+
         $location = new Location();
         $location->setOrderPreparationDelay(20);
-        $location->setRrule('FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200316T080000;DTEND=29990316T082000');
+        $location->setRrule(sprintf('FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=%s;DTEND=29990316T082000', $dtstart));
 
         $shipment = new Shipment();
         $shipment->setCollectionTime(new \DateTimeImmutable('next monday 10:00'));
