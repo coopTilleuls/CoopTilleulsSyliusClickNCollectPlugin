@@ -18,7 +18,7 @@ use FriendsOfSylius\SyliusImportExportPlugin\Exporter\Plugin\OrderResourcePlugin
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Model\Shipment;
 
-class OrderResourcePlugin extends BaseOrderResourcePlugin
+final class OrderResourcePlugin extends BaseOrderResourcePlugin
 {
     public function init(array $idsToExport): void
     {
