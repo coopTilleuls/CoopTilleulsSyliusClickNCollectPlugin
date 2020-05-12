@@ -157,6 +157,10 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 12. Create a dedicated shipping method
 13. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
 
+**Export data**
+
+see [docs/exports.md](docs/exports.md)
+
 **You're ready to sell!**
 
 # License

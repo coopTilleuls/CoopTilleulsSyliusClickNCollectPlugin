@@ -54,9 +54,9 @@ class ShopTest extends PantherTestCase
             document.evaluate('//label[text()="Click \'N\' Collect"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.click();
         JS);
 
-        $client->waitFor('.fc-event');
+        $client->waitFor('.fc-event-container');
         $client->executeScript(<<<JS
-            document.querySelector('.fc-event').click();
+            document.querySelector('.fc-event-container').click();
         JS);
 
         $client->submitForm('Next'); // Shipping
