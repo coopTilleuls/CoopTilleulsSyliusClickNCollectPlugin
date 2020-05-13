@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         date: document.querySelector('.location-rrule-date-widget'),
         expert: document.querySelector('.location-rrule-expert-widget button'),
         input: document.querySelector('.location-rrule-widget'),
+        dtend: document.querySelector('.location-rrule-dtend-widget')
     }
 
     var locationRRule = new rrule.RRule.fromString(DEFAULT_RRULE_STRING)
@@ -67,6 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return hour + 'h'
         }))
         fields.date.value = (locationRRule.options.dtstart || new Date(Date.UTC)).toISOString().slice(0,10)
+        if (locationRRule.options.count !== null) {
+            var endDate = locationRRule.all()[locationRRule.all().length - 1]
+            fields.dtend.value = endDate.toISOString().slice(0, 10)
+        }
     }
 
     function listen() {
@@ -108,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
         })
 
-        fields.date.addEventListener('change', function() {
+        fields.date.addEventListener('change', function () {
             var date = new Date(this.value)
 
             apply({
@@ -122,10 +127,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 ),
             })
         })
+        fields.dtend.addEventListener('change', function () {
+            var date = new Date(this.value);
+
+            if (date.toString() === 'Invalid Date') {
+                return;
+            }
+            apply({
+                endDate: new Date(
+                    Date.UTC(
+                        date.getFullYear(),
+                        date.getMonth(),
+                        date.getDate()
+                    )
+                ),
+            })
+
+        })
     }
 
     function apply(changes) {
         var dtstart = (changes.dtstart || locationRRule.options.dtstart)
+        var endDate = (changes.endDate)
         var openingHours = Array.prototype.slice.call(changes.byhour || locationRRule.options.byhour || [8])
             .sort(function(a, b) {
                 return a - b
@@ -143,11 +166,15 @@ document.addEventListener('DOMContentLoaded', function() {
         ))
 
         var dtend = new Date(dtstart)
-        
-        if (locationRRule.options.freq === rrule.RRule.HOURLY) {
-            dtend.setUTCHours(dtstart.getUTCHours() + locationRRule.options.interval)
-        } else if (locationRRule.options.freq === rrule.RRule.MINUTELY) {
-            dtend.setUTCMinutes(dtstart.getUTCMinutes() + locationRRule.options.interval)
+        if (endDate instanceof Date) {
+            dtend = endDate
+
+        } else {
+            if (locationRRule.options.freq === rrule.RRule.HOURLY) {
+                dtend.setUTCHours(dtstart.getUTCHours() + locationRRule.options.interval)
+            } else if (locationRRule.options.freq === rrule.RRule.MINUTELY) {
+                dtend.setUTCMinutes(dtstart.getUTCMinutes() + locationRRule.options.interval)
+            }
         }
 
         fields.input.value = locationRRule.toString()

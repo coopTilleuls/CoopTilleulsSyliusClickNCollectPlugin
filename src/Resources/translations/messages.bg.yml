@@ -32,6 +32,7 @@ coop_tilleuls_click_n_collect:
             sunday: Нед.
         rrule_schedule: Работно време
         rrule_dtstart: Начална дата
+        rrule_dtend: Крайна дата
         rrule_expert: Начин за напреднали
         rrule_toggle: Смени
         order_preparation_delay: Време за приготвяне на поръчката (в минути)

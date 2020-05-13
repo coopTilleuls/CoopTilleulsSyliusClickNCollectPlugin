@@ -32,6 +32,7 @@ coop_tilleuls_click_n_collect:
             sunday: Sun.
         rrule_schedule: Opening hours
         rrule_dtstart: Start date
+        rrule_dtend: End date
         rrule_expert: Advanced mode
         rrule_toggle: Toggle
         order_preparation_delay: Order preparation delay (in minutes)
