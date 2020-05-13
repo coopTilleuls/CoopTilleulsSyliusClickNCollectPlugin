@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.5
+
+* Add endate by count
+* Addition of ClickNCollect resources for export of orders
+* Fix unit test with current month
+* Fix typo on db migrate command in README.md
+
 ## 0.1.4
 
 * Fix month select issue in the location configuration page
