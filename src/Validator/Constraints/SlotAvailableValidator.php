@@ -51,6 +51,10 @@ final class SlotAvailableValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, ClickNCollectShipmentInterface::class);
         }
 
+        if ((null === $method = $value->getMethod()) || !$method->isClickNCollect()) {
+            return;
+        }
+
         if (null === $collectionTime = $value->getCollectionTime()) {
             return;
         }
