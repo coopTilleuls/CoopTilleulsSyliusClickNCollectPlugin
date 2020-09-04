@@ -19,6 +19,7 @@
         <env name="SHELL_VERBOSITY" value="-1" />
         <server name="PANTHER_APP_ENV" value="panther" />
         <server name="PANTHER_WEB_SERVER_DIR" value="./tests/Application/public" />
+        <server name="PANTHER_CHROME_DRIVER_BINARY" value="./tests/config/chromedriver" />
     </php>
 
     <extensions>
