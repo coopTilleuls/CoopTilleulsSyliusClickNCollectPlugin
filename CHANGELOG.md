@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+* Fix: Switch unpkg.com with jakubroztocil.github.io
+* Fix(ci): use custom chromedriver for PHPunit & Panther
+
 ## 0.1.5
 
 * Add endate by count
