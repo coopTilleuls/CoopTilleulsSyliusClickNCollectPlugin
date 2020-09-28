@@ -39,7 +39,7 @@ final class SlotAvailableValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof SlotAvailable) {
+        if (!$constraint instanceof SlotAvailableInterface) {
             throw new UnexpectedTypeException($constraint, Rrule::class);
         }
 
