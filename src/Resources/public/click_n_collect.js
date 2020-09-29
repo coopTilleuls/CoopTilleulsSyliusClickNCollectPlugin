@@ -25,7 +25,7 @@ $(function () {
             },
             eventColor: config.unselectedBackgroundColor,
             eventRender: function (info) {
-                if (info.event.id !== $collectionTime.val()) return;
+                if (info.event.id.slice(0, 19) !== $collectionTime.val().slice(0, 19)) return;
                 selectEvent(info.el);
             },
             eventClick: function (info) {
