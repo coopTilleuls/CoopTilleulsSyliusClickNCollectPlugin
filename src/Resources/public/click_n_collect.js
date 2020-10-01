@@ -109,4 +109,27 @@ $(function () {
             }
         }
     });
+
+    var $form = $('form[name="sylius_checkout_select_shipping"]')[0];
+    $form.onsubmit = function (e) {
+        var valid = $($form).serializeArray()
+            .filter((input, foo, inputs) => {
+                var matches = input.name.match(/sylius_checkout_select_shipping\[shipments\]\[(\d+)\]\[collectionTime\]/);
+                if (!matches) {
+                    return false;
+                }
+
+                var n = matches[1];
+                var method = inputs.find(i => i.name === 'sylius_checkout_select_shipping[shipments]['+n+'][method]');
+
+                return method && method.value === 'click_n_collect';
+            })
+            .every(input => !!input.value);
+
+        if (!valid) {
+            e.preventDefault();
+            $($form).removeClass('loading');
+            alert(config.messages.noSlotSelected);
+        }
+    };
 });

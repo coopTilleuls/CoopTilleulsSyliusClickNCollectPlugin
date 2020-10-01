@@ -14,6 +14,7 @@ coop_tilleuls_click_n_collect:
       pin: 'PIN:'
       collections: Click 'N' Collect
       change_collection_time: Modificar el tiempo de recojo
+      noSlotSelected: No se ha seleccionado un calendario de retirada
     form:
       location:
         name: Nombre

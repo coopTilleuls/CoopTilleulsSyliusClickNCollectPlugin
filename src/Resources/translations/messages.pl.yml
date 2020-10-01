@@ -14,6 +14,7 @@ coop_tilleuls_click_n_collect:
       pin: 'PIN:'
       collections: Click 'N' Collect
       change_collection_time: Zmień czas odbioru
+      noSlotSelected: Nie wybrano harmonogramu wypłat
     form:
       location:
         name: Nazwa
