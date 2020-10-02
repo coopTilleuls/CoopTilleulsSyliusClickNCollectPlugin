@@ -55,8 +55,10 @@ class ShopTest extends PantherTestCase
         JS);
 
         $client->waitFor('.fc-event-container');
+        $client->waitFor('.fc-time[data-start]');
         $client->executeScript(<<<JS
             document.querySelector('.fc-event-container').click();
+            Array.from(document.querySelectorAll('.fc-time[data-start]')).pop().click();
         JS);
 
         $client->submitForm('Next'); // Shipping

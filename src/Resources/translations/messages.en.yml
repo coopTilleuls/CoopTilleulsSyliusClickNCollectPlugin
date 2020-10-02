@@ -14,6 +14,7 @@ coop_tilleuls_click_n_collect:
       pin: 'PIN:'
       collections: Click 'N' Collect
       change_collection_time: Change collection time
+      noSlotSelected: No pick-up schedule selected
     form:
       location:
         name: Name
