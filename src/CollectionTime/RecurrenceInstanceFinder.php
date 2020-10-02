@@ -39,7 +39,7 @@ final class RecurrenceInstanceFinder implements RecurrenceInstanceFinderInterfac
             throw new \InvalidArgumentException('This shipment has no associated location.');
         }
 
-        foreach (($this->computer)($shipment, $location, $collectionTime->sub(new \DateInterval('PT1S')), $collectionTime->add(new \DateInterval('PT1S')), false) as $recurrence) {
+        foreach (($this->computer)($shipment, $location, $collectionTime->sub(new \DateInterval('PT12H')), $collectionTime->add(new \DateInterval('PT12H')), false) as $recurrence) {
             if ($collectionTime == $recurrence->getStart()) {
                 return $recurrence;
             }
