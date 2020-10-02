@@ -41,6 +41,7 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
      */
     public function __invoke(ClickNCollectShipmentInterface $shipment, LocationInterface $location, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $endDate = null, bool $onlyFuture = true, int $limit = 732): array
     {
+        $ruleStartDate = $startDate;
         $minStartDate = new \DateTimeImmutable(sprintf('+%d minutes', $location->getOrderPreparationDelay()));
         if (null === $startDate || ($onlyFuture && $startDate < $minStartDate)) {
             $startDate = $minStartDate;
@@ -52,9 +53,17 @@ final class AvailableSlotsComputer implements AvailableSlotsComputerInterface
             throw new \InvalidArgumentException(sprintf('Invalid date range %s - %s (1 month max).', $startDate->format(\DateTime::ATOM), $endDate->format(\DateTime::ATOM)));
         }
 
+        $rule = new Rule($location->getRrule());
+
+        if ($ruleStartDate) {
+            $ruleEndDate = $ruleStartDate->add($rule->getStartDate()->diff($rule->getEndDate()));
+            $rule->setStartDate($ruleStartDate);
+            $rule->setEndDate(\DateTime::createFromImmutable($ruleEndDate));
+        }
+
         $fullSlots = $this->collectionTimeRepository->findFullSlots($location, $startDate, $endDate);
         $recurrences = (new ArrayTransformer((new ArrayTransformerConfig())->setVirtualLimit($limit)))->transform(
-            new Rule($location->getRrule()),
+            $rule,
             new BetweenConstraint($startDate, $endDate)
         );
 

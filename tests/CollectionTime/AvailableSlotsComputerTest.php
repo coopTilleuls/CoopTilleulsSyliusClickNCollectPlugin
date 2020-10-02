@@ -53,4 +53,23 @@ final class AvailableSlotsComputerTest extends TestCase
 
         $this->assertCount(8, $recurrences);
     }
+
+    public function testLongRule(): void
+    {
+        $location = new Location();
+        $location->setOrderPreparationDelay(20);
+        $location->setRrule('FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000;DTEND=20200328T082000');
+
+        $shipment = new Shipment();
+        $shipment->setCollectionTime(new \DateTimeImmutable('next monday 10:00'));
+        $shipment->setLocation($location);
+
+        $collectionTimeRepositoryProphecy = $this->prophesize(CollectionTimeRepositoryInterface::class);
+        $collectionTimeRepositoryProphecy->findFullSlots(Argument::cetera())->willReturn([$shipment->getCollectionTime(), new \DateTimeImmutable('next monday 10:20')]);
+
+        $computer = new AvailableSlotsComputer($collectionTimeRepositoryProphecy->reveal());
+        $recurrences = $computer->__invoke($shipment, $location, new \DateTimeImmutable('next monday 08:00'), new \DateTimeImmutable('next monday 12:00'));
+
+        $this->assertCount(8, $recurrences);
+    }
 }
