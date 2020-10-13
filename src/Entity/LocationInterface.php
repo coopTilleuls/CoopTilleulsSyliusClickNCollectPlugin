@@ -60,9 +60,9 @@ interface LocationInterface extends ResourceInterface, CodeAwareInterface, Times
 
     /**
      * A valid RFC5545 recurrence rule (RRULE).
-     * Example: Every 20 minutes from 9:00 AM to 4:40 PM every weekday.
+     * Example: Every 20 minutes from 9:00 AM to 4:00 PM every weekday, starting from 16/03/2020 and ending the 28/03/2020.
      *
-     * FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200316T080000;DTEND=20200316T082000
+     * FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200316T080000;DTEND=20200328T170000
      *
      * @see https://tools.ietf.org/html/rfc5545#section-3.8.5.3
      */

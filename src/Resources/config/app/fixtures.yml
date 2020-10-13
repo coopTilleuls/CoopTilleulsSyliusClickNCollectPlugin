@@ -36,7 +36,7 @@ sylius_fixtures:
                 city: Lomme
                 postcode: '59160'
                 country_code: FR
-                rrule: FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000;DTEND=20200328T082000
+                rrule: FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000
                 order_preparation_delay: 20
                 throughput: 2
                 generate_pin: false
@@ -47,7 +47,7 @@ sylius_fixtures:
                 city: Paris
                 postcode: '75100'
                 country_code: FR
-                rrule: FREQ=MINUTELY;INTERVAL=30;BYHOUR=10,11,12,15,16;BYDAY=TU,WE,TH,FR;DTSTART=20200328T080000;DTEND=20200328T082000
+                rrule: FREQ=MINUTELY;INTERVAL=30;BYHOUR=10,11,12,15,16;BYDAY=TU,WE,TH,FR;DTSTART=20200328T080000
                 order_preparation_delay: 30
                 throughput: 1
                 generate_pin: true
