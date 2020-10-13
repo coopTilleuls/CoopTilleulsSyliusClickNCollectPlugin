@@ -14,23 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
         date: document.querySelector('.location-rrule-date-widget'),
         dtend: document.querySelector('.location-rrule-dtend-widget'),
         expert: document.querySelector('.location-rrule-expert-widget button'),
-        input: document.querySelector('.location-rrule-widget')
+        input: document.querySelector('.location-rrule-widget'),
+        rrule: document.getElementById('location_rrule')
     }
 
     var locationRRule = new rrule.RRule.fromString(DEFAULT_RRULE_STRING)
-    var dtendDate = (searchValue = fields.input.value.match(/;DTEND=(:?[^;]*)/))
-        ? new Date(`${searchValue[1].substring(0,4)}-${searchValue[1].substring(4,6)}-${searchValue[1].substring(6,8)}`)
-        : undefined
-
-    if (dtendDate) {
-        try {
-            locationRRule = rrule.RRule.fromString(fields.input.value.replace(/;?DTEND=[^;]*/, '')) // remove DTEND, rrule doesn't support it
-        } catch (e) {
-            console.warn('Error on Location RRule parsing:', e)
-        }
-    } else {
-        locationRRule = rrule.RRule.fromString(fields.input.value)
-    }
+    var dtendDate
 
     function bootstrap() {
         // Checkbox
@@ -58,6 +47,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function hydrate() {
+        // rrule doesn't support DTEND yet (https://github.com/jakubroztocil/rrule/pull/421)
+        dtendDate = (searchValue = fields.input.value.match(/;DTEND=(:?[^;]*)/))
+            ? new Date(`${searchValue[1].substring(0,4)}-${searchValue[1].substring(4,6)}-${searchValue[1].substring(6,8)}`)
+            : undefined
+
+        try {
+            locationRRule = rrule.RRule.fromString(fields.input.value.replace(/;?DTEND=[^;]*/, '')) // remove DTEND
+        } catch (e) {
+            console.warn('Error on Location RRule parsing: ', e)
+        }
+
         fields.interval.value = locationRRule.options.interval
         // Use semantic-ui method to update text and imit to "HOURSLY" and "MINUTELY"
         $(fields.freq).dropdown('set selected', [rrule.RRule.HOURLY, rrule.RRule.MINUTELY].indexOf(locationRRule.options.freq) !== -1 ? locationRRule.options.freq : rrule.RRule.MINUTELY)
@@ -70,14 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 day.parentNode.classList.remove('active')
             }
         })
-        $(fields.hours).dropdown('set selected', (locationRRule.options.byhour || []).map(function(hour) {
+        $(fields.hours).dropdown('set exactly', (locationRRule.options.byhour || []).map(function(hour) {
             return hour + 'h'
         }))
-        fields.date.value = (locationRRule.options.dtstart || new Date(Date.UTC)).toISOString().slice(0,10)
-
-        if (dtendDate !== undefined) {
-            fields.dtend.value = dtendDate.toISOString().slice(0, 10)
-        }
+        fields.date.value = (locationRRule.options.dtstart || new Date(Date.UTC)).toISOString().slice(0, 10)
+        fields.dtend.value = dtendDate && 'Invalid Date' !== dtendDate.toString() ? dtendDate.toISOString().slice(0, 10) : undefined
     }
 
     function listen() {
@@ -124,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if ('Invalid Date' === date.toString()) {
                 return
             }
+
             apply({
                 dtstart: new Date(
                     // Advise from RRule library
@@ -137,10 +135,14 @@ document.addEventListener('DOMContentLoaded', function() {
         })
 
         fields.dtend.addEventListener('change', function () {
-            var date = new Date(this.value)
-            if ('Invalid Date' === date.toString()) {
-                dtendDate = undefined
+            var date = new Date(this.value);
+            if (date.toString() === 'Invalid Date') {
+                apply({
+                    dtend: false,
+                })
+                return;
             }
+
             apply({
                 dtend: new Date(
                     // Advise from RRule library
@@ -151,27 +153,41 @@ document.addEventListener('DOMContentLoaded', function() {
                     )
                 ),
             })
+        })
 
+        fields.rrule.addEventListener('change', function () {
+            hydrate()
         })
     }
 
     function apply(changes) {
-        var dtstart = (changes.dtstart || locationRRule.options.dtstart)
-        var openingHours = Array.prototype.slice.call(changes.byhour || locationRRule.options.byhour || [8])
+        var dtstart = changes.dtstart || locationRRule.options.dtstart
+        var dtend = changes.dtend || dtendDate
+        // Force remove dtend
+        if (false === changes.dtend) {
+            dtend = undefined
+        }
+        // rrule doesn't support DTEND
+        delete changes.dtend
+        var openingHours = Array.prototype.slice.call(changes.byhour || locationRRule.options.byhour || [8])
             .sort(function(a, b) {
                 return a - b
             })
+
         dtstart.setUTCHours(openingHours[0])
         dtstart.setUTCMinutes(0)
         dtstart.setUTCSeconds(0)
+        if (dtend) {
+            dtend.setUTCHours(openingHours[openingHours.length - 1] + 1)
+        }
 
-        const {dtend: dtendNewDate, ...locationRRuleNewValue} = changes
         locationRRule = new rrule.RRule(Object.assign(
             {},
             locationRRule.options,
-            locationRRuleNewValue,
+            changes,
             { dtstart },
         ))
+        dtendDate = dtend
 
         fields.input.value = locationRRule.toString()
             // fix RRule format
@@ -180,21 +196,18 @@ document.addEventListener('DOMContentLoaded', function() {
             .replace(/;?WKST=MO/, '')
             .replace(/;?BYMINUTE=0/, '')
             .replace(/;?BYSECOND=0/, '')
-
-        var dtend = dtendNewDate || dtendDate
-        if (undefined !== dtend && 'Invalid Date' !== dtend.toString()) {
-            dtend.setUTCHours(openingHours[openingHours.length - 1] + 1)
-            fields.input.value += [
+        + (dtend
+            ? [
                 ';DTEND=',
                 dtend.getUTCFullYear().toString().padStart(4, '0'),
-                `${(parseInt(dtend.getUTCMonth().toString().padStart(2, '0'), 10) + 1)}`.padStart(2, '0'),
+                (dtend.getUTCMonth() + 1).toString().padStart(2, '0'),
                 dtend.getUTCDate().toString().padStart(2, '0'),
                 'T',
                 dtend.getUTCHours().toString().padStart(2, '0'),
                 dtend.getUTCMinutes().toString().padStart(2, '0'),
-                dtend.getUTCSeconds().toString().padStart(2, '0'),
+                dtend.getUTCSeconds().toString().padStart(2, '0')
             ].join('')
-        }
+            : '')
     }
 
     bootstrap()
