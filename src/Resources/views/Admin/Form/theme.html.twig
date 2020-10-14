@@ -6,9 +6,18 @@
         <div class="ui form">
             <div class="fields">
                 <div class="four wide field required">
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_duration'|trans }}</small></label>
+                    <div class="ui right labeled input">
+                        <input type="number" min="1" class="location-rrule-duration-widget" placeholder="{{ 'coop_tilleuls_click_n_collect.form.location.rrule_duration_placeholder'|trans }}" />
+                        <div class="ui basic label">
+                            minutes
+                        </div>
+                    </div>
+                </div>
+                <div class="four wide field required">
                     <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_interval'|trans }}</small></label>
                     <div class="ui action input">
-                        <input type="number" min="1" class="location-rrule-interval-widget" placeholder="Durée" />
+                        <input type="number" min="1" class="location-rrule-interval-widget" placeholder="{{ 'coop_tilleuls_click_n_collect.form.location.rrule_interval_placeholder'|trans }}" />
                         <select class="ui compact selection dropdown location-rrule-freq-widget">
                             {# <option value="6">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_secondly'|trans }}</option> #}
                             <option value="5">{{ 'coop_tilleuls_click_n_collect.form.location.rrule_minutely'|trans }}</option> {# rrule.RRule.MINUTELY #}
@@ -20,6 +29,8 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="fields">
                 <div class="twelve wide field required location-rrule-days-row">
                     <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_days'|trans }}</small></label>
                     <div class="ui basic buttons location-rrule-days-widget">
@@ -69,8 +80,8 @@
                     <input type="date" class="location-rrule-date-widget" />
                 </div>
                 <div class="seven wide field location-rrule-date-row">
-                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_dtend'|trans }}</small></label>
-                    <input type="date" class="location-rrule-dtend-widget" />
+                    <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_until'|trans }}</small></label>
+                    <input type="date" class="location-rrule-until-widget" />
                 </div>
                 <div class="four wide field location-rrule-expert-row">
                     <label><small>{{ 'coop_tilleuls_click_n_collect.form.location.rrule_expert'|trans }}</small></label>

@@ -67,7 +67,7 @@ final class LocationExampleFactory extends AbstractExampleFactory
             })
             ->setDefault('province_code', null)
             ->setDefault('province_name', null)
-            ->setDefault('rrule', 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000')
+            ->setDefault('rrule', 'FREQ=MINUTELY;INTERVAL=20;BYHOUR=9,10,11,12,13,14,15,16;BYDAY=MO,TU,WE,TH,FR;DTSTART=20200328T080000;DTEND=20200328T082000')
             ->setDefault('order_preparation_delay', function (): int {
                 return $this->faker->numberBetween(0, 1440);
             })
