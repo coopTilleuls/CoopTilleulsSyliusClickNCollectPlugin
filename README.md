@@ -151,6 +151,7 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
 9. Copy the assets
 
        bin/console assets:install
+       bin/console sylius:theme:assets:install
 
 10. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
 11. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
