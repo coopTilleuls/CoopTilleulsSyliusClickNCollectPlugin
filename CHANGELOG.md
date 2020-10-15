@@ -1,6 +1,17 @@
 # Changelog
 
+## 0.2.0
+
+* Add SlotAvailableInterface
+* Add new duration field
+* Fix end date field
+* Do not validate if the shipping method is not click and collect
+* Check for slot selection before submitting
+* Fix slots not displayed if the rule contains more than one month old dates
+* Fix shipment choice modification in order tunnel when the plugin is active
+
 ## 0.1.6
+
 * Fix: Switch unpkg.com with jakubroztocil.github.io
 * Fix(ci): use custom chromedriver for PHPunit & Panther
 
