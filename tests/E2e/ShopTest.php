@@ -28,7 +28,7 @@ class ShopTest extends PantherTestCase
         $client = self::createPantherClient();
 
         $crawler = $client->request('GET', '/');
-        $this->assertPageTitleContains('Sylius');
+        $this->assertPageTitleContains('Fashion Web Store');
 
         $client->click($crawler->filter('a.sylius-product-name')->link());
 
