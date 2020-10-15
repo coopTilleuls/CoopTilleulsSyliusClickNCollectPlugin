@@ -26,6 +26,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\Shipment;
+use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\ShippingMethod;
 
 /**
  * @author Kévin Dunglas <dunglas@gmail.com>
@@ -82,8 +83,11 @@ final class SlotAvailableValidatorTest extends ConstraintValidatorTestCase
     {
         $ct = new \DateTimeImmutable('2019-01-03', new \DateTimeZone('UTC'));
 
+        $sm = new ShippingMethod();
+        $sm->addLocation(new Location());
         $s = new Shipment();
         $s->setCollectionTime($ct);
+        $s->setMethod($sm);
 
         $constraint = new SlotAvailable();
         $constraint->message = 'myMessage';
