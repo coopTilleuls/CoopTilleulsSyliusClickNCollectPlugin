@@ -19,7 +19,11 @@ coop_tilleuls_click_n_collect:
         location:
             name: Nom
             rrule: Règle de récurrence pour les heures d'ouvertures (format iCalendar)
-            rrule_interval: Interval de retrait
+            rrule_duration: Durée de retrait
+            rrule_duration_placeholder: Durée
+            rrule_duration_minutes: minutes
+            rrule_interval: Intervalle de retrait
+            rrule_interval_placeholder: Durée
             rrule_hoursly: Heures
             rrule_minutely: Minutes
             rrule_days: Jours de la semaine
@@ -33,7 +37,7 @@ coop_tilleuls_click_n_collect:
                 sunday: Dim.
             rrule_schedule: Horaires d'ouverture
             rrule_dtstart: Date de début
-            rrule_dtend: Date de fin
+            rrule_until: Date de fin
             rrule_expert: Mode Avancé
             rrule_toggle: Afficher
             order_preparation_delay: Delai de préparation de commande (en minutes)

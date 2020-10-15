@@ -19,7 +19,11 @@ coop_tilleuls_click_n_collect:
       location:
         name: Name
         rrule: Recurrence rule for opening hours (iCalendar format)
+        rrule_duration: Collection duration
+        rrule_duration_placeholder: Duration
+        rrule_duration_minutes: minutes
         rrule_interval: Collection interval
+        rrule_interval_placeholder: Duration
         rrule_hoursly: Hours
         rrule_minutely: Minutes
         rrule_days: Days of the week
@@ -33,7 +37,7 @@ coop_tilleuls_click_n_collect:
             sunday: Sun.
         rrule_schedule: Opening hours
         rrule_dtstart: Start date
-        rrule_dtend: End date
+        rrule_until: End date
         rrule_expert: Advanced mode
         rrule_toggle: Toggle
         order_preparation_delay: Order preparation delay (in minutes)
