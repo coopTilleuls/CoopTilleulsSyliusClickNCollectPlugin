@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\EventListener;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShippingMethodInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
@@ -83,7 +84,12 @@ final class ShipmentCollectionTimeLockListener
 
         $filteredShipments = [];
         foreach ($order->getShipments() as $shipment) {
-            if ($shipment instanceof ClickNCollectShipmentInterface && null !== $shipment->getCollectionTime()) {
+            if (
+                $shipment instanceof ClickNCollectShipmentInterface
+                && null !== $shipment->getCollectionTime()
+                && $shipment->getMethod() instanceof ClickNCollectShippingMethodInterface
+                && $shipment->getMethod()->isClickNCollect()
+            ) {
                 $filteredShipments[] = $shipment;
             }
         }
