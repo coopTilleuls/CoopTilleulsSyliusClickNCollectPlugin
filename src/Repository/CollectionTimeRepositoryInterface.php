@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 
 /**
@@ -41,5 +40,5 @@ interface CollectionTimeRepositoryInterface
      *
      * @return ClickNCollectShipmentInterface[]
      */
-    public function findShipments(Location $location, \DateTimeInterface $start, \DateTimeInterface $end): array;
+    public function findShipments(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array;
 }

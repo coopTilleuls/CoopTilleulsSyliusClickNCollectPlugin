@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Repository;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -82,7 +81,7 @@ final class CollectionTimeRepository implements CollectionTimeRepositoryInterfac
     /**
      * {@inheritdoc}
      */
-    public function findShipments(Location $location, \DateTimeInterface $start, \DateTimeInterface $end): array
+    public function findShipments(LocationInterface $location, \DateTimeInterface $start, \DateTimeInterface $end): array
     {
         return $this->entityManager->createQuery(<<<DQL
             SELECT s
