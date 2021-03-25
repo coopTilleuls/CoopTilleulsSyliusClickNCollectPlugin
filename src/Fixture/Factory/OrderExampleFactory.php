@@ -15,7 +15,7 @@ namespace CoopTilleuls\SyliusClickNCollectPlugin\Fixture\Factory;
 
 use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\AvailableSlotsComputerInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClickNCollectShipmentInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Sylius\Bundle\CoreBundle\Fixture\Factory\OrderExampleFactory as BaseOrderExampleFactory;
 use Sylius\Component\Core\Checker\OrderPaymentMethodSelectionRequirementCheckerInterface;
@@ -35,7 +35,7 @@ class OrderExampleFactory extends BaseOrderExampleFactory
 {
     private AvailableSlotsComputerInterface $availableSlotsComputer;
 
-    public function __construct(FactoryInterface $orderFactory, FactoryInterface $orderItemFactory, OrderItemQuantityModifierInterface $orderItemQuantityModifier, ObjectManager $orderManager, RepositoryInterface $channelRepository, RepositoryInterface $customerRepository, ProductRepositoryInterface $productRepository, RepositoryInterface $countryRepository, PaymentMethodRepositoryInterface $paymentMethodRepository, ShippingMethodRepositoryInterface $shippingMethodRepository, FactoryInterface $addressFactory, StateMachineFactoryInterface $stateMachineFactory, OrderShippingMethodSelectionRequirementCheckerInterface $orderShippingMethodSelectionRequirementChecker, OrderPaymentMethodSelectionRequirementCheckerInterface $orderPaymentMethodSelectionRequirementChecker, AvailableSlotsComputerInterface $availableSlotsComputer)
+    public function __construct(FactoryInterface $orderFactory, FactoryInterface $orderItemFactory, OrderItemQuantityModifierInterface $orderItemQuantityModifier, EntityManagerInterface $orderManager, RepositoryInterface $channelRepository, RepositoryInterface $customerRepository, ProductRepositoryInterface $productRepository, RepositoryInterface $countryRepository, PaymentMethodRepositoryInterface $paymentMethodRepository, ShippingMethodRepositoryInterface $shippingMethodRepository, FactoryInterface $addressFactory, StateMachineFactoryInterface $stateMachineFactory, OrderShippingMethodSelectionRequirementCheckerInterface $orderShippingMethodSelectionRequirementChecker, OrderPaymentMethodSelectionRequirementCheckerInterface $orderPaymentMethodSelectionRequirementChecker, AvailableSlotsComputerInterface $availableSlotsComputer)
     {
         parent::__construct($orderFactory, $orderItemFactory, $orderItemQuantityModifier, $orderManager, $channelRepository, $customerRepository, $productRepository, $countryRepository, $paymentMethodRepository, $shippingMethodRepository, $addressFactory, $stateMachineFactory, $orderShippingMethodSelectionRequirementChecker, $orderPaymentMethodSelectionRequirementChecker);
         $this->availableSlotsComputer = $availableSlotsComputer;
