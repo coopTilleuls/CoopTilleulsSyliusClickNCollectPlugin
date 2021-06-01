@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use Doctrine\Persistence\ObjectRepository;
 use Sylius\Bundle\CoreBundle\Form\Type\Checkout\ShipmentType;
 use Symfony\Component\Form\AbstractTypeExtension;
@@ -41,9 +41,9 @@ final class ShipmentTypeExtension extends AbstractTypeExtension
                 $builder->create('location', HiddenType::class, [
                     'required' => false,
                     'attr' => ['class' => 'click_n_collect_location'],
-                ])->addModelTransformer(new CallbackTransformer(function (?Location $location): string {
+                ])->addModelTransformer(new CallbackTransformer(function (?LocationInterface $location): string {
                     return $location ? (string) $location->getCode() : '';
-                }, function (?string $code): ?Location {
+                }, function (?string $code): ?LocationInterface {
                     if ('' === $code || null === $code) {
                         return null;
                     }

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Controller;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use Doctrine\Persistence\ObjectRepository;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -42,7 +42,7 @@ final class LocationsController
         }
 
         // TODO: do this at the SQL layer in a repository, at the same do a proper JOIN...
-        $locations = $shippingMethod->getLocations()->filter(function (Location $p) {
+        $locations = $shippingMethod->getLocations()->filter(function (LocationInterface $p) {
             return $p->isEnabled();
         });
 

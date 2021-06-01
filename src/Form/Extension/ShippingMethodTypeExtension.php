@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Form\Extension;
 
-use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use Doctrine\ORM\EntityRepository;
 use Sylius\Bundle\ShippingBundle\Form\Type\ShippingMethodType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,11 +25,21 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class ShippingMethodTypeExtension extends AbstractTypeExtension
 {
+    /**
+     * @var class-string<LocationInterface>
+     */
+    private string $locationDataClass;
+
+    public function __construct(string $locationDataClass)
+    {
+        $this->locationDataClass = $locationDataClass;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('locations', EntityType::class, [
-                'class' => Location::class,
+                'class' => $this->locationDataClass,
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
