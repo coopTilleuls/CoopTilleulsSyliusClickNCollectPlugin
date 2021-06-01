@@ -5,7 +5,7 @@
     "description": "Click and Collect plugin for Sylius, to sell and deliver securely during the COVID-19 pandemic.",
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": "^7.4",
+        "php": ">=7.4",
         "simshaun/recurr": "^4.0",
         "sylius/sylius": "^1.7",
         "symfony/lock": "^4.4 || ^5.0"
@@ -42,5 +42,7 @@
     },
     "conflict": {
         "doctrine/inflector": "^1.4"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
