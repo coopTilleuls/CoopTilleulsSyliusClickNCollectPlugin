@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
-use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableInterface;
 
 /**
  * Checks if a time slot is available.

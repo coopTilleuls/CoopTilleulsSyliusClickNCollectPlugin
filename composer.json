@@ -11,22 +11,23 @@
         "symfony/lock": "^4.4 || ^5.0"
     },
     "require-dev": {
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.0",
         "phpstan/phpstan-doctrine": "^0.12.0",
         "phpstan/phpstan-strict-rules": "^0.12.0",
         "phpstan/phpstan-webmozart-assert": "^0.12.0",
-        "phpunit/phpunit": "^8.0",
-        "sensiolabs/security-checker": "^6.0",
-        "sylius-labs/coding-standard": "^3.1",
-        "symfony/browser-kit": "^4.4",
-        "symfony/debug-bundle": "^4.4",
-        "symfony/dotenv": "^4.4",
-        "symfony/intl": "^4.4",
-        "symfony/panther": "^0.7.1",
-        "symfony/web-profiler-bundle": "^4.4",
-        "symfony/web-server-bundle": "^4.4"
+        "phpunit/phpunit": "^9.0",
+        "sylius-labs/coding-standard": "^4.0",
+        "symfony/browser-kit": "^4.4 || ^5.0",
+        "symfony/debug-bundle": "^4.4 || ^5.0",
+        "symfony/dotenv": "^4.4 || ^5.0",
+        "symfony/intl": "^4.4 || ^5.0",
+        "symfony/panther": "^1.0",
+        "symfony/web-profiler-bundle": "^4.4 || ^5.0",
+        "symfony/web-server-bundle": "^4.4 || ^5.0"
     },
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
@@ -42,7 +43,5 @@
     },
     "conflict": {
         "doctrine/inflector": "^1.4"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

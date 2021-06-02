@@ -57,7 +57,7 @@ trait ClickNCollectShipment
 
     public function getCollectionTime(): ?\DateTimeInterface
     {
-        return  $this->collectionTime;
+        return $this->collectionTime;
     }
 
     public function setCollectionTime(?\DateTimeInterface $collectionTime): void
