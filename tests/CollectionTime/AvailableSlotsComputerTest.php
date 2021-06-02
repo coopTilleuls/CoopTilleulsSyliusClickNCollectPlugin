@@ -18,6 +18,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use CoopTilleuls\SyliusClickNCollectPlugin\Repository\CollectionTimeRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\Shipment;
 
 /**
@@ -25,6 +26,8 @@ use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\Shipment;
  */
 final class AvailableSlotsComputerTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testStartAfterEnd(): void
     {
         $this->expectException(\InvalidArgumentException::class);

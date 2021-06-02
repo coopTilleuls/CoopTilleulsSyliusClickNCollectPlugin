@@ -29,7 +29,6 @@ class Location implements LocationInterface
     use TimestampableTrait;
     use ToggleableTrait;
 
-    /** @var mixed */
     protected $id;
     protected ?string $code = null;
     protected string $name = '';

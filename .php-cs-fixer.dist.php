@@ -18,7 +18,7 @@ $finder = PhpCsFixer\Finder::create()
         'tests/Application/bin/console',
     ]);
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@DoctrineAnnotation' => true,

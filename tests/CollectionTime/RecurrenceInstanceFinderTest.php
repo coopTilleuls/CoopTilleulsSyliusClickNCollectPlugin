@@ -18,6 +18,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\CollectionTime\RecurrenceInstanceFind
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Recurr\Recurrence;
 use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\Shipment;
 
@@ -26,6 +27,8 @@ use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\Shipment;
  */
 class RecurrenceInstanceFinderTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testNoCollectionTime(): void
     {
         $this->expectException(\InvalidArgumentException::class);

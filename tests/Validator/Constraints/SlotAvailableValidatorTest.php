@@ -20,6 +20,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableVa
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Recurr\Recurrence;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -33,6 +34,8 @@ use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity\ShippingMeth
  */
 final class SlotAvailableValidatorTest extends ConstraintValidatorTestCase
 {
+    use ProphecyTrait;
+
     protected function createValidator(): SlotAvailableValidator
     {
         $unitOfWorkProphecy = $this->prophesize(UnitOfWork::class);
