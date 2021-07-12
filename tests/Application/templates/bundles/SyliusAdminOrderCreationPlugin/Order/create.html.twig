@@ -1,0 +1,25 @@
+{% extends '@!SyliusAdminOrderCreationPlugin/Order/create.html.twig' %}
+
+{% block content %}
+    {{ parent() }}
+
+    {# json_encode(65) is for JSON_UNESCAPED_SLASHES|JSON_HEX_TAG to avoid JS XSS #}
+    <script type="application/json" id="calendar_config">{{ {
+            locale: app.request.locale,
+            unselectedBackgroundColor: 'rgb(55, 136, 216)',
+            selectedBackgroundColor: 'red',
+        }|json_encode(65)|raw }}</script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% include '@CoopTilleulsSyliusClickNCollectPlugin/fullcalendar/_scripts.html.twig' %}
+    {% include '@SyliusUi/_javascripts.html.twig' with {'path': 'bundles/cooptilleulssyliusclickncollectplugin/click_n_collect.js'} %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% include '@CoopTilleulsSyliusClickNCollectPlugin/fullcalendar/_styles.html.twig' %}
+{% endblock %}

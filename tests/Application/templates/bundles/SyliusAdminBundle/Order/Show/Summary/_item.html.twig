@@ -1,0 +1,52 @@
+{% import "@SyliusAdmin/Common/Macro/money.html.twig" as money %}
+
+{% set orderPromotionAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::ORDER_PROMOTION_ADJUSTMENT') %}
+{% set unitPromotionAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::ORDER_UNIT_PROMOTION_ADJUSTMENT') %}
+{% set shippingAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::SHIPPING_ADJUSTMENT') %}
+{% set taxAdjustment = constant('Sylius\\Component\\Core\\Model\\AdjustmentInterface::TAX_ADJUSTMENT') %}
+{% set orderItemDiscountAdjustment = constant('Sylius\\AdminOrderCreationPlugin\\Form\\Type\\AdjustmentType::ORDER_ITEM_DISCOUNT_ADJUSTMENT') %}
+
+{% set variant = item.variant %}
+{% set product = variant.product %}
+
+{% set unitDiscount = item.units.first.adjustmentsTotal(unitPromotionAdjustment) + item.getAdjustmentsTotalRecursively(orderItemDiscountAdjustment) / item.quantity %}
+{% set discountedUnitPrice = item.fullDiscountedUnitPrice + item.getAdjustmentsTotalRecursively(orderItemDiscountAdjustment) / item.quantity %}
+{% set subtotal = item.quantity * (item.unitPrice + item.units.first.adjustmentsTotal(unitPromotionAdjustment) + item.units.first.adjustmentsTotal(orderPromotionAdjustment)) + item.getAdjustmentsTotalRecursively(orderItemDiscountAdjustment) %}
+
+{% set taxIncluded = sylius_admin_order_unit_tax_included(item) %}
+{% set taxExcluded = sylius_admin_order_unit_tax_excluded(item) %}
+
+<tr>
+    <td class="single line">
+        {% include '@SyliusAdmin/Product/_info.html.twig' %}
+    </td>
+    <td class="right aligned unit-price">
+        {{ money.format(item.unitPrice, order.currencyCode) }}
+    </td>
+    <td class="right aligned unit-discount">
+        {{ money.format(unitDiscount, order.currencyCode) }}
+    </td>
+    <td class="right aligned unit-order-discount">
+        <span style="font-style: italic;">{{ money.format(item.units.first.adjustmentsTotal(orderPromotionAdjustment), order.currencyCode) }}</span>
+    </td>
+    <td class="right aligned discounted-unit-price">
+        {{ money.format(discountedUnitPrice, order.currencyCode) }}
+    </td>
+    <td class="right aligned quantity">
+        {{ item.quantity }}
+    </td>
+    <td class="right aligned subtotal">
+        {{ money.format(subtotal, order.currencyCode) }}
+    </td>
+    <td class="right aligned tax">
+        <div class="tax-excluded">{{ money.format(taxExcluded, order.currencyCode) }}</div>
+        <div class="tax-disabled">
+            <div class="tax-included"> {{ money.format(taxIncluded, order.currencyCode) }}
+            </div>
+            <small>({{ 'sylius.ui.included_in_price'|trans }})</small>
+        </div>
+    </td>
+    <td class="right aligned total">
+        {{ money.format(item.total, order.currencyCode) }}
+    </td>
+</tr>
