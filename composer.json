@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.4",
         "simshaun/recurr": "^4.0",
+        "sylius/calendar": "^0.3.0",
         "sylius/sylius": "^1.7",
         "symfony/lock": "^4.4 || ^5.0"
     },
@@ -20,6 +21,7 @@
         "phpunit/phpunit": "^9.0",
         "sylius-labs/coding-standard": "^4.0",
         "symfony/browser-kit": "^4.4 || ^5.0",
+        "symfony/debug": "^4.4",
         "symfony/debug-bundle": "^4.4 || ^5.0",
         "symfony/dotenv": "^4.4 || ^5.0",
         "symfony/intl": "^4.4 || ^5.0",
@@ -39,7 +41,12 @@
         "classmap": ["tests/Application/Kernel.php"]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true,
+            "symfony/thanks": true
+        }
     },
     "conflict": {
         "doctrine/inflector": "^1.4"
