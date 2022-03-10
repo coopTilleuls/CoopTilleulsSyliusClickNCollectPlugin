@@ -19,4 +19,3 @@ doctrine:
                         prefix: 'Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Entity'
                         alias: App
         default_entity_manager: default
-
