@@ -29,6 +29,7 @@
     "gulp-if": "^2.0.0",
     "gulp-livereload": "^4.0.1",
     "gulp-order": "^1.1.1",
+    "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglifycss": "^1.0.5",
     "merge-stream": "^1.0.0",
@@ -38,6 +39,7 @@
     "rollup-plugin-inject": "^2.0.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-uglify": "^4.0.0",
+    "sass": "^1.49.9",
     "sass-loader": "^7.0.1",
     "upath": "^1.1.0",
     "yargs": "^6.4.0"
