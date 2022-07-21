@@ -5,6 +5,8 @@ $(function () {
     var locale = config.locale.includes('_') ? config.locale.split('_')[0] : config.locale;
     // eslint-disable-next-line prefer-destructuring
     var excludeDays = [];
+    var defaultView = config.defaultView ?? 'timeGridFourDay';
+    var minDay = config.minDay ?? 4;
     $('input.click_n_collect_location').each(function () {
         var n = $(this).attr('id').match(/sylius_checkout_select_shipping_shipments_([0-9]+)_location/)[1];
 
@@ -17,12 +19,12 @@ $(function () {
         var calendar = new FullCalendar.Calendar($calendar[0], {
             nowIndicator: true,
             plugins: [ 'timeGrid' ],
-            defaultView: 'timeGridFourDay',
+            defaultView: defaultView,
             views: {
-                timeGridFourDay: {
+                [defaultView]: {
                     type: 'timeGrid',
-                    duration: { days: 4 },
-                    buttonText: '4 day'
+                    duration: { days: minDay },
+                    buttonText: minDay+' day'
                 }
             },
             eventColor: config.unselectedBackgroundColor,
