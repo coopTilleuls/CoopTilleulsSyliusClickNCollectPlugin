@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClosedPeriod" table="coop_tilleuls_click_n_collect_closed_period">
+        <id name="id" column="id" type="integer">
+            <generator />
+        </id>
+
+        <field name="startAt" column="start_at" type="datetime"></field>
+        <field name="endAt" column="end_at" type="datetime" nullable="true"></field>
+
+        <many-to-one field="location" target-entity="CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location" inversed-by="closedPeriods">
+            <join-column name="location_id" nullable="false" />
+        </many-to-one>
+    </mapped-superclass>
+
+</doctrine-mapping>

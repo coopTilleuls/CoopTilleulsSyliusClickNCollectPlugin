@@ -50,6 +50,7 @@ coop_tilleuls_click_n_collect:
         province_code: Código de Provincia
         province_name: Nombre de Provincia
         enabled: Habilitado
+        closed_periods: Periodos cerrados
       shipping_method:
         click_n_collect: Click 'N' Collect
         locations: Ubicaciones de recogida

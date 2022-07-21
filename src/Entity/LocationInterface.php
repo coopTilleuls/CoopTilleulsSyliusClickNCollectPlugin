@@ -99,4 +99,13 @@ interface LocationInterface extends ResourceInterface, CodeAwareInterface, Times
     public function addShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
 
     public function removeShippingMethod(ClickNCollectShippingMethodInterface $shippingMethod): void;
+
+    /**
+     * @return ClosedPeriodInterface[]|Collection
+     */
+    public function getClosedPeriods(): Collection;
+
+    public function addClosedPeriod(ClosedPeriodInterface $closedPeriod): void;
+
+    public function removeClosedPeriod(ClosedPeriodInterface $closedPeriod): void;
 }

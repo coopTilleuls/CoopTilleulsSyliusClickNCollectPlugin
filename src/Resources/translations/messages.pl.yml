@@ -46,6 +46,7 @@ coop_tilleuls_click_n_collect:
         province_code: Kod województwa
         province_name: Nazwa województwa
         enabled: Włączone
+        closed_periods: Zamknięte okresy
       shipping_method:
         click_n_collect: Click 'N' Collect
         locations: Lokalizacje odbioru
