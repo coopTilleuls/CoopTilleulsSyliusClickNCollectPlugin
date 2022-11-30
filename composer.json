@@ -47,6 +47,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
+            "symfony/flex": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "phpstan/extension-installer": true,
             "symfony/thanks": true
