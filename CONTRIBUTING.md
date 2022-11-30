@@ -9,8 +9,9 @@ that is full of examples.
 ## Quickstart Installation
 
 1. Run `composer install`.
+2. Run `docker-compose up -d` to set up the local Mysql database
 
-2. From the root directory, run the following commands:
+3. From the root directory, run the following commands:
 
        $ (cd tests/Application && yarn install)
        $ (cd tests/Application && yarn build)
