@@ -1,21 +1,12 @@
 <?php
 
-/*
- * This file is part of Les-Tilleuls.coop's Click 'N' Collect project.
- *
- * (c) Les-Tilleuls.coop <contact@les-tilleuls.coop>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 use Tests\CoopTilleuls\SyliusClickNCollectPlugin\Application\Kernel;
 
-require dirname(__DIR__).'/config/bootstrap.php';
+require dirname(__DIR__) . '/config/bootstrap.php';
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);

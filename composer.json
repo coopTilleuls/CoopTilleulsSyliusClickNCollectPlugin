@@ -8,8 +8,10 @@
         "php": ">=7.4",
         "simshaun/recurr": "^4.0",
         "sylius/calendar": "^0.3.0",
+        "sylius/mailer-bundle": "^2.0",
         "sylius/sylius": "^1.7",
-        "symfony/lock": "^4.4 || ^5.0"
+        "symfony/lock": "^4.4 || ^5.0 || ^6.0",
+        "symfony/webpack-encore-bundle": "^1.16"
     },
     "require-dev": {
         "dbrekelmans/bdi": "^1.0",
@@ -22,14 +24,14 @@
         "phpunit/phpunit": "^9.0",
         "polishsymfonycommunity/symfony-mocker-container": "^1.0",
         "sylius-labs/coding-standard": "^4.0",
-        "symfony/browser-kit": "^4.4 || ^5.0",
-        "symfony/debug": "^4.4",
-        "symfony/debug-bundle": "^4.4 || ^5.0",
-        "symfony/dotenv": "^4.4 || ^5.0",
-        "symfony/intl": "^4.4 || ^5.0",
-        "symfony/panther": "^1.0",
-        "symfony/web-profiler-bundle": "^4.4 || ^5.0",
-        "symfony/web-server-bundle": "^4.4 || ^5.0"
+        "symfony/browser-kit": "^4.4 || ^5.0 || ^6.0",
+        "symfony/css-selector": "^6.1",
+        "symfony/debug-bundle": "^4.4 || ^5.0 || ^6.0",
+        "symfony/dotenv": "^4.4 || ^5.0 || ^6.0",
+        "symfony/error-handler": "^6.1",
+        "symfony/intl": "^4.4 || ^5.0 || ^6.0",
+        "symfony/panther": "^2.0",
+        "symfony/web-profiler-bundle": "^4.4 || ^5.0 || ^6.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
