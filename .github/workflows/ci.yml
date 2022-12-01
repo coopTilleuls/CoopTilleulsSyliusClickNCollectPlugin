@@ -22,7 +22,9 @@ jobs:
         run: composer validate
 
       - name: Install Symfony Flex
-        run: composer global require -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist symfony/flex
+        run: |
+          composer global config --no-plugins allow-plugins.symfony/flex true
+          composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
 
       - name: Install dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
