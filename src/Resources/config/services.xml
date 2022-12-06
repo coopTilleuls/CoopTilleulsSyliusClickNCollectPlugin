@@ -62,7 +62,7 @@
             <argument type="service" id="form.factory" />
             <argument type="service" id="sylius.manager.order" />
             <argument type="service" id="router" />
-            <argument type="service" id="session" />
+            <argument type="service" id="request_stack" />
             <argument type="service" id="translator" />
             <argument type="service" id="twig" />
         </service>
