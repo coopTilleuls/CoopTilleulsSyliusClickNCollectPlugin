@@ -20,7 +20,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Resource\Exception\RaceConditionException;
+use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
+use Symfony\Component\Lock\Store\FlockStore;
+use Symfony\Component\Lock\Store\SemaphoreStore;
 
 /**
  * Prevents concurrent insertion of collection times.
@@ -34,11 +37,12 @@ final class ShipmentCollectionTimeLockListener
     private LockInterface $lock;
     private string $shipmentClass;
 
-    public function __construct(EntityManagerInterface $entityManager, LockInterface $lock, CollectionTimeRepositoryInterface $collectionTimeRepository)
+    public function __construct(EntityManagerInterface $entityManager,  CollectionTimeRepositoryInterface $collectionTimeRepository)
     {
         $this->entityManager = $entityManager;
         $this->collectionTimeRepository = $collectionTimeRepository;
-        $this->lock = $lock;
+        $lockFactory = new LockFactory((new FlockStore()));
+        $this->lock = $lockFactory->createLock('shipment-collection-time');
     }
 
     /**

@@ -71,7 +71,6 @@
 
         <service id="CoopTilleuls\SyliusClickNCollectPlugin\EventListener\ShipmentCollectionTimeLockListener">
             <argument type="service" id="sylius.manager.shipment" />
-            <argument type="service" id="lock" />
             <argument type="service" id="coop_tilleuls_click_n_collect.repository.collection_time" />
 
             <tag name="kernel.event_listener" event="sylius.order.pre_select_shipping" method="onPreSelectShipping" />
