@@ -22,16 +22,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait ClickNCollectShippingMethod
 {
-    /**
-     * @var Collection|LocationInterface[]
-     *
-     * @ORM\ManyToMany(targetEntity=\CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface::class, inversedBy="shippingMethods")
-     * @ORM\JoinTable(
-     *     name="coop_tilleuls_click_n_collect_shipping_method_location",
-     *     inverseJoinColumns={@ORM\JoinColumn(name="location_id", onDelete="cascade")}
-     * )
-     */
-    protected $locations;
+    #[ORM\ManyToMany(targetEntity:\CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface::class, inversedBy: "shippingMethods" )]
+    #[ORM\JoinTable(name:"coop_tilleuls_click_n_collect_shipping_method_location" )]
+    #[ORM\InverseJoinColumn(name: "location_id", onDelete: "cascade")]
+    protected Collection $locations;
 
     public function __construct()
     {
