@@ -19,9 +19,8 @@ use Symfony\Component\Validator\Constraint;
  * Is this string a valid iCalendar RRULE (RFC 5545)?
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
- *
- * @Annotation
  */
+#[\Attribute]
 final class Rrule extends Constraint
 {
     public string $message = 'The string "{{ value }}" is not a valid iCalendar recurrence rule (RFC 5545).';

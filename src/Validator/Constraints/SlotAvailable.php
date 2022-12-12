@@ -19,9 +19,8 @@ use Symfony\Component\Validator\Constraint;
  * Checks if a time slot is available.
  *
  * @author Kévin Dunglas <dunglas@gmail.com>
- *
- * @Annotation
  */
+#[\Attribute]
 final class SlotAvailable extends Constraint implements SlotAvailableInterface
 {
     public string $message = 'The time slot "{{ value }}" is not available anymore.';
