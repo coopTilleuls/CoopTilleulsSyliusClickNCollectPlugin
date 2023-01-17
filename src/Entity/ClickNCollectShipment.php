@@ -21,14 +21,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 trait ClickNCollectShipment
 {
-    #[ORM\ManyToOne(targetEntity:\CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface::class )]
+    #[ORM\ManyToOne(targetEntity: LocationInterface::class)]
     protected ?LocationInterface $location = null;
 
-    #[ORM\Column(type: "string", nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     protected ?string $pin = null;
 
-    #[ORM\Column(name: "collection_time", type: "datetime_immutable", nullable: true)]
-    #[Assert\GreaterThan("now", groups: ["sylius"])]
+    #[ORM\Column(name: 'collection_time', type: 'datetime_immutable', nullable: true)]
+    #[Assert\GreaterThan('now', groups: ['sylius'])]
     protected ?\DateTimeInterface $collectionTime = null;
 
     public function getLocation(): ?LocationInterface

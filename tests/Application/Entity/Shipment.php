@@ -23,9 +23,9 @@ use Sylius\Component\Core\Model\Shipment as BaseShipment;
  * @author Kévin Dunglas <dunglas@gmail.com>
  */
 #[ORM\Entity]
-#[ORM\Table(name: "sylius_shipment")]
-#[ORM\Index(columns: ["location_id", "collection_time"])]
-#[SlotAvailable(groups: ["sylius"])]
+#[ORM\Table(name: 'sylius_shipment')]
+#[ORM\Index(columns: ['location_id', 'collection_time'])]
+#[SlotAvailable(groups: ['sylius'])]
 class Shipment extends BaseShipment implements ClickNCollectShipmentInterface
 {
     use ClickNCollectShipment;

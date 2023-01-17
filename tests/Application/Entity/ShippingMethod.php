@@ -27,7 +27,7 @@ use Sylius\Component\Shipping\Model\ShippingMethodTranslationInterface;
  * @ORM\Table(name="sylius_shipping_method")
  */
 #[ORM\Entity]
-#[ORM\Table(name: "sylius_shipping_method")]
+#[ORM\Table(name: 'sylius_shipping_method')]
 class ShippingMethod extends BaseShippingMethod implements ClickNCollectShippingMethodInterface
 {
     use ClickNCollectShippingMethod {

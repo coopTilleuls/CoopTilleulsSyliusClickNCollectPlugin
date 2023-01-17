@@ -66,7 +66,7 @@ final class SlotAvailableValidator extends ConstraintValidator
 
         try {
             ($this->recurrenceInstanceFinder)($value);
-        } catch (\RuntimeException | \InvalidArgumentException $e) {
+        } catch (\RuntimeException|\InvalidArgumentException $e) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $collectionTime->format(\DateTime::ATOM))

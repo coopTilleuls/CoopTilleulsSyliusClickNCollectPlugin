@@ -9,7 +9,7 @@ that is full of examples.
 ## Quickstart Installation
 
 1. Run `composer install`.
-2. Run `docker-compose up -d` to set up the local Mysql database
+2. Run `docker compose up -d` to set up the local MySQL database
 
 3. From the root directory, run the following commands:
 
@@ -21,7 +21,7 @@ that is full of examples.
        $ (cd tests/Application && bin/console doctrine:schema:create -e panther)
        $ (cd tests/Application && bin/console sylius:fixtures:load -e panther)
 
-To be able to setup a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
+To be able to setup a plugin's database, remember to configure your database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
 
 ## Usage
 
