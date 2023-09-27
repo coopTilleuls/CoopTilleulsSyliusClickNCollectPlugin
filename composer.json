@@ -6,7 +6,7 @@
     "license": "AGPL-3.0-or-later",
     "require": {
         "php": ">=8.0",
-        "simshaun/recurr": "^4.0",
+        "simshaun/recurr": "^5.0",
         "sylius/calendar": "^0.4.0",
         "sylius/mailer-bundle": "^2.0",
         "sylius/sylius": "^1.11",
