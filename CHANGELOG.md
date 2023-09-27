@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0
+
+* PHP 8 support
+* Compatibility with Symfony 6 and Sylius 1.12
+* Use PHP attributes instead of annotations
+* Fix(ci): rerun workflows on synchronize
+* Load full calendar scripts and styles from jsdelivr CDN instead of unpkg
+* Replace Location typehints by LocationInterface
+* Add approved by Sylius badge in README.md
+* Fix time slot stays booked when selecting another shipping method
+* Fix rrule script URL
+
 ## 0.2.0
 
 * Add SlotAvailableInterface
