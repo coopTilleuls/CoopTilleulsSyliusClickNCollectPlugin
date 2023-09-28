@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 trait ClickNCollectShipment
 {
-    #[ORM\ManyToOne(targetEntity: LocationInterface::class)]
+    #[ORM\ManyToOne]
     protected ?LocationInterface $location = null;
 
     #[ORM\Column(type: 'string', nullable: true)]

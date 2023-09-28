@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.3.0
+## 1.0.0
 
 * PHP 8 support
 * Compatibility with Symfony 6 and Sylius 1.12

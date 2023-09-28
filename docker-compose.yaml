@@ -5,4 +5,3 @@ services:
       MYSQL_ROOT_PASSWORD: mysql
     ports:
       - ${MYSQL_PORT:-3306}:3306
-

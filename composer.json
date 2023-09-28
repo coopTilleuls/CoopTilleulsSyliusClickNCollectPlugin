@@ -32,7 +32,6 @@
         "symfony/panther": "^2.0",
         "symfony/web-profiler-bundle": "^5.4 || ^6.0"
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
