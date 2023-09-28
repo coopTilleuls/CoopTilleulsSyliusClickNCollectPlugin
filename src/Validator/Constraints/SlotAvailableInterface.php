@@ -37,8 +37,6 @@ interface SlotAvailableInterface
      * By default, this is the fully qualified name of the constraint class
      * suffixed with "Validator". You can override this method to change that
      * behavior.
-     *
-     * @return string
      */
     public function validatedBy(): string;
 }

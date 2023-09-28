@@ -5,27 +5,32 @@
     "description": "Click and Collect plugin for Sylius, to sell and deliver securely during the COVID-19 pandemic.",
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": "^7.4",
-        "simshaun/recurr": "^4.0",
-        "sylius/sylius": "^1.7",
-        "symfony/lock": "^4.4 || ^5.0"
+        "php": ">=8.0",
+        "simshaun/recurr": "^5.0",
+        "sylius/calendar": "^0.4.0",
+        "sylius/mailer-bundle": "^2.0",
+        "sylius/sylius": "^1.11",
+        "symfony/lock": "^5.4 || ^6.0",
+        "symfony/webpack-encore-bundle": "^1.16"
     },
     "require-dev": {
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.0",
         "phpstan/phpstan-doctrine": "^0.12.0",
         "phpstan/phpstan-strict-rules": "^0.12.0",
         "phpstan/phpstan-webmozart-assert": "^0.12.0",
-        "phpunit/phpunit": "^8.0",
-        "sensiolabs/security-checker": "^6.0",
-        "sylius-labs/coding-standard": "^3.1",
-        "symfony/browser-kit": "^4.4",
-        "symfony/debug-bundle": "^4.4",
-        "symfony/dotenv": "^4.4",
-        "symfony/intl": "^4.4",
-        "symfony/panther": "^0.7.1",
-        "symfony/web-profiler-bundle": "^4.4",
-        "symfony/web-server-bundle": "^4.4"
+        "phpunit/phpunit": "^9.0",
+        "polishsymfonycommunity/symfony-mocker-container": "^1.0",
+        "sylius-labs/coding-standard": "^4.0",
+        "symfony/browser-kit": "^5.4 || ^6.0",
+        "symfony/css-selector": "^6.1",
+        "symfony/debug-bundle": "^5.4 || ^6.0",
+        "symfony/dotenv": "^5.4 || ^6.0",
+        "symfony/error-handler": "^6.1",
+        "symfony/intl": "^5.4 || ^6.0",
+        "symfony/panther": "^2.0",
+        "symfony/web-profiler-bundle": "^5.4 || ^6.0"
     },
     "prefer-stable": true,
     "autoload": {
@@ -38,7 +43,13 @@
         "classmap": ["tests/Application/Kernel.php"]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true,
+            "symfony/thanks": true
+        }
     },
     "conflict": {
         "doctrine/inflector": "^1.4"

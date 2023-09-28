@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
-use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableInterface;
 
 /**
  * Checks if a time slot is available.
@@ -23,6 +22,7 @@ use CoopTilleuls\SyliusClickNCollectPlugin\Validator\Constraints\SlotAvailableIn
  *
  * @Annotation
  */
+#[\Attribute]
 final class SlotAvailable extends Constraint implements SlotAvailableInterface
 {
     public string $message = 'The time slot "{{ value }}" is not available anymore.';

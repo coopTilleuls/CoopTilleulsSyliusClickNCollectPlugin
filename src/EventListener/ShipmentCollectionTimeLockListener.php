@@ -20,6 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sylius\Bundle\ResourceBundle\Event\ResourceControllerEvent;
 use Sylius\Component\Order\Model\OrderInterface;
 use Sylius\Component\Resource\Exception\RaceConditionException;
+use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
 
 /**
@@ -34,11 +35,11 @@ final class ShipmentCollectionTimeLockListener
     private LockInterface $lock;
     private string $shipmentClass;
 
-    public function __construct(EntityManagerInterface $entityManager, LockInterface $lock, CollectionTimeRepositoryInterface $collectionTimeRepository)
+    public function __construct(EntityManagerInterface $entityManager, CollectionTimeRepositoryInterface $collectionTimeRepository, LockFactory $lockFactory)
     {
         $this->entityManager = $entityManager;
         $this->collectionTimeRepository = $collectionTimeRepository;
-        $this->lock = $lock;
+        $this->lock = $lockFactory->createLock('shipment-collection-time');
     }
 
     /**

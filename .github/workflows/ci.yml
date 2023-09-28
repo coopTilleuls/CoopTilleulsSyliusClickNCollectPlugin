@@ -1,6 +1,11 @@
 name: CI
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   tests:
@@ -8,16 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: mysql://root:root@127.0.0.1/click_n_collect_test?serverVersion=5.7
+      DATABASE_URL: mysql://root:root@127.0.0.1/coop_tilleuls_sylius_click_n_collect_plugin_%kernel.environment%?serverVersion=8.0
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Validate composer.json and composer.lock
         run: composer validate
-
-      - name: Install Symfony Flex
-        run: composer global require -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist symfony/flex
 
       - name: Install dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist

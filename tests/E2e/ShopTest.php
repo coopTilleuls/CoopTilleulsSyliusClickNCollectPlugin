@@ -27,15 +27,18 @@ class ShopTest extends PantherTestCase
     {
         $client = self::createPantherClient();
 
-        $crawler = $client->request('GET', '/');
-        $this->assertPageTitleContains('Fashion Web Store');
+        $crawler = $client->request('GET', '/en_US/');
+        self::assertPageTitleContains('Fashion Web Store');
 
         $client->click($crawler->filter('a.sylius-product-name')->link());
 
         $client->submitForm('Add to cart');
-        $crawler = $client->waitFor('a.button.primary[href="/en_US/checkout/"]');
-        $crawler = $client->click($crawler->filter('a.button.primary[href="/en_US/checkout/"]')->eq(1)->link());
-        $client->waitFor('#sylius_checkout_address_customer_email');
+
+        $client->waitFor('button[formaction="/en_US/cart/checkout"]');
+        self::assertPageTitleContains('Your shopping cart | Fashion Web Store');
+        $client->submitForm('Checkout');
+        $crawler = $client->waitFor('#sylius_checkout_address_customer_email');
+
         $form = $crawler->filter('form[name="sylius_checkout_address"]')->form();
         $form->setValues([
             'sylius_checkout_address[customer][email]' => 'dunglas@gmail.com',
