@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace CoopTilleuls\SyliusClickNCollectPlugin\DependencyInjection;
 
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClosedPeriod;
+use CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClosedPeriodInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\Location;
 use CoopTilleuls\SyliusClickNCollectPlugin\Entity\LocationInterface;
 use CoopTilleuls\SyliusClickNCollectPlugin\Form\Type\LocationType;
@@ -69,6 +71,19 @@ final class Configuration implements ConfigurationInterface
                                         ->scalarNode('repository')->defaultValue(EntityRepository::class)->end()
                                         ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                         ->scalarNode('form')->defaultValue(LocationType::class)->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('closedPeriod')
+                            ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->variableNode('options')->end()
+                                    ->arrayNode('classes')
+                                        ->addDefaultsIfNotSet()
+                                        ->children()
+                                            ->scalarNode('model')->defaultValue(ClosedPeriod::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('interface')->defaultValue(ClosedPeriodInterface::class)->cannotBeEmpty()->end()
                                     ->end()
                                 ->end()
                             ->end()

@@ -47,10 +47,16 @@ class Location implements LocationInterface
      */
     protected Collection $shippingMethods;
 
+    /**
+     * @var ClosedPeriodInterface[]|Collection
+     */
+    protected Collection $closedPeriods;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->shippingMethods = new ArrayCollection();
+        $this->closedPeriods = new ArrayCollection();
     }
 
     public function getId()
@@ -204,5 +210,23 @@ class Location implements LocationInterface
     {
         $this->shippingMethods->removeElement($shippingMethod);
         $shippingMethod->getLocations()->removeElement($this);
+    }
+
+    public function getClosedPeriods(): Collection
+    {
+        return $this->closedPeriods;
+    }
+
+    public function addClosedPeriod(ClosedPeriodInterface $closedPeriod): void
+    {
+        if (!$this->closedPeriods->contains($closedPeriod)) {
+            $this->closedPeriods->add($closedPeriod);
+            $closedPeriod->setLocation($this);
+        }
+    }
+
+    public function removeClosedPeriod(ClosedPeriodInterface $closedPeriod): void
+    {
+        $this->closedPeriods->removeElement($closedPeriod);
     }
 }

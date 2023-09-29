@@ -35,6 +35,10 @@
         <field name="generatePin" column="generate_pin" type="boolean" />
 
         <many-to-many field="shippingMethods" target-entity="Sylius\Component\Shipping\Model\ShippingMethodInterface" mapped-by="locations" />
+
+        <one-to-many field="closedPeriods" target-entity="CoopTilleuls\SyliusClickNCollectPlugin\Entity\ClosedPeriod" orphan-removal="true" mapped-by="location">
+            <cascade><cascade-all /></cascade>
+        </one-to-many>
     </mapped-superclass>
 
 </doctrine-mapping>

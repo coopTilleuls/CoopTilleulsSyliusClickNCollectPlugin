@@ -161,9 +161,24 @@ Note: to test the plugin locally, see [CONTRIBUTING.md](CONTRIBUTING.md)
        bin/console sylius:theme:assets:install
 
 10. Add your products and stocks or [import them](https://github.com/coopTilleuls/CoopTilleulsSyliusQuickImportPlugin)
-11. Configure the pick up locations, the available time slots, and how many people you can safely serve in parallel
+11. Configure the pick up locations, the available time slots, closed periods, and how many people you can safely serve in parallel
 12. Create a dedicated shipping method
 13. Optionally, configure an online payment method from the admin (Stripe and PayPal are supported out of the box)
+14. Manage range days in full calendar view. Edit templates/bundles/SyliusShopBundle/Checkout/SelectShipping/_shipment.html.twig and change config json
+ ```javascript
+<script type="application/json" id="calendar_config">{{ {
+   locale: app.request.locale,
+   shipmentID: form.vars.value.id,
+   defaultView: 'timeGridSevenDay',
+   minDay: 7,
+   unselectedBackgroundColor: 'rgb(55, 136, 216)',
+   selectedBackgroundColor: 'red',
+   messages: {
+       noSlotSelected: 'coop_tilleuls_click_n_collect.ui.noSlotSelected'|trans,
+   }
+}|json_encode(65)|raw }}</script>
+ ```
+By default, defaultView is timeGridFourDay and minDay is 4.
 
 **Export data**
 

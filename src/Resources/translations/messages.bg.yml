@@ -46,6 +46,7 @@ coop_tilleuls_click_n_collect:
         province_code: Код на област
         province_name: име на област
         enabled: Включено
+        closed_periods: Затворени периоди
       shipping_method:
         click_n_collect: Click 'N' Collect
         locations: Локации за Click 'N' Collect

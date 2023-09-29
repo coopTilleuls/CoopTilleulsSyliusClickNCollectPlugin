@@ -17,6 +17,7 @@ use Sylius\Bundle\AddressingBundle\Form\Type\CountryCodeChoiceType;
 use Sylius\Bundle\ResourceBundle\Form\EventSubscriber\AddCodeFormSubscriber;
 use Sylius\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,6 +38,14 @@ final class LocationType extends AbstractResourceType
             ->add('rrule', TextType::class, [
                 'empty_data' => '',
                 'label' => 'coop_tilleuls_click_n_collect.form.location.rrule',
+            ])
+            ->add('closedPeriods', CollectionType::class, [
+                'required' => false,
+                'entry_type' => ClosedPeriodType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'coop_tilleuls_click_n_collect.form.location.closed_periods',
             ])
             ->add('orderPreparationDelay', IntegerType::class, [
                 'attr' => ['min' => 0],
@@ -78,6 +87,7 @@ final class LocationType extends AbstractResourceType
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
                 'label' => 'coop_tilleuls_click_n_collect.form.location.enabled',
-            ]);
+            ])
+        ;
     }
 }

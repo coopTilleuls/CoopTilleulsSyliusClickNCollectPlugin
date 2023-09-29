@@ -3,6 +3,10 @@
 $(function () {
     var config = JSON.parse($('#calendar_config').text());
     var locale = config.locale.includes('_') ? config.locale.split('_')[0] : config.locale;
+    // eslint-disable-next-line prefer-destructuring
+    var excludeDays = [];
+    var defaultView = config.defaultView ?? 'timeGridFourDay';
+    var minDay = config.minDay ?? 4;
     $('input.click_n_collect_location').each(function () {
         var n = $(this).attr('id').match(/sylius_checkout_select_shipping_shipments_([0-9]+)_location/)[1];
 
@@ -15,16 +19,20 @@ $(function () {
         var calendar = new FullCalendar.Calendar($calendar[0], {
             nowIndicator: true,
             plugins: [ 'timeGrid' ],
-            defaultView: 'timeGridFourDay',
+            defaultView: defaultView,
             views: {
-                timeGridFourDay: {
+                [defaultView]: {
                     type: 'timeGrid',
-                    duration: { days: 4 },
-                    buttonText: '4 day'
+                    duration: { days: minDay },
+                    buttonText: minDay+' day'
                 }
             },
             eventColor: config.unselectedBackgroundColor,
             eventRender: function (info) {
+                var eventStartString = info.event.start.toISOString().substring(0, 10);
+                if (excludeDays && $.inArray(eventStartString, excludeDays) > -1) {
+                    $(info.el).hide()
+                }
                 if (info.event.id.slice(0, 19) !== $collectionTime.val().slice(0, 19)) return;
                 selectEvent(info.el);
             },
@@ -88,10 +96,40 @@ $(function () {
                 if (currentValue) $locations.val(currentValue);
                 else currentValue = $locations.val();
 
+                //get good location
+                var currentLocation = findLocationByCode(currentValue);
+                //check if closed periods exist and populate excludeDays
+                if (currentLocation.closedPeriods && currentLocation.closedPeriods.length > 0) {
+                    currentLocation.closedPeriods.forEach(function (period) {
+                        var start = new Date(period.startAt.substring(0, 10));
+                        if (period.endAt) {
+                            var end = new Date(period.endAt.substring(0, 10));
+                            var rangeDates = getDatesInRange(start, end);
+                            for (var i = 0; i < rangeDates.length; i++) {
+                                excludeDays.push(rangeDates[i].toISOString().substring(0, 10));
+                            }
+                        } else {
+                            var startString = start.toISOString().substring(0, 10);
+                            excludeDays.push(startString);
+                        }
+                    });
+                }
+
                 $locations.show();
                 populateCalendar(currentValue);
-                populateLocationAddress(findLocationByCode(currentValue));
+                populateLocationAddress(currentLocation);
             });
+        }
+
+        function getDatesInRange(startDate, endDate) {
+            const date = new Date(startDate.getTime());
+            const dates = [];
+            while (date <= endDate) {
+                dates.push(new Date(date));
+                date.setDate(date.getDate() + 1);
+            }
+
+            return dates;
         }
 
         function populateLocationAddress(location) {
